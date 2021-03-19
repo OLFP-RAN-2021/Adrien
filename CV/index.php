@@ -6,6 +6,7 @@
 <html lang="en">
 
 <head>
+    <!--  -->
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -78,10 +79,9 @@
                     </p>
             </section>
 
-            <section id="About" class="menu-item">
-            <audio controls loop muted autoplay src="assets/medias/musics/antony_raijekov_journey.mp3">
-                <!-- <source  controls type="audio/mpeg"></source> -->
-            </audio>
+            <section id="Music" class="menu-item">
+                <h2>Music...</h2>
+                <audio controls loop muted autoplay src="assets/medias/musics/antony_raijekov_journey.mp3"></audio>
             </section>
         </aside>
 
@@ -274,31 +274,33 @@
         </form>
     </div> -->
 
-    <div class="hidden" id ="form-contact">
-        <h3>Contact</h3>
-        <form action="includes/API/form.php" method="post">
-            
-            <fieldset>
-                <label for="email">You're email</label>
-                <input type="email" name="email" id="email">
-            </fieldset>
-            
-            <fieldset>
-                <label for="subject">Message subject</label>
-                <input type="text" name="subject" id="subject">
-            </fieldset>
-            
-            <fieldset>
-                <label for="content">Message content</label>
-                <textarea name="content" id="content" cols="30" rows="10"></textarea>
-            </fieldset>
-            
-            <fieldset>
-                <button type="submit">Submit form</button>
-                <button type="reset">Reset form</button>
-            </fieldset>
-
-        </form>
+    <div class="hidden container" id ="form-contact">
+        <div>
+            <h3>Contact</h3>
+            <form action="includes/API/form.php" method="post">
+                
+                <fieldset>
+                    <label for="email">You're email</label>
+                    <input type="email" name="email" id="email">
+                </fieldset>
+                
+                <fieldset>
+                    <label for="subject">Message subject</label>
+                    <input type="text" name="subject" id="subject">
+                </fieldset>
+                
+                <fieldset>
+                    <label for="content">Message content</label>
+                    <textarea name="content" id="content" cols="30" rows="10"></textarea>
+                </fieldset>
+                
+                <fieldset>
+                    <button type="submit">Submit form</button>
+                    <button type="reset">Reset form</button>
+                </fieldset>
+    
+            </form>
+        </div>
     </div>
 
     <!-- <script src="assets/js/form.js"></script> -->

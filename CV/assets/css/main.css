@@ -33,7 +33,8 @@ ul, ol {
   background-color: #292955; }
   #core #leftaside img.leftAsided {
     margin-left: -1.5em;
-    width: 100%; }
+    width: 100%;
+    transform: translate(-20px); }
 #core #main #header {
   background-image: url("../medias/see&boat.jpg");
   background-size: cover;
@@ -63,11 +64,13 @@ ul, ol {
       #core #main section ol li div.date {
         background-color: #eee;
         padding: .5em;
-        font-weight: bold; }
+        font-weight: bold;
+        flex-basis: 15%; }
       #core #main section ol li div.detail {
         background-color: #ddd;
         padding: .5em;
-        border-left: 2px solid white; }
+        border-left: 2px solid white;
+        width: 100%; }
       #core #main section ol li div:first-child {
         padding-left: +1em; }
       #core #main section ol li:hover {

@@ -47,6 +47,7 @@ ul, ol {
         img.leftAsided {
             margin-left:-1.5em;
             width:100%;
+            transform: translate(-20px);
         }
     }
 
@@ -80,25 +81,25 @@ ul, ol {
             *list-style: decimal;
 
             li {
+                
                 display:flex;
                 align-items: stretch;
                 margin:.5em;
                 
                 border-radius: 0 .25em .25em .25em;
                 
-
-
                 div.date {
                     background-color: #eee;
                     padding:.5em;
                     font-weight: bold;
+                    flex-basis: 15%;
                 }
 
                 div.detail {
                     background-color: #ddd;
                     padding:.5em;
                     border-left : 2px solid white; 
-                    // width:100%;
+                    width:100%;
                 }
 
                 div:first-child {
@@ -174,6 +175,7 @@ ul, ol {
     color:white;
 
     .container{
+
         display: flex;
         justify-content: space-between;
 
@@ -237,7 +239,6 @@ ul, ol {
             &:hover ul {
                 position:absolute;
                 display:block;
-
             }
 
             &:before {
