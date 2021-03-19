@@ -56,8 +56,8 @@
             </div>
 
             <div class="nav-elem" id="login">
-                <a href="user/account.php">
-                    <img src="asset/user.jpg" alt="defaultavata" width="20" height="20">
+                <a href="users/account.php?login.php">
+                    <img src="asset/user.jpg" alt="default_avatar" width="20" height="20">
                 </a>
             </div>
 
