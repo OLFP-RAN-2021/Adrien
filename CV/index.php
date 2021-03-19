@@ -280,16 +280,6 @@
         </div>
     </footer>
 
-    <!-- <div class="hidden" id ="form-login">
-    <h3>Login</h3>
-        <form action="includes/API/login.php" method="post">
-        <fieldset>
-                <button type="submit">Submit form</button>
-                <button type="reset">Reset form</button>
-            </fieldset>
-
-        </form>
-    </div> -->
 
     <div class="hidden" id ="form-contact">
         <div>
