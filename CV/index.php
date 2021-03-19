@@ -1,5 +1,5 @@
 <?php
-    // include 'includes/kernel.php';
+    include 'includes/kernel.php';
 ?>
 
 <!DOCTYPE html>
@@ -14,6 +14,22 @@
 
     <!-- style -->
     <link rel="stylesheet" href="assets/css/main.css" type="text/css">
+
+    <!-- Facebook OpenGraph -->
+    <meta property="og:title" content="Mon super CV"/>
+    <meta property="og:description" content="Mon super CV"/>
+    <meta property="og:image" content="CV/assets/medias/see&boat.jpg" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:alt" content="La mer c'est beau..." />
+    
+    <!-- TwitterCard -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@monsite">
+    <meta name="twitter:creator" content="@BoilleyAdrien">
+    <meta name="twitter:title" content="Mon super CV">
+    <meta name="twitter:description" content="Mon super CV">
+    <meta name="twitter:image" content="CV/assets/medias/see&boat.jpg">
+    <meta name="twitter:image:alt" content="La mer c'est beau...">
 
 </head>
 
@@ -56,7 +72,7 @@
             </section>
            
             <section id="About" class="menu-item">
-                    <h2>About me</h2>
+                    <h2>A propos</h2>
                     <p>
                         Passionné : J’ai découvert les
                         systèmes Linux dès 2009. Puis je
@@ -80,8 +96,9 @@
             </section>
 
             <section id="Music" class="menu-item">
-                <h2>Music...</h2>
-                <audio controls loop muted autoplay src="assets/medias/musics/antony_raijekov_journey.mp3"></audio>
+                <h2>Musique</h2>
+                Raijekov Antony - journey
+                <audio controls loop src="assets/medias/musics/antony_raijekov_journey.mp3"></audio>
             </section>
         </aside>
 
@@ -117,7 +134,7 @@
                                 Front-End
                             </div>
                             <div class="detail">
-                                JavaScript (OOP), Node.Js, JQuery, Vue.js, Bootstrap4, SASS CSS, thèmes WordPress.
+                                JavaScr ipt (OOP), Node.Js, JQuery, Vue.js, Bootstrap4, SASS CSS, thèmes WordPress.
                             </div>
                         </li>
                         <li class="square green">
@@ -274,7 +291,7 @@
         </form>
     </div> -->
 
-    <div class="hidden container" id ="form-contact">
+    <div class="hidden" id ="form-contact">
         <div>
             <h3>Contact</h3>
             <form action="includes/API/form.php" method="post">
@@ -298,7 +315,6 @@
                     <button type="submit">Submit form</button>
                     <button type="reset">Reset form</button>
                 </fieldset>
-    
             </form>
         </div>
     </div>
