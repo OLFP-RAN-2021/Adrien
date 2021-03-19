@@ -55,7 +55,6 @@
             </section>
            
             <section id="About" class="menu-item">
-                <article>
                     <h2>About me</h2>
                     <p>
                         Passionné : J’ai découvert les
@@ -77,7 +76,12 @@
                         frameworks, outils et méthodes de
                         travail.
                     </p>
-                </article>
+            </section>
+
+            <section id="About" class="menu-item">
+            <audio controls loop muted autoplay src="assets/medias/musics/antony_raijekov_journey.mp3">
+                <!-- <source  controls type="audio/mpeg"></source> -->
+            </audio>
             </section>
         </aside>
 
