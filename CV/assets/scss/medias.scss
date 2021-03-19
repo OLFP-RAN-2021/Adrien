@@ -1,0 +1,66 @@
+@media all {
+
+    body {
+        width:100%;
+        margin:0;
+        padding:0;
+        top:0;
+        left:0;
+        font-size: 1em;
+    }
+
+    .container {
+        margin:auto;
+        width:70%;
+        padding:0;
+    
+        display:flex;
+        flex-wrap: nowrap;
+
+        #leftaside {
+            flex: 1 1 33%;
+        }
+    }
+}
+
+@media all and (min-width : 1280px) and (max-width : 1600px)
+{
+    .container {
+        width:80%;
+    }
+}
+
+@media all and (min-width : 1024px) and (max-width : 1280px)
+{
+    .container {
+        width:90%;
+    }
+}
+
+@media all and (max-width : 800px)
+{
+    body{
+        font-size: .9em;
+        .container {
+            flex-wrap: wrap;
+            width:95%;
+            #leftaside img {
+                max-width: 200px;
+            }
+        }
+    }  
+}
+
+@media all and (max-width : 640px)
+{
+    body{
+        font-size: .8em;
+        .container {
+            width:100%;
+            #leftaside img {
+                max-width: 200px;
+            }
+        }
+    }
+    
+}

@@ -1,0 +1,278 @@
+@charset "UTF-8";
+
+@import url(root.css);
+@import url(medias.css);
+@import url(fonts.css);
+@import url(popup.css);
+
+
+body {
+    color:var(--color);    
+    background-color:var(--background-color);    
+    background-color: gray;
+    font-family: 'OpenSans';
+}
+
+p {
+    text-indent: 2em;
+    text-align: justify;
+}
+
+a {
+    color:var(--link-color);
+    &:hover{
+        color:var(--link-color-hover);
+    }
+}
+
+ul, ol {
+    text-align:left;
+    padding:0;
+    li {
+        list-style: none;
+    }
+}
+
+.hidden {
+    display: none;
+}
+
+
+#core {
+    #leftaside {
+        padding:1.5em;
+        color:white;
+        background-color: rgb(41, 41, 85);  
+
+        img.leftAsided {
+            margin-left:-1.5em;
+            width:100%;
+        }
+    }
+
+    #main {
+        #header {
+            background-image: url('../medias/see&boat.jpg');
+            background-size: cover;
+            background-attachment: fixed;
+            min-height:50vh;
+            display: flex;
+            align-items: flex-end;
+        
+            div {
+                width: 100%;;
+                padding:2em;
+                background-color: #fffc;
+                color: #000d;
+                font-family :mono;
+            }
+        }
+    }
+
+    #main section {
+
+        padding:1.5em;
+        background-color: white;
+
+        ol {
+            counter-reset: li;
+            list-style: none; /* Supprime la numérotation par défaut */
+            *list-style: decimal;
+
+            li {
+                display:flex;
+                align-items: stretch;
+                margin:.5em;
+                
+                border-radius: 0 .25em .25em .25em;
+                
+
+
+                div.date {
+                    background-color: #eee;
+                    padding:.5em;
+                    font-weight: bold;
+                }
+
+                div.detail {
+                    background-color: #ddd;
+                    padding:.5em;
+                    border-left : 2px solid white; 
+                    // width:100%;
+                }
+
+                div:first-child {
+                    padding-left:+1em;
+                }
+
+                &:hover {
+                    background-color: #eee;
+                }
+                
+                &:hover::before{
+                    transition: .25s all;
+                    transition: .25s all;
+                    transform: rotate(15deg);
+                }
+            }
+
+            li.square::before {
+                border-radius: .25em;
+            }
+            li.round::before {
+                border-radius: 50%;
+            }
+
+            li.red::before {
+                background: #eb8787;
+                border-color: #eb8787;
+            }
+            li.blue::before {
+                background: #87ceeb;
+                border-color: #87ceeb;
+            }
+            li.green::before {
+                background: #8ceb87;
+                border-color: #8ceb87;
+            }
+            li.yellow::before {
+                background: #e9eb87;
+                border-color: #e9eb87;
+            }
+
+
+            li::before {
+                transform: rotate(-10deg);
+
+                border-radius: inherit;
+                border-radius: none;
+                z-index: 1;
+                position:absolute;
+                margin-left: -1em;
+                // margin-top: -.5em;
+                height:1.5em;
+                width:1.5em;
+                display:flex;
+                align-items: center;
+                justify-content: center;
+
+                content: counter(li);
+                counter-increment: li;
+
+                transition: .25s all;
+            }
+        }
+    }
+}
+
+
+#nav {
+    z-index: 10;
+    position:sticky;
+    top:0px;
+    background-color: #000d;
+    color:white;
+
+    .container{
+        display: flex;
+        justify-content: space-between;
+
+        a {
+            color:white;
+            &:link, &:visited, &:focus {
+                color:white;
+                text-decoration: none;
+            }
+        }
+
+        img {
+            display:inline;
+        }
+        .nav-elem {
+            display:flex;
+            align-items: center;
+            padding:.5em;
+        }
+
+        .leftmenu, .leftmenu * {
+            display: inline-block;
+            display:flex;
+            align-items: center;
+
+            img {
+                margin-right:1em;
+            }
+
+        }
+
+        #menu-area {
+            display:block;
+
+            ul {
+                display:none;
+                margin:0;
+                padding:0;
+                padding-top: 0.5em;;
+                border-radius: .5em;
+
+                li {
+                    background-color: #000d;
+                    min-width: 150px;
+                   
+                    a {
+                        color:white;
+                    }
+                    
+                    padding:.5em;
+                    border-left: 2px solid var(--link-color);
+                    
+                    &:hover {
+                        border-left: 2px solid var(--link-color-hover);
+                        background-color: #000f;
+                    }
+                }
+            }
+
+            
+            &:hover ul {
+                position:absolute;
+                display:block;
+
+            }
+
+            &:before {
+                content : "Menu";
+            }
+
+        }
+    }
+}
+
+#footer {
+    div {
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        background-color: #ccc;
+        color:white;
+        
+        div {
+            padding:1em;
+            &:first-child{
+                display: inherit;
+                background-color: inherit;
+            }
+        }        
+    }
+
+    .title {
+        padding-top:.5em;
+        padding-bottom:.5em;
+        display: inherit;   // pour tuer le flex
+        text-align: center;
+        text-transform: uppercase;
+        letter-spacing: .25em;
+        background-color: #444;
+    }
+}
+

@@ -1,0 +1,23 @@
+.popup-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 20;
+  background-color: #000d;
+  display: flex;
+  align-items: center;
+  justify-content: center; }
+  .popup-background .popup-content {
+    background-color: white;
+    padding: 1em; }
+
+.popup-content form {
+  display: block; }
+  .popup-content form fieldset {
+    border: none; }
+    .popup-content form fieldset label {
+      display: block; }
+
+/*# sourceMappingURL=popup.css.map */
