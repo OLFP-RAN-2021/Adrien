@@ -164,7 +164,7 @@ ul, ol {
         position: absolute;
         display: block; }
       #nav .container #menu-area:before {
-        content: "Menu"; }
+        content: "☰ Menu"; }
 
 #footer div {
   display: flex;
