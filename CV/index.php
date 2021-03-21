@@ -309,9 +309,14 @@
         </div>
     </div>
 
+    <!-- to do -->
     <!-- <script src="assets/js/form.js"></script> -->
-    <script src="assets/js/popup.js"></script>
-    <script src="assets/js/menu.js"></script>
+    
+    <!-- ok, to uncomment later  -->
+    <!--
+        <script src="assets/js/popup.js"></script>
+        <script src="assets/js/menu.js"></script> 
+    -->
 
 </body>
 
