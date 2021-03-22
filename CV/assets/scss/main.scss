@@ -72,7 +72,6 @@ ul, ol {
     display: none;
 }
 
-
 #core {
     #leftaside {
         padding:1.5em;
@@ -97,7 +96,21 @@ ul, ol {
                 padding:2em;
                 background-color: #fffc;
                 color: #000d;
-                font-family :mono;
+                p {
+                    font-family :'Neuropol';
+                    
+                    &:after{
+                        animation: 1s slidein infinite;                     
+                        @keyframes slidein {
+                            from {
+                                content:'░';
+                            }
+                            to {
+                                content:'▓';
+                            }
+                        }
+                    }
+                }
                 // width: 100%;
             }
         }
