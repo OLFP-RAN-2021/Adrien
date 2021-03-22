@@ -1,16 +1,42 @@
 @charset "UTF-8";
 @import url(root.css);
+@import url(alias.css);
 @import url(medias.css);
+@import url(funnylists.css);
 @import url(fonts.css);
-@import url(popup.css);
-body {
-  color: var(--color);
-  background-color: var(--background-color);
-  background-color: gray;
-  font-family: 'OpenSans'; }
-
+@import url(popups.css);
+@import url(forms.css);
+@import url(widgets.css);
 .container {
   box-shadow: 0 0 12px rgba(0, 0, 0, 0.726); }
+
+h1 {
+  font-size: 3em;
+  padding: 1.15em;
+  font-weight: bold; }
+
+h2 {
+  font-size: 2em;
+  padding: .85em;
+  font-weight: bold; }
+
+h3 {
+  font-size: 1.5em;
+  padding: 1em;
+  font-weight: bold; }
+
+h4 {
+  font-size: 1.15em;
+  padding: 1em;
+  font-weight: bold; }
+
+h5 {
+  font-size: 1em;
+  padding: 1em; }
+
+h6 {
+  font-size: 1em;
+  padding: 1em; }
 
 p {
   text-indent: 2em;
@@ -42,9 +68,7 @@ ul, ol {
   background-image: url("../medias/see&boat.jpg");
   background-size: cover;
   background-attachment: fixed;
-  min-height: 50vh;
-  display: flex;
-  align-items: flex-end; }
+  min-height: 50vh; }
   #core #main #header div {
     width: 100%;
     padding: 2em;
@@ -54,65 +78,6 @@ ul, ol {
 #core #main section {
   padding: 1.5em;
   background-color: white; }
-  #core #main section ol {
-    counter-reset: li;
-    list-style: none;
-    /* Supprime la numérotation par défaut */
-    *list-style: decimal; }
-    #core #main section ol li {
-      display: flex;
-      align-items: stretch;
-      margin: .5em;
-      border-radius: 0 .25em .25em .25em; }
-      #core #main section ol li div.date {
-        background-color: #eee;
-        padding: .5em;
-        font-weight: bold;
-        flex-basis: 15%; }
-      #core #main section ol li div.detail {
-        background-color: #ddd;
-        padding: .5em;
-        border-left: 2px solid white;
-        width: 100%; }
-      #core #main section ol li div:first-child {
-        padding-left: +1em; }
-      #core #main section ol li:hover {
-        background-color: #eee; }
-      #core #main section ol li:hover::before {
-        transition: .25s all;
-        transition: .25s all;
-        transform: rotate(15deg); }
-    #core #main section ol li.square::before {
-      border-radius: .25em; }
-    #core #main section ol li.round::before {
-      border-radius: 50%; }
-    #core #main section ol li.red::before {
-      background: #eb8787;
-      border-color: #eb8787; }
-    #core #main section ol li.blue::before {
-      background: #87ceeb;
-      border-color: #87ceeb; }
-    #core #main section ol li.green::before {
-      background: #8ceb87;
-      border-color: #8ceb87; }
-    #core #main section ol li.yellow::before {
-      background: #e9eb87;
-      border-color: #e9eb87; }
-    #core #main section ol li::before {
-      transform: rotate(-10deg);
-      border-radius: inherit;
-      border-radius: none;
-      z-index: 1;
-      position: absolute;
-      margin-left: -1em;
-      height: 1.5em;
-      width: 1.5em;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      content: counter(li);
-      counter-increment: li;
-      transition: .25s all; }
 
 #nav {
   z-index: 10;
@@ -120,56 +85,48 @@ ul, ol {
   top: 0px;
   background-color: #000d;
   color: white; }
-  #nav .container {
+  #nav .container a {
+    color: white; }
+    #nav .container a:link, #nav .container a:visited, #nav .container a:focus {
+      color: white;
+      text-decoration: none; }
+  #nav .container img {
+    display: inline; }
+  #nav .container .nav-elem {
+    padding: .5em; }
+  #nav .container .leftmenu, #nav .container .leftmenu * {
+    display: inline-block;
     display: flex;
-    justify-content: space-between; }
-    #nav .container a {
-      color: white; }
-      #nav .container a:link, #nav .container a:visited, #nav .container a:focus {
-        color: white;
-        text-decoration: none; }
-    #nav .container img {
-      display: inline; }
-    #nav .container .nav-elem {
-      display: flex;
-      align-items: center;
-      padding: .5em; }
-    #nav .container .leftmenu, #nav .container .leftmenu * {
-      display: inline-block;
-      display: flex;
-      align-items: center; }
-      #nav .container .leftmenu img, #nav .container .leftmenu * img {
-        margin-right: 1em; }
-    #nav .container #menu-area {
+    align-items: center; }
+    #nav .container .leftmenu img, #nav .container .leftmenu * img {
+      margin-right: 1em; }
+  #nav .container #menu-area {
+    display: block; }
+    #nav .container #menu-area ul {
+      display: none;
+      margin: 0;
+      padding: 0;
+      padding-top: 0.5em;
+      border-radius: .5em; }
+      #nav .container #menu-area ul li {
+        margin-top: .1em;
+        margin-bottom: .1em;
+        background-color: #000d;
+        min-width: 150px;
+        padding: .5em;
+        border-left: 2px solid var(--link-color); }
+        #nav .container #menu-area ul li a {
+          color: white; }
+        #nav .container #menu-area ul li:hover {
+          border-left: 2px solid var(--link-color-hover);
+          background-color: #000f; }
+    #nav .container #menu-area:hover ul {
+      position: absolute;
       display: block; }
-      #nav .container #menu-area ul {
-        display: none;
-        margin: 0;
-        padding: 0;
-        padding-top: 0.5em;
-        border-radius: .5em; }
-        #nav .container #menu-area ul li {
-          margin-top: .1em;
-          margin-bottom: .1em;
-          background-color: #000d;
-          min-width: 150px;
-          padding: .5em;
-          border-left: 2px solid var(--link-color); }
-          #nav .container #menu-area ul li a {
-            color: white; }
-          #nav .container #menu-area ul li:hover {
-            border-left: 2px solid var(--link-color-hover);
-            background-color: #000f; }
-      #nav .container #menu-area:hover ul {
-        position: absolute;
-        display: block; }
-      #nav .container #menu-area:before {
-        content: "☰ Menu"; }
+    #nav .container #menu-area:before {
+      content: "☰ Menu"; }
 
 #footer div {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
   background-color: #ccc;
   color: white; }
   #footer div div {

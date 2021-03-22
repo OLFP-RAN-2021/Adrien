@@ -9,20 +9,21 @@
     z-index: 20;
     background-color: #000d;
     
-    
-    .popup-content {
+    .popup-container {
         margin:auto;
         align-items: center;
         justify-content: center;
         flex-flow: column;
-
         display:flex;
         justify-content: stretch;
+        align-content: stretch;
         background-color: white;
-        padding:1em;
+        padding-top:1em;
+        padding-bottom:1em;
+        border-radius:1em;
 
-        fieldset {
-            border : none;
+        .pop-content {
+            width: 100%;
         }
     }
 }

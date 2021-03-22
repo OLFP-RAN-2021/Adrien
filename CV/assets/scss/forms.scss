@@ -1,0 +1,36 @@
+
+form {
+    border: 1px solid lightgray;
+    border-radius : .5em;
+    padding: .5em;
+    margin: .5em;
+    background-color:#ddd;
+    width: 100%;
+    * {
+        padding: .5em;
+    }
+    
+    label {
+        display:block;
+        padding: .5em;
+    }
+    
+    input {
+        border: 0px;
+        border-left : 1px solid gray;
+        border-bottom : 1px solid gray;
+        background-color: #fff;
+        border-radius: 0;
+        
+        &:focus {
+            border: 0px;
+        }
+    }
+    
+    textarea {
+        border: 0px;
+        border-left : 1px solid gray;
+        border-bottom : 1px solid gray;
+        border-radius: 0;
+    }
+}

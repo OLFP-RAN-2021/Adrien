@@ -15,10 +15,10 @@
       body .container #leftaside {
         flex: 1 1 33%; }
 
-  .popup-content {
+  .popup-container {
     width: 70%; } }
 @media all and (min-width: 1280px) and (max-width: 1600px) {
-  .container .popup-content {
+  .container .popup-container {
     width: 80%; }
 
   .popup-content {
@@ -27,7 +27,7 @@
   .container {
     width: 90%; }
 
-  .popup-content {
+  .popup-container {
     width: 90%; } }
 @media all and (max-width: 800px) {
   body {
@@ -37,7 +37,7 @@
       width: 95%; }
       body .container #leftaside img {
         max-width: 200px; }
-    body .popup-content {
+    body .popup-container {
       width: 95%; } }
 @media all and (max-width: 640px) {
   body {
@@ -46,7 +46,7 @@
       width: 100%; }
       body .container #leftaside img {
         max-width: 200px; }
-    body .popup-content {
+    body .popup-container {
       width: 100%; } }
 
 /*# sourceMappingURL=medias.css.map */

@@ -1,20 +1,50 @@
 @charset "UTF-8";
 
-@import url(root.css);
-@import url(medias.css);
-@import url(fonts.css);
-@import url(popup.css);
-
-
-body {
-    color:var(--color);    
-    background-color:var(--background-color);    
-    background-color: gray;
-    font-family: 'OpenSans';
-}
+@import 'root.css';
+@import 'alias.css';
+@import 'medias.css';
+@import 'funnylists.css';
+@import 'fonts.css';
+@import 'popups.css';
+@import 'forms.css';
+@import 'widgets.css';
 
 .container {
     box-shadow: 0 0 12px rgba(0, 0, 0, 0.726);
+}
+
+h1 {
+    font-size:3em;
+    padding:1.15em;  
+    font-weight: bold;
+}
+
+h2 {
+    font-size:2em;
+    padding:.85em;  
+    font-weight: bold;
+}
+
+h3 {
+    font-size:1.5em;
+    padding:1em;  
+    font-weight: bold;
+}
+
+h4 {
+    font-size:1.15em;
+    padding:1em;  
+    font-weight: bold;
+}
+
+h5 {
+    font-size:1em;
+    padding:1em;
+}
+
+h6 {
+    font-size:1em;
+    padding:1em;
 }
 
 p {
@@ -61,8 +91,6 @@ ul, ol {
             background-size: cover;
             background-attachment: fixed;
             min-height:50vh;
-            display: flex;
-            align-items: flex-end;
         
             div {
                 width: 100%;;
@@ -79,94 +107,7 @@ ul, ol {
         padding:1.5em;
         background-color: white;
 
-        ol {
-            counter-reset: li;
-            list-style: none; /* Supprime la numérotation par défaut */
-            *list-style: decimal;
-
-            li {
-                
-                display:flex;
-                align-items: stretch;
-                margin:.5em;
-                
-                border-radius: 0 .25em .25em .25em;
-                
-                div.date {
-                    background-color: #eee;
-                    padding:.5em;
-                    font-weight: bold;
-                    flex-basis: 15%;
-                }
-
-                div.detail {
-                    background-color: #ddd;
-                    padding:.5em;
-                    border-left : 2px solid white; 
-                    width:100%;
-                }
-
-                div:first-child {
-                    padding-left:+1em;
-                }
-
-                &:hover {
-                    background-color: #eee;
-                }
-                
-                &:hover::before{
-                    transition: .25s all;
-                    transition: .25s all;
-                    transform: rotate(15deg);
-                }
-            }
-
-            li.square::before {
-                border-radius: .25em;
-            }
-            li.round::before {
-                border-radius: 50%;
-            }
-
-            li.red::before {
-                background: #eb8787;
-                border-color: #eb8787;
-            }
-            li.blue::before {
-                background: #87ceeb;
-                border-color: #87ceeb;
-            }
-            li.green::before {
-                background: #8ceb87;
-                border-color: #8ceb87;
-            }
-            li.yellow::before {
-                background: #e9eb87;
-                border-color: #e9eb87;
-            }
-
-
-            li::before {
-                transform: rotate(-10deg);
-
-                border-radius: inherit;
-                border-radius: none;
-                z-index: 1;
-                position:absolute;
-                margin-left: -1em;
-                // margin-top: -.5em;
-                height:1.5em;
-                width:1.5em;
-                display:flex;
-                align-items: center;
-                justify-content: center;
-
-                content: counter(li);
-                counter-increment: li;
-
-                transition: .25s all;
-            }
-        }
+        
     }
 }
 
@@ -180,9 +121,6 @@ ul, ol {
 
     .container{
 
-        display: flex;
-        justify-content: space-between;
-
         a {
             color:white;
             &:link, &:visited, &:focus {
@@ -195,8 +133,6 @@ ul, ol {
             display:inline;
         }
         .nav-elem {
-            display:flex;
-            align-items: center;
             padding:.5em;
         }
 
@@ -257,9 +193,6 @@ ul, ol {
 
 #footer {
     div {
-        display:flex;
-        align-items:center;
-        justify-content:space-between;
         background-color: #ccc;
         color:white;
         

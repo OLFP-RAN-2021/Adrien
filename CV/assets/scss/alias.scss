@@ -1,0 +1,84 @@
+//  
+// Flex throught class, like bootstrap.   
+// <div class="flex row reverse h-around" > ... </div>
+// See above for more info.
+// 
+// BOILLEY Adrien © GPL v2 - 2021 
+// 
+.flex {
+    display:flex;
+
+    &.row{
+        flex-direction: row;
+    }
+    &.row-reverse{
+        flex-direction: row-reverse;
+    }
+    &.column{
+        flex-direction: column;
+    }
+    &.column-reverse{
+        flex-direction: column-reverse;
+    }
+
+    &.left {
+        justify-content: left;
+    }
+    &.right {
+        justify-content: right;
+    }
+    &.center {
+        justify-content: right;
+    }
+    &.h-stretch {
+        justify-content: stretch;
+    }
+    &.h-between {
+        justify-content: space-between;
+    }
+    &.h-around {
+        justify-content: space-around;
+    }
+    &.h-evenly {
+        justify-content: space-evenly;
+    }
+
+    &.top {
+        align-items: start;
+    }
+    &.middle {
+        align-items: center;
+    }
+    &.bottom {
+        align-items: end;
+    }
+    &.v-stretch {
+        align-items: stretch;
+    }
+    &.v-between {
+        align-items: space-between;
+    }
+    &.v-around {
+        align-items: space-around;
+    }
+    &.v-evenly {
+        align-items: space-evenly;
+    }
+
+    &.nowrap {
+        flex-wrap: nowrap;
+    }
+    &.wrap {
+        flex-wrap: wrap;
+    }
+    &.wrap-reverse {
+        flex-wrap: wrap-reverse;
+    }
+
+    &* {
+        display:inherit;
+        align-items:inherit;
+        justify-content:inherit;
+    }
+}
+
