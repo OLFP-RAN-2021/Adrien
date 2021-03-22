@@ -39,17 +39,16 @@
         Barre de navigation
      -->
     <nav id="nav">
-        <div class="container">
+        <div class="container flex row h-between">
 
-            <div class="leftmenu">
-                <div class="nav-elem" id="brand">
+            <div class="leftmenu" class="flex row middle">
+                <div id="brand">
                     <a href="./">
                         <img src="assets/medias/Psykokwak-RFVF.png" alt="" width="30" height="30" title="Psykokwak : pokémon migraineux.">
                         Boilley.info
                     </a>
                 </div>
-
-                <div class="nav-elem">
+                <div>
                     <!-- menu auto-construit -->
                     <div id="menu-area"></div>
                 </div>
@@ -64,14 +63,14 @@
         </div>
     </nav>
 
-    <div id="core" class="container">
+    <div id="core" class="container flex row">
 
-        <aside id="leftaside">      
-            <section id="picture" >
+        <aside id="leftaside" class="sidebar">      
+            <section id="picture" class="widget">
                 <img class="leftAsided" src="assets/medias/crop3_offset.png" alt="" width="100px">
             </section>
            
-            <section id="About" class="menu-item">
+            <section id="About" class="menu-item widget">
                     <h2>A propos</h2>
                     <p>
                         Passionné : J’ai découvert les
@@ -95,19 +94,19 @@
                     </p>
             </section>
 
-            <section id="Music" class="menu-item">
+            <section id="Music" class="menu-item widget">
                 <h2>Musique</h2>
                 Raijekov Antony - journey
                 <audio controls loop src="assets/medias/musics/antony_raijekov_journey.mp3"></audio>
             </section>
         </aside>
 
-
         <section id="main">
+
             <!-- 
                 En-tête de la page
             -->
-            <header id="header">
+            <header id="header" class="flex column bottom">
                 <div>
                     <h1>Mon super parcours</h1>
                     <p>while ( you->like(this) ) { continue; }</p>
@@ -120,9 +119,9 @@
             <main>
                 <section id="Skills" class="menu-item">
                     <h2>Compétences</h2>
-                    <ol>
+                    <ol class="funny">
                         <li class="square green">
-                            <div class="date">
+                            <div class="title">
                                 Back-End
                             </div>
                             <div class="detail">
@@ -130,7 +129,7 @@
                             </div> 
                         </li>
                         <li class="square green">
-                            <div class="date">
+                            <div class="title">
                                 Front-End
                             </div>
                             <div class="detail">
@@ -138,13 +137,15 @@
                             </div>
                         </li>
                         <li class="square green">
-                            <div class="date">System</div>
+                            <div class="title">
+                                System
+                            </div>
                             <div class="detail">
                                 GNU/Linux Shell (Debian) + Apache2 server, Autres
                             </div>
                         </li>
                         <li class="square green">
-                            <div class="date">
+                            <div class="title">
                                 Autres
                             </div>
                             <div class="detail">
@@ -157,7 +158,7 @@
 
                 <section id="Exps" class="menu-item">
                     <h2>Expériences</h2>
-                    <ol>
+                    <ol class="funny">
                         <li class="square red">
                             <div class="date">
                                 2019
@@ -173,9 +174,9 @@
                                 2014 / 19
                             </div>
                             <div class="detail">
-                                Bénévole et Président au Fa²Lab Net-Iki
-                                (animation, dessin et impressi²n 3d)
-                                Intérimaire Adecco / LI²
+                                Bénévole et Président au FabLab Net-Iki
+                                (animation, dessin et impression 3d)
+                                Intérimaire Adecco / LIP
                                 (bâtiment, commerce, industrie)
                             </div>
                         </li>
@@ -194,7 +195,7 @@
 
                 <section id="Grades" class="menu-item">
                     <h2>Diplômes</h2>
-                    <ol>
+                    <ol class="funny">
                         <li class="square blue">
                             <div class="date">
                                 2018
@@ -253,9 +254,8 @@
             BOILLEY ADRIEN © GPL V 3.0
         </div>
 
-
-        <div class="container">
-            <div class="col">
+        <div class="container flex row h-around">
+            <div>
                 <ul>
                     <li>
                        <button onclick="popup('form-contact')">Formulaire</button>
@@ -272,51 +272,66 @@
                 </ul>
             </div>
 
-            <div class="col">
+            <div>
                 <img src="assets/medias/d599c1ed3700b8990c26ca5bbb77ff4a.svg" alt="" width="100" height="100">
                 <img src="assets/medias/79993510bb0baff30c497a6a136f0b1c.svg" alt="" width="100" height="100">
             </div>
 
-        </div>
+            </div>
     </footer>
 
 
-    <div class="hidden" id ="form-contact">
-        <div>
-            <h3>Contact</h3>
-            <form action="includes/API/form.php" method="post">
-                
-                <fieldset>
-                    <label for="email">You're email</label>
-                    <input type="email" name="email" id="email">
-                </fieldset>
-                
-                <fieldset>
-                    <label for="subject">Message subject</label>
-                    <input type="text" name="subject" id="subject">
-                </fieldset>
-                
-                <fieldset>
-                    <label for="content">Message content</label>
-                    <textarea name="content" id="content" cols="30" rows="10"></textarea>
-                </fieldset>
-                
-                <fieldset>
-                    <button type="submit">Submit form</button>
-                    <button type="reset">Reset form</button>
-                </fieldset>
-            </form>
+    <div class="hidden popup-content" id ="form-contact">
+        
+        <h3>Contact</h3>
+        <hr>
+        <div class="flex reverse row h-between">
+            <div>
+                <form action="includes/API/form.php" method="post">                
+                    <fieldset>
+                        <label for="email">You're email</label>
+                        <input type="email" name="email" id="email">
+                    </fieldset>
+                    
+                    <fieldset>
+                        <label for="subject">Message subject</label>
+                        <input type="text" name="subject" id="subject">
+                    </fieldset>
+                    
+                    <fieldset>
+                        <label for="content">Message content</label>
+                        <textarea name="content" id="content" cols="30" rows="10"></textarea>
+                    </fieldset>
+                    
+                    <fieldset>
+                        <button type="submit">Submit form</button>
+                        <button type="reset">Reset form</button>
+                    </fieldset>
+                </form>
+            </div>
+        
+            <div>
+                <p>
+                    Précisez un objet de message.
+                </p>
+                <p>
+                    Plus d'infos sur le la RGPD
+                </p>
+            </div>
+        
+            
         </div>
+    
     </div>
 
     <!-- to do -->
     <!-- <script src="assets/js/form.js"></script> -->
     
     <!-- ok, to uncomment later  -->
-    <!--
+    
         <script src="assets/js/popup.js"></script>
         <script src="assets/js/menu.js"></script> 
-    -->
+   
 
 </body>
 
