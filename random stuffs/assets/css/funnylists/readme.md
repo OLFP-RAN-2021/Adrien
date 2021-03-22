@@ -1,12 +1,25 @@
-# unny list
+# funny lists
 
-Formater les listes ordonnées 
+Formater les listes ordonnées. 
+
+- square (carrés)
+- round (ronds)
+
+- blue
+- green
+- red
+- yellow
 
 ```html
 
     <!-- flex en ligne commence en haut à gauche-->
-    <div class="flex row top left wrap"></div>
+    <ol class="funny">
+        <li class="square blue">
 
-    <!-- flex en colonne inversée, espacée verticalement "entre" et wrap inversé -->
-    <div class="flex column-reverse v-between wrap-reverse"></div>
+        </li>
+        <li>
+            ... 
+        </li>
+
+    </ol>
 ```
