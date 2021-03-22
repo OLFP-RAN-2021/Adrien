@@ -1,7 +1,8 @@
 @charset "UTF-8";
 
 @import 'root.css';
-@import 'alias.css';
+@import 'sizes.css';
+@import 'flexs.css';
 @import 'medias.css';
 @import 'funnylists.css';
 @import 'fonts.css';
@@ -27,7 +28,7 @@ h2 {
 
 h3 {
     font-size:1.5em;
-    padding:1em;  
+    padding:1em;
     font-weight: bold;
 }
 
@@ -93,11 +94,11 @@ ul, ol {
             min-height:50vh;
         
             div {
-                width: 100%;;
                 padding:2em;
                 background-color: #fffc;
                 color: #000d;
                 font-family :mono;
+                // width: 100%;
             }
         }
     }

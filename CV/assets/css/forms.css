@@ -1,27 +1,2 @@
-form {
-  border: 1px solid lightgray;
-  border-radius: .5em;
-  padding: .5em;
-  margin: .5em;
-  background-color: #ddd;
-  width: 100%; }
-  form * {
-    padding: .5em; }
-  form label {
-    display: block;
-    padding: .5em; }
-  form input {
-    border: 0px;
-    border-left: 1px solid gray;
-    border-bottom: 1px solid gray;
-    background-color: #fff;
-    border-radius: 0; }
-    form input:focus {
-      border: 0px; }
-  form textarea {
-    border: 0px;
-    border-left: 1px solid gray;
-    border-bottom: 1px solid gray;
-    border-radius: 0; }
-
+form{border:1px solid lightgray;border-radius:.5em;padding:.5em;margin:.5em;background-color:#ddd;width:100%}form *{padding:.5em}form label{display:block;padding:.5em}form input{border:0px;border-left:1px solid gray;border-bottom:1px solid gray;background-color:#fff;border-radius:0}form input:focus{border:0px}form textarea{border:0px;border-left:1px solid gray;border-bottom:1px solid gray;border-radius:0}
 /*# sourceMappingURL=forms.css.map */
