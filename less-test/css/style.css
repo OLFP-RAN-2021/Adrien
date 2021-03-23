@@ -1,0 +1,8 @@
+body {
+  background-color: green;
+}
+body header,
+body main,
+body footer {
+  background-color: white;
+}
