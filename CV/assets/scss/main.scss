@@ -97,10 +97,11 @@ ul, ol {
                 background-color: #fffc;
                 color: #000d;
                 p {
-                    font-family :'Neuropol';
+                    font-family :'monospace';
                     
                     &:after{
-                        animation: 1s slidein infinite;                     
+                        animation: .75s slidein 0s infinite;                     
+                        content:'▓';
                         @keyframes slidein {
                             from {
                                 content:'░';

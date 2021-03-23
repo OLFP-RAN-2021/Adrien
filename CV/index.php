@@ -1,5 +1,15 @@
 <?php
     // include 'includes/kernel.php';
+
+    // $out = '';
+    // for($i=1; $i <= 100; $i++){
+    //     $out .= '.w'.$i.'{width:'.$i.'%;}'."\n";
+    // }
+    // for($i=1; $i <= 100; $i++){
+    //     $out .= '.h'.$i.'{height:'.$i.'%;}'."\n";
+    // }
+    // file_put_contents('assets/scss/sizes.scss', $out);
+
 ?>
 
 <!DOCTYPE html>
@@ -39,9 +49,9 @@
         Barre de navigation
      -->
     <nav id="nav">
-        <div class="container flex row h-between">
+        <div class="container flex row justify-content-between">
 
-            <div class="leftmenu" class="flex row middle">
+            <div class="leftmenu" class="flex row align-content-middle">
                 <div id="brand">
                     <a href="./">
                         <img src="assets/medias/Psykokwak-RFVF.png" alt="" width="30" height="30" title="Psykokwak : pokémon migraineux.">
@@ -102,12 +112,11 @@
         </aside>
 
         <section id="main">
-
             <!-- 
                 En-tête de la page
             -->
-            <header id="header" class="flex column bottom">
-                <div>
+            <header id="header" class="flex row align-items-bottom justify-content-stretch">
+                <div class="w100">
                     <h1>Mon super parcours</h1>
                     <p>while ( you->like(this) ) { continue; }</p>
                 </div>
@@ -254,7 +263,7 @@
             BOILLEY ADRIEN © GPL V 3.0
         </div>
 
-        <div class="container flex row h-around">
+        <div class="container flex row justify-content-around">
             <div>
                 <ul>
                     <li>
