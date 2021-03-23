@@ -1,3 +1,20 @@
+@media all {
+  main {
+    margin: auto;
+    width: 70%;
+  }
+}
+@media all and (max-width: 800px) {
+  main {
+    width: 90%;
+  }
+}
+body .functionImgSizing {
+  width: 200px;
+}
+body main img {
+  width: 200px;
+}
 body {
   background-color: green;
 }

@@ -1,0 +1,11 @@
+@media all {
+  main {
+    margin: auto;
+    width: 70%;
+  }
+}
+@media all and (max-width: 800px) {
+  main {
+    width: 90%;
+  }
+}

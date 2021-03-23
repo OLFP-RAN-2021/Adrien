@@ -1,0 +1,16 @@
+body {
+
+    @size-img:200px; 
+
+    .functionImgSizing {
+        width: if(@size-img > 200, @size-img, 200px);
+    }
+
+    main {
+        img {
+            .functionImgSizing();
+        }
+    }
+    
+}
+
