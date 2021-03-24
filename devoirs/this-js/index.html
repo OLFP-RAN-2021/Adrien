@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <script>
+
+        /**
+         * Changement selon le contexte
+         * 
+         */
+        var foo = { truc : "truc" };
+
+        var truc = 'Global';
+
+        function getTruc (arg){
+            console.log(this.truc);
+        }
+
+        getTruc();
+        getTruc.call(foo);
+
+
+
+        /**
+         * 
+         * 
+         */
+        const obj = {
+
+            prop : 0,
+
+            set(num){
+                this.prop = num;
+            },
+
+            print(){
+                console.log(this.prop);
+            },
+        }
+
+        obj.set(42);
+        obj.print();
+
+
+
+
+        /**
+         * THIS can be returned to build a fluent
+         * 
+         */
+         console.log('This as fluant !');
+        const obj2 = {
+            print(num){
+                console.log('fluant '+num);
+                return this;
+            }
+        }
+
+        obj2.print(1).print(2).print(3);
+
+
+
+    </script>
+    
+</body>
+</html>
