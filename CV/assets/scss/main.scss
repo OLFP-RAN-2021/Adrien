@@ -1,14 +1,14 @@
 @charset "UTF-8";
 
-@import 'root.css';
-@import 'sizes.css';
-@import 'flexs.css';
-@import 'medias.css';
-@import 'funnylists.css';
-@import 'fonts.css';
-@import 'popups.css';
-@import 'forms.css';
-@import 'widgets.css';
+@import "_root";
+@import "_sizes";
+@import "_flexs";
+@import "_medias";
+@import "_funnylists";
+@import "_fonts";
+@import "_popups";
+@import "_forms";
+@import "_widgets";
 
 .container {
     box-shadow: 0 0 12px rgba(0, 0, 0, 0.726);
