@@ -1,0 +1,8 @@
+@import "_variables.scss";
+
+.outer {
+    color:blue;
+    .middle {
+        color:green;
+    }
+}
