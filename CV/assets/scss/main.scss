@@ -1,5 +1,4 @@
 @charset "UTF-8";
-
 @import "_root";
 @import "_sizes";
 @import "_flexs";
@@ -13,6 +12,7 @@
 .container {
     box-shadow: 0 0 12px rgba(0, 0, 0, 0.726);
 }
+
 
 h1 {
     font-size:3em;
@@ -46,6 +46,7 @@ h5 {
 h6 {
     font-size:1em;
     padding:1em;
+    font-style: italic;
 }
 
 p {
@@ -87,11 +88,11 @@ ul, ol {
 
     #main {
         #header {
-            background-image: url('../medias/see&boat.jpg');
+            background-image: url('../medias/default/site-header.jpg');
             background-size: cover;
             background-attachment: fixed;
             min-height:50vh;
-        
+            
             div {
                 padding:2em;
                 background-color: #fffc;
@@ -112,7 +113,6 @@ ul, ol {
                         }
                     }
                 }
-                // width: 100%;
             }
         }
     }
@@ -166,8 +166,11 @@ ul, ol {
             display:block;
 
             ul {
-                display:none;
-                margin:0;
+                display:block;
+
+                position:absolute;
+                transition: 1s all;
+                margin-top:-255px;
                 padding:0;
                 padding-top: 0.5em;;
                 border-radius: .5em;
@@ -194,12 +197,15 @@ ul, ol {
 
             
             &:hover ul {
-                position:absolute;
+                margin-top:inherit;
+                transition: 1s all;
                 display:block;
             }
 
             &:before {
-                content : "☰ Menu";
+                display:block;
+                padding:.5em;
+                content:" ☰ Menu ";
             }
 
         }

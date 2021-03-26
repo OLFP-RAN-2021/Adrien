@@ -40,38 +40,13 @@ ol.funny {
             background-color: #eee;
         }
         
-        &:hover::before{
+        &:hover:before{
             transition: .25s all;
             transform: rotate(15deg);
         }
     }
 
-    li.square::before {
-        border-radius: .25em;
-    }
-    li.round::before {
-        border-radius: 50%;
-    }
-
-    li.red::before {
-        background: #eb8787;
-        border-color: #eb8787;
-    }
-    li.blue::before {
-        background: #87ceeb;
-        border-color: #87ceeb;
-    }
-    li.green::before {
-        background: #8ceb87;
-        border-color: #8ceb87;
-    }
-    li.yellow::before {
-        background: #e9eb87;
-        border-color: #e9eb87;
-    }
-
-
-    li::before {
+    li:before {
         transform: rotate(-10deg);
 
         border-radius: inherit;
@@ -79,7 +54,6 @@ ol.funny {
         z-index: 1;
         position:absolute;
         margin-left: -1em;
-        // margin-top: -.5em;
         height:1.5em;
         width:1.5em;
         display:flex;
@@ -91,4 +65,31 @@ ol.funny {
 
         transition: .25s all;
     }
+
+    li.square:before {
+        border-radius: .25em;
+    }
+    li.round:before {
+        border-radius: 50%;
+    }
+
+    li.red:before {
+        background: #eb8787;
+        border-color: #eb8787;
+    }
+    li.blue:before {
+        background: #87ceeb;
+        border-color: #87ceeb;
+    }
+    li.green:before {
+        background: #8ceb87;
+        border-color: #8ceb87;
+    }
+    li.yellow:before {
+        background: #e9eb87;
+        border-color: #e9eb87;
+    }
+
+
+
 }
