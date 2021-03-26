@@ -1,16 +1,15 @@
 body {
 
-    @size-img:200px; 
+    @size-img:50px; 
 
     .functionImgSizing {
         width: if(@size-img > 200, @size-img, 200px);
     }
-
     main {
         img {
             .functionImgSizing();
         }
     }
-    
+
 }
 
