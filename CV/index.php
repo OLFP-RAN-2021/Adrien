@@ -1,15 +1,6 @@
 <?php
+    // include kernel 
     // include 'includes/kernel.php';
-
-    // $out = '';
-    // for($i=1; $i <= 100; $i++){
-    //     $out .= '.w'.$i.'{width:'.$i.'%;}'."\n";
-    // }
-    // for($i=1; $i <= 100; $i++){
-    //     $out .= '.h'.$i.'{height:'.$i.'%;}'."\n";
-    // }
-    // file_put_contents('assets/scss/sizes.scss', $out);
-
 ?>
 
 <!DOCTYPE html>
@@ -41,6 +32,8 @@
     <meta name="twitter:image" content="CV/assets/medias/see&boat.jpg">
     <meta name="twitter:image:alt" content="La mer c'est beau...">
 
+
+
 </head>
 
 <body id='body'>
@@ -54,7 +47,7 @@
             <div class="leftmenu" class="flex row align-content-middle">
                 <div id="brand">
                     <a href="./">
-                        <img src="assets/medias/Psykokwak-RFVF.png" alt="" width="30" height="30" title="Psykokwak : pokémon migraineux.">
+                        <img src="assets/medias/default/site-logo.png" alt="logo site" width="30" height="30" title="Psykokwak : pokémon migraineux.">
                         Boilley.info
                     </a>
                 </div>
@@ -327,20 +320,17 @@
                     Plus d'infos sur le la RGPD
                 </p>
             </div>
-        
-            
         </div>
-    
     </div>
 
-    <!-- to do -->
-    <!-- <script src="assets/js/form.js"></script> -->
-    
-    <!-- ok, to uncomment later  -->
-    
-        <script src="assets/js/popup.js"></script>
-        <script src="assets/js/menu.js"></script> 
-   
+
+    <!-- 
+        JS 
+     -->
+     <script type="module">
+        import './assets/js/main.js';
+    </script>
+
 
 </body>
 
