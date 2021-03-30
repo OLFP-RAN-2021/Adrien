@@ -1,3 +1,8 @@
+
+/**
+ * 
+ * @param {*} id 
+ */
 export function popup(id)
 {
     let popup = document.createElement('div');
@@ -8,26 +13,37 @@ export function popup(id)
 
     let elem = document.getElementById(id);
     if (elem !== null){
-        elem = elem.cloneNode(true);
+        
+        /*
+         *  La bonne idée, s'était de cloner le node. 
+         *  Le hic : c'est que ça clone pas l'event du node ! 
+         *  Donc je déplace juste l'élément, c'est plus simple
+         */
+        let origin = elem.parentElement;
+        
+        
         elem.classList.remove('hidden');
         popupContent.appendChild(elem);
+        
+        window.addEventListener('keydown', (e)=>{
+            if (e.key == 'Escape') {
+                document.getElementById('body').removeChild(popup);
+                origin.appendChild(elem);
+            }
+        });
+        
+        let closeButton = document.createElement('button');
+        closeButton.addEventListener('click', ()=>{
+            document.getElementById('body').removeChild(popup);
+            origin.appendChild(elem);
+        });
+        closeButton.innerHTML = 'Close windows'
+        
+        let hr = document.createElement('hr'); 
+        popupContent.appendChild(hr);
+        popupContent.appendChild(closeButton);
+        popup.appendChild(popupContent);
+        document.getElementById('body').appendChild(popup);
     }
-
-    window.addEventListener('keydown', (e)=>{
-        if (e.key == 'Escape')
-        document.getElementById('body').removeChild(popup);
-    });
-
-    let closeButton = document.createElement('button');
-    closeButton.addEventListener('click', ()=>{
-        document.getElementById('body').removeChild(popup);
-    });
-    closeButton.innerHTML = 'Close windows'
-
-    let hr = document.createElement('hr'); 
-    popupContent.appendChild(hr);
-    popupContent.appendChild(closeButton);
-    popup.appendChild(popupContent);
-    document.getElementById('body').appendChild(popup);
 }
 
