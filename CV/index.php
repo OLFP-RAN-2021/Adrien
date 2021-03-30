@@ -44,7 +44,7 @@
     <nav id="nav">
         <div class="container flex row justify-content-between">
 
-            <div class="leftmenu" class="flex row align-content-middle">
+            <div class="leftmenu flex row align-content-middle">
                 <div id="brand">
                     <a href="./">
                         <img src="assets/medias/default/site-logo.png" alt="logo site" width="30" height="30" title="Psykokwak : pokémon migraineux.">
@@ -260,7 +260,7 @@
             <div>
                 <ul>
                     <li>
-                       <button onclick="popup('form-contact')">Formulaire</button>
+                       <button onclick="popup('popup-formContact')">Formulaire</button>
                     </li>
                     <li>
                         <a href="mailto:adrien.boilley@gmail.com">adrien.boilley@gmail.com</a>
@@ -282,43 +282,50 @@
             </div>
     </footer>
 
+    <!-- Contient les popup : ceux ci sont cachés par défault -->
+    <div class="hidden">
 
-    <div class="hidden popup-content" id ="form-contact">
-        
-        <h3>Contact</h3>
-        <hr>
-        <div class="flex reverse row h-between">
-            <div>
-                <form action="includes/API/form.php" method="post">                
-                    <fieldset>
-                        <label for="email">You're email</label>
-                        <input type="email" name="email" id="email">
-                    </fieldset>
-                    
-                    <fieldset>
-                        <label for="subject">Message subject</label>
-                        <input type="text" name="subject" id="subject">
-                    </fieldset>
-                    
-                    <fieldset>
-                        <label for="content">Message content</label>
-                        <textarea name="content" id="content" cols="30" rows="10"></textarea>
-                    </fieldset>
-                    
-                    <fieldset>
-                        <button type="submit">Submit form</button>
-                        <button type="reset">Reset form</button>
-                    </fieldset>
-                </form>
-            </div>
-        
-            <div>
-                <p>
-                    Précisez un objet de message.
-                </p>
-                <p>
-                    Plus d'infos sur le la RGPD
-                </p>
+        <!-- exemple de popup -->
+        <div class="popup-content" id="popup-formContact">
+            
+            <h3>Contact</h3>
+            <hr>
+            <div class="flex reverse row h-between">
+                <div>
+                    <form action="includes/API/form.php" class="form-fetch" method="post">                
+                        <fieldset>
+                            <label for="email">You're email</label>
+                            <input type="email" name="email" id="email">
+                            <label id="email-mssg"></label>
+                        </fieldset>
+                        
+                        <fieldset>
+                            <label for="subject">Message subject</label>
+                            <input type="text" name="subject" id="subject">
+                            <label id="subject-mssg"></label>
+                        </fieldset>
+                        
+                        <fieldset>
+                            <label for="content">Message content</label>
+                            <textarea name="content" id="content" cols="30" rows="10"></textarea>
+                            <label id="content-mssg"></label>
+                        </fieldset>
+                        
+                        <fieldset>
+                            <button type="submit">Submit form</button>
+                            <button type="reset">Reset form</button>
+                        </fieldset>
+                    </form>
+                </div>
+            
+                <div>
+                    <p>
+                        Précisez un objet de message.
+                    </p>
+                    <p>
+                        Plus d'infos sur le la RGPD
+                    </p>
+                </div>
             </div>
         </div>
     </div>
