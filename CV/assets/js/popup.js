@@ -21,8 +21,6 @@ export function popup(id)
          */
         let origin = elem.parentElement;
         
-        
-        elem.classList.remove('hidden');
         popupContent.appendChild(elem);
         
         window.addEventListener('keydown', (e)=>{
