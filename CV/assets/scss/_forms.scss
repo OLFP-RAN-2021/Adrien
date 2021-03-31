@@ -13,6 +13,10 @@ form {
     label {
         display:block;
         padding: .5em;
+
+        &.mssg-error {
+            color:rgb(190, 29, 29);
+        }
     }
     
     input {
