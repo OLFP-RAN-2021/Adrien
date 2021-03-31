@@ -6,14 +6,12 @@ export function formHandler()
     
     for (const form of collection) {
         
-        console.log(form);
-        
         form.addEventListener('submit', function (event) {
             //  suspend le comportement par default
             event.preventDefault();
             
             let email = document.getElementById('email');
-            if (!email.value.match(/[\w.-]*@[\w.-]*\.[\w.]{2,}/i)) {
+            if (!email.value.match(/^[\w.-]*@[\w.-]*\.[\w.]{2,}$/i)) {
                 document.getElementById('email-mssg').innerHTML = 'Email non valide.\nFormat attendu : roberd.bidochon@service.com.';
             } 
             else {
@@ -21,7 +19,7 @@ export function formHandler()
             }
             
             let subject = document.getElementById('subject');
-            if (!subject.value.match(/[\w.-s]{5,}/i)) {
+            if (!subject.value.match(/[\w .-]{5,}/i)) {
                 document.getElementById('subject-mssg').innerHTML = 'Sujet invalide : au moins 5 caractères alpha-numériques attendus.';
             } else {
                 document.getElementById('subject-mssg').innerHTML = '';
