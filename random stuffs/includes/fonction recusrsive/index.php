@@ -31,7 +31,7 @@ function browse(string $path)
     }
 
     //  retrurner la liste
-    return $return;var_dump(browse('./dossier'));
+    return $return;
 }
 
 // executer la fonction browse :
