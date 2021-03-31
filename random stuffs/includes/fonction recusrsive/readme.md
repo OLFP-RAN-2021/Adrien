@@ -3,6 +3,7 @@
 La fonction récursive permet dexplorer une aborescance dont vous ignorez la profondeur.
 Vous évitez ainsi d'empiler les boucles les unes dans les autres manuellement : une seule doit suffire.
 
+J'ai écris la fonction `browse()` dans le fichier [index.php](index.php) (voir ci dessus).
 
 Voici un exemple de dossier à explorer.
 ```
