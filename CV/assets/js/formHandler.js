@@ -12,7 +12,6 @@ export function formHandler()
             //  suspend le comportement par default
             event.preventDefault();
             
-            
             let email = document.getElementById('email');
             if (!email.value.match(/[\w.-]*@[\w.-]*\.[\w.]{2,}/i)) {
                 document.getElementById('email-mssg').innerHTML = 'Email non valide.\nFormat attendu : roberd.bidochon@service.com.';
@@ -29,27 +28,26 @@ export function formHandler()
             }
         })
 
-
+        // fetch(form.action, {
+        //     'method':'POST',
+        //     'body': new FormData(form)
+        // })
+        // .then((response) => {
+        //     if (response.ok)
+        //     return response;
+        //     else {
+        //         console.log('Error code '+response.status)
+        //         console.log('Error content : '+response.statusText)
+        //     }
+        // })
+        // .then((data)=>{
+        //     data = data.json();
             
-        
-        
-            // fetch(form.action)
-            // .then((response) => {
-            //     if (response.ok)
-            //     return response;
-            //     else {
-            //         console.log('Error code '+response.status)
-            //         console.log('Error content : '+response.statusText)
-            //     }
-            // })
-            // .then((data)=>{
-            //     data = data.json();
-                
-            //     for (const obj of object) {
-            //         document.getElementById('mssg-'+obj.name).innerHTML = obj.content;  
-            //     }
-                
-            // });
+        //     for (const obj of data) {
+        //         document.getElementById('mssg-'+obj.name).innerHTML = obj.content;  
+        //     }
+            
+        // });
         
         
     }
