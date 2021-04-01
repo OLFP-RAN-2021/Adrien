@@ -291,20 +291,29 @@
                     <form action="includes/API/form.php" class="form-fetch" method="post">                
                         <fieldset>
                             <label for="email">You're email</label>
-                            <input type="text" name="email" id="email">
-                            <label id="email-mssg"></label>
+                            <input class="input" type="text" name="email" id="email">
+                            <span class="regex hidden">^[\w.-]*@[\w.-]*\.[\w.]{2,}$</span>
+                            <label class="mssg h idden" id="email-mssg">
+                                Email non valide. <br> Format attendu : roberd.bidochon@service.com.
+                            </label>
                         </fieldset>
                         
                         <fieldset>
-                            <label for="subject">Message subject</label>
-                            <input type="text" name="subject" id="subject">
-                            <label id="subject-mssg"></label>
+                            <label for="subject">Message object</label>
+                            <input class="input" type="text" name="subject" id="subject">
+                            <span class="regex hidden">[\w .-]{5,}</span>
+                            <label class="mssg hidden" id="subject-mssg">
+                                Objet invalide : au moins 5 caractères alpha-numériques attendus.
+                            </label>
                         </fieldset>
                         
                         <fieldset>
                             <label for="content">Message content</label>
-                            <textarea name="content" id="content" cols="30" rows="10"></textarea>
-                            <label id="content-mssg"></label>
+                            <textarea class="input" name="content" id="content" cols="30" rows="10"></textarea>
+                            <span class="regex hidden">.{50,}</span>
+                            <label class="mssg hidden" id="content-mssg">
+                                Contenu invalide : au moins 50 caractères alpha-numériques attendus.
+                            </label>
                         </fieldset>
                         
                         <fieldset>
@@ -330,10 +339,9 @@
     <!-- 
         JS 
      -->
-     <script type="module">
+    <script type="module">
         import './assets/js/main.js';
     </script>
-
 
 </body>
 
