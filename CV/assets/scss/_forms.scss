@@ -14,7 +14,13 @@ form {
         display:block;
         padding: .5em;
 
-        &.mssg-error {
+        &.mssg {
+            display:none;
+            padding:.5em;
+            background-color:#ddd;
+            position : absolute;
+            border:1px solid rgb(190, 29, 29);
+            border-radius:.5em;
             color:rgb(190, 29, 29);
         }
     }
