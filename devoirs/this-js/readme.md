@@ -28,8 +28,12 @@ Dans le cas d'un eventListener : this repr√©sente l'objet sur lequel est assign√
 let body = document.getElementsByTagName("body")[0];
 
 body.addEventListener("click", function (event) {
+
     console.log(this == event.currentTarget);
     // affiche true dans la console
+    
+    console.log(this);
+    // affiche element this dans la console
 });
 ```
 
