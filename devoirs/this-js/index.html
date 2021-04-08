@@ -8,59 +8,95 @@
 </head>
 <body>
 
+    body
+
+
+
     <script>
 
-        /**
-         * Changement selon le contexte
-         * 
-         */
-        var foo = { truc : "truc" };
+        // console.log(this);
+        // ()=>{console.log(this)}
+        // function test(){
+        //     console.log(this);
+        // }
+        // test();
 
-        var truc = 'Global';
 
-        function getTruc (arg){
-            console.log(this.truc);
+        
+        // /**
+        //  * Changement selon le contexte
+        //  * 
+        //  */
+        //  var foo = { truc : "dans truc" };
+
+        // var truc = 'Global';
+
+        // function getTruc (arg){
+        //     console.log(this.truc);
+        // }
+
+        // getTruc();
+        // getTruc.call(foo);
+
+
+
+
+
+
+
+
+
+        // /**
+        //  * 
+        //  * 
+        //  */
+        // const obj = {
+
+        //     prop : 0,
+
+        //     set(num){
+        //         this.prop = num;
+        //     },
+
+        //     print(){
+        //         console.log(this.prop);
+        //     },
+        // }
+        // obj.set(42);
+        // obj.print();
+
+
+        // /**
+        //  * Les Fluents
+        //  * 
+        //  */
+        // const obj2 = {
+        //     print(num){
+        //         console.log('fluant '+num);
+        //         return this;
+        //     }
+        // }
+
+        // obj2.print(1).print(2).print(3);
+
+        // /**
+        //  * Dans un event listener
+        //  */
+        // let body = document.getElementsByTagName('body')[0];
+        // body.addEventListener('click', function(event){
+        //     console.log(this == event.currentTarget);            
+        // });
+
+
+        function test(){
+            console.log(this.a);
         }
 
-        getTruc();
-        getTruc.call(foo);
-
-
-
-        /**
-         * 
-         * 
-         */
-        const obj = {
-
-            prop : 0,
-
-            set(num){
-                this.prop = num;
-            },
-
-            print(){
-                console.log(this.prop);
-            },
-        }
-        obj.set(42);
-        obj.print();
-
-        /**
-         * THIS can be returned to build a fluent
-         * 
-         */
-         console.log('This as fluant !');
-        const obj2 = {
-            print(num){
-                console.log('fluant '+num);
-                return this;
-            }
-        }
-
-        obj2.print(1).print(2).print(3);
-
-
+        let obj = test.bind({"a": 2});
+        obj(); 
+        
+        let obj2 = obj.bind({"a": 4});
+        obj2();
 
     </script>
     

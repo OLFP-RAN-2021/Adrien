@@ -1,5 +1,7 @@
 # Opérateur this en JS
 
+`This`, que l'on peut traduire de l'anglais : *"ceci"*.
+
 ## contexte globale
 
 Dans le contexte global, `this` représente l'objet window.
@@ -15,17 +17,19 @@ Idem pour les fonctions en générale : this === window.
 
 ```js
 function test() {
-  console.log(this);
+    console.log(this);
 }
-test(); // return window
+test(); // affiche window dans la console
 ```
 
 Dans le cas d'un eventListener : this représente l'objet sur lequel est assigné le listener :
 
 ```js
 let body = document.getElementsByTagName("body")[0];
+
 body.addEventListener("click", function (event) {
-  console.log(this == event.currentTarget);
+    console.log(this == event.currentTarget);
+    // affiche true dans la console
 });
 ```
 
@@ -33,9 +37,9 @@ Une fonction flechée n'ayant **PAS** de contexte propre : l'objet this sera par
 
 ```js
 let f = () => {
-  console.log(this);
+    console.log(this);
 };
-f(); // return window
+f(); // affiche window dans la console
 ```
 
 ## **This** dans des fonctions parcourant des objets.
@@ -48,7 +52,7 @@ const foo = { truc: "mon_truc" };
 let truc = "Global";
 
 function getTruc(arg) {
-  console.log(this.truc);
+    console.log(this.truc);
 }
 
 getTruc();          // return globale
