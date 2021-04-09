@@ -33,7 +33,7 @@ body.addEventListener("click", function (event) {
     // affiche true dans la console
     
     console.log(this);
-    // affiche element this dans la console
+    // affiche l'element body this dans la console
 });
 ```
 
@@ -53,7 +53,7 @@ Dans le cas particulier de javascript : il est possible d'appeler this dans une 
 ```js
 const foo = { truc: "mon_truc" };
 
-let truc = "Global";
+var truc = "Global";
 
 function getTruc(arg) {
     console.log(this.truc);
