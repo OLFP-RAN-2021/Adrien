@@ -79,8 +79,6 @@ obj2();
 ```
 
 
-> **Avis personnel** : à mélanger la programmation objet et la programmation fonctionnelle : les devs JS ont surtout semé un foutoir monstrueux !
-
 ## **This** dans les méthodes des objets.
 
 Dans la méthode d'un objet, `this` représente l'objet lui même.
