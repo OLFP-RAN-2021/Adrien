@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        #drop_zone{ 
+            margin:1em;
+            text-align: center;
+            vertical-align: middle;
+            width: 400px;
+            height: 200px;
+            border:1px dotted black;
+            background-color: skyblue;
+        }
+        .form_files {
+            display: flex;
+            flex-direction: column ;
+        }
+        .form_files > div {
+            padding:1em;
+        }
+        .opts{
+            padding:.5em;
+            width: 300px;
+            display: flex;
+            flex-direction: column ;
+            background-color: gainsboro;
+        }
+    </style>
+
+   
+</head>
+<body>
+
+    <form id="form" action="" class="form_files">
+
+    </form>
+
+
+    <script type="module">
+        import './drag&drop/module.js';
+    </script>
+
+
+
+</body>
+</html>
