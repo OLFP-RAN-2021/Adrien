@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>customElements</title>
+
+    <style>
+
+        #parentMyCustom {
+            padding:1em;
+            margin:1em;
+            color:darkblue;
+            border:1px solid darkblue;
+        }
+
+        .MyCustomClass{
+            padding:1em;
+            margin:1em;
+            color:darkgreen;
+            border:1px dotted darkgreen;
+        }
+
+    </style>
+</head>
+<body>
+    
+    <!-- Cet Element va contenir mon MyCustomObject -->
+    <div id="parentMyCustom">
+        Conteneneur parent.
+    </div>
+
+    <script src="./class-MyCustomObject.js"></script>
+    <script>
+
+        // Instancier l'objet depuis la classe ! 
+        let MyCustomELement = new MyCustomObject('Mon super élément !', 'MyCustomId', 'MyCustomClass');
+
+        // add event
+        MyCustomELement.bindEvent('click', (e)=>{
+            console.log(e);
+            console.log(MyCustomELement);
+        });
+
+        // Prendre le parent qui va recevoir notre objet.
+        let target = document.getElementById('parentMyCustom');
+        
+        // Injecter dans le parent. 
+        target.appendChild(MyCustomELement);
+
+    </script>
+
+</body>
+</html>

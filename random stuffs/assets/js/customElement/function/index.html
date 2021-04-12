@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>customElements</title>
+
+    <style>
+        #parentMyCustom {
+            padding: 1em;
+            margin: 1em;
+            color: darkblue;
+            border: 1px solid darkblue;
+        }
+
+        .MyCustomClass {
+            padding: 1em;
+            margin: 1em;
+            color: darkgreen;
+            border: 1px dotted darkgreen;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Cet Element va contenir mon MyCustomObject -->
+    <div id="parentMyCustom">Conteneneur parent.</div>
+
+    <!-- Importer la constion -->
+    <script src="factory.js"></script>
+    <script>
+
+        let eventsList = [
+            {
+                event: "click",
+                callable: (event) => {
+                    console.log(event);
+                    console.log(MyCustomELement);
+                },
+            },
+
+        ];
+
+        // créer un Element
+        let MyCustomELement = factory("my-custom", eventsList);
+
+        // Ajoute un contenu
+        MyCustomELement.innerHTML = "Contenu de ma custom";
+
+        // Ajoute un style
+        MyCustomELement.style.display = "block";
+
+        // Ajoute une class
+        MyCustomELement.classList.add("MyCustomClass");
+
+        // Prendre le parent qui va recevoir notre objet.
+        let target = document.getElementById("parentMyCustom");
+
+        // Injecter dans le parent.
+        target.appendChild(MyCustomELement);
+    </script>
+</body>
+
+</html>
