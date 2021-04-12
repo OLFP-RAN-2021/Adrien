@@ -78,6 +78,18 @@ Créez l'élément et placez le dans son parent.
 
 ```
 
+### Faire hériter
+
+Au moment de déclarer l'objet à JS : ajoutez que vous ouvrez l'héritage vars le tag qui vous intéresse. 
 
 ```js
+    customElements.define('my-custom-object', MyCustomObject, { extends: 'div' });
 ```
+
+Et mon div hérite de ma class avec l'attribut `is`. 
+```html
+    <div is="my-custom-object"> </div>
+```
+
+## source
+* [CustomElementRegistry | MDN](https://developer.mozilla.org/en-US/docs/Web/API/CustomElementRegistry/define)
