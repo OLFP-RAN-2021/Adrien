@@ -1,0 +1,83 @@
+# CustomElement
+
+Vous rêviez de créer votre propre balise HTML ? 
+Avec JavaScript, c'est possible ! 
+
+![image](Screenshot_20210412_082346.png)
+
+## Pourquoi faire ? 
+
+* Permet d'organiser le code ; 
+  * Programmation Orienté Objet. 
+  * Programmation modulaire.
+* Permet de personaliser un objet au comportement complexe :
+  * Sans surcharger le code (eventlistener, etc.).
+  * Tout en respectant les standards w3c.
+
+## Comment faire ? 
+
+### La POO, c'est Class ! 
+
+D'abord : créez un objet qui étands l'interface HTMLElement (ou un autre élément).
+
+```js
+
+    /**
+     * Définir une classe qui représente l'objet que vous voulez créer. 
+     * Étendez la avec l'interface HTMLElement.
+     * Puis contruisez la comme un objet classqiue. 
+     */
+    class MyCustomObject extends HTMLElement
+    {
+        constructor(content = null, id = null, classes = null)
+        {
+            // Avant toutes choses !
+            // Appeler le constructeur parent.
+            super();
+            
+            // Attribuer ID et Classes.
+            this.id = id ?? null;
+            if (classes != null) this.classList.add(classes); 
+
+            // Appliquez du style si besoin.
+            this.style.display = 'block';
+
+            // Définir le contenu.
+            this.innerHTML = content;
+        }   
+
+        /**
+         *  Si besoin : ajoutez des méthodes décrivant le comportement de votre objet. 
+         */
+    }
+
+```
+
+Dites à JS que vous avez crée un tag. 
+
+```js
+
+    /**
+     * Faire reconnaitre l'objet par JavaScript.
+     * Sinon pas contant ! 
+     */
+    customElements.define('my-custom-object', MyCustomObject);
+```
+
+Créez l'élément et placez le dans son parent. 
+
+```js
+    // Instancier l'objet depuis la classe ! 
+    let MyCustomELement = new MyCustomObject('Mon super élément !', 'MyCustomId', 'MyCustomClass');
+    
+    // Prendre le parent qui va recevoir notre objet.
+    let target = document.getElementById('parentMyCustom');
+    
+    // Injecter dans le parent. 
+    target.appendChild(MyCustomELement);
+
+```
+
+
+```js
+```
