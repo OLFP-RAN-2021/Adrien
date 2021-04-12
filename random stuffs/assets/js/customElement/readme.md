@@ -78,7 +78,12 @@ Créez l'élément et placez le dans son parent.
 
 ```
 
-### Faire hériter
+Et voilà ! Normalement, l'objet a été placé sur la page !
+
+Sinon, c'est que vous vous êtes planté quelque part... 
+
+
+### [ `optionnel` ] **Faire hériter**
 
 Au moment de déclarer l'objet à JS : ajoutez que vous ouvrez l'héritage vars le tag qui vous intéresse. 
 
