@@ -3,6 +3,7 @@
  * 
  * @param {*} event 
  */
+
 function dropHandler(event) 
 {
     event.preventDefault();
@@ -87,22 +88,7 @@ function dropHandler(event)
             target.appendChild(canvas);
 
         });
-        // console.log(htmlImageElement);
-
-        // // Créer une url pour le fichier
-        // let imgurl = URL.createObjectURL(file);
-        // // console.log(imgurl);    
-    
-        // // Afficher le résultat
-        // let target = document.getElementById('printResult');
-        // let img = document.createElement('img');
-        
-        // img.setAttribute('width', '200');
-        // img.setAttribute('height', '150');
-
-        // img.setAttribute('src', imgurl);
-        // target.appendChild(img);
-
+ 
     }
 }
 
