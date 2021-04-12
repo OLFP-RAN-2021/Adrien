@@ -82,6 +82,3 @@ Et mon div hérite de ma class avec l'attribut `is`.
 <div is="my-custom-object"></div>
 ```
 
-## source
-
-- [CustomElementRegistry | MDN](https://developer.mozilla.org/en-US/docs/Web/API/CustomElementRegistry/define)

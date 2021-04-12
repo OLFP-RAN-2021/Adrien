@@ -11,3 +11,7 @@ Avec JavaScript, c'est possible !
   Permet aussi de simplement déclarer la classe, sans l'instancier.
 
 - À partir d'une [class](POO/readme.md) permet de décrire un comportement complexe.
+
+
+## source
+- [CustomElementRegistry | MDN](https://developer.mozilla.org/en-US/docs/Web/API/CustomElementRegistry/define)
