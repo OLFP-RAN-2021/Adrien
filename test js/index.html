@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <ul>
+        <li>truc</li>
+        <li>truc</li>
+        <li>truc</li>
+    </ul>
+
+    <script>
+
+        function treePointer()
+        {
+            let obj = {
+
+                'current': document.getElementsByTagName('html')[0],
+
+                root()
+                {
+                    thois.current = document.getElementsByTagName('html')[0];
+                },
+
+                /**
+                 * 
+                 *  
+                 */
+                 child(idx = null)
+                {
+                    if(typeof idx == 'number')
+                    if (this.current.children[idx] !== undefined)
+                    this.current = this.current.children.item(idx)
+                    // else {
+                        // tester des portées, des elem, id, class, etc...
+                    // }
+                },
+
+                /**
+                 * 
+                 * 
+                 */
+                parent(){
+                    this.current = this.current.parentElement;
+                    this.currentIdx();
+                },
+
+                /**
+                 * 
+                 * 
+                 */
+                currentIdx()
+                {
+                    let brotherhood = this.current.parentNode.children;
+                    for(const key in brotherhood){
+                        if (this.current == brotherhood[key]) return parseInt(key);
+                    }
+                    console.log('Impossible config : node may somewhere in DOM tree.');
+                },
+
+                /**
+                 * 
+                 */
+                next()
+                {    
+                    let brotherhood = this.current.parentElement.children;
+                    let idx = this.currentIdx();
+                    this.current = brotherhood[(idx+1)];
+                    return this;
+                },
+
+                /**
+                 * 
+                 * 
+                 */
+                nextExist()
+                {
+                    let brotherhood = brotherhood ?? this.current.parentElement.children;
+                    let idx = this.currentIdx();
+                    if (brotherhood[(idx+1)] !== undefined) return true;
+                    return false;
+                },
+
+                /**
+                 * 
+                 */
+                prev()
+                {
+                    let brotherhood = this.current.parentElement.children;
+                    let idx = this.currentIdx();
+                    this.current = brotherhood[(idx-1)]; 
+                    return this;
+                },
+
+                /**
+                 * 
+                 * 
+                 */
+                prevExist()
+                {
+                    let brotherhood = this.current.parentElement.children; 
+                    let idx = this.currentIdx();
+                    if (brotherhood[ (idx-1)] !== undefined) return true;
+                    return false;
+                },
+
+                /**
+                 * 
+                 * 
+                 */
+                create(name = 'div', opts = { "id":null, "classes":[], "attr":{}, "content":null }, getin = false)
+                {
+                    let elem = document.createElement(name);
+                    elem.id = opts.id;
+                    elem.innerHTML = opts.content;
+                    
+                    if(opts.classes.length > 0)
+                    for (const classname of opts.classes) {
+                        elem.classList.add(classname);
+                    }
+                    
+                    if(opts.attr.length > 0)
+                    for (const key in opts.attr) {
+                        elem.setAttribute(key, attr[key]);
+                    }
+
+                    this.current.appendChild(elem.cloneNode());
+                    
+                    if (getin) {
+                        this.current = elem;
+                    }
+
+                    return this;
+                },
+
+
+                /**
+                 * 
+                 * 
+                 */
+                get(thing){           
+                    if (this.current instanceof NodeList) {
+                        let newList = null;
+                        for (const target of this.current){
+                            if (newList === null)
+                                newList = target.querySelectorAll(thing);
+                            else 
+                                newList.concat(target.querySelectorAll(thing));
+                        }
+                        this.current = newList;
+                    }
+                    else{
+                        this.current = this.current.querySelectorAll(thing);
+                    }
+                    return this;
+                },
+
+                /**
+                 * 
+                 * 
+                 */
+                set(elem){
+                    if (elem instanceof HTMLElement)
+                        this.current.appendChild(elem);
+                    else
+                        this.current.innerHTML = elem;
+                    
+                    return this;
+                },
+
+                /**
+                 * 
+                 * 
+                 */
+                each(callback)
+                {
+                    // for (const target of this.current){
+                    //     callback(target);
+                    // }
+                    // return this;
+                },
+
+                children(min = 0, max = null)
+                {
+
+                },
+
+
+            };
+
+            return obj;
+        }
+
+        let dom = treePointer();    // entre dans le doc
+        dom.child(1);               // entre dans html
+    
+        console.log(dom.current);
+        
+        
+        // console.log(typeof []);
+
+
+
+        // .create('header', 'header', [], [])
+        // .create('div', 'header-title', [], [])
+        
+        // console.log(dom.current);
+        // dom.parents();
+
+        // doc().get('li').set('test');
+
+
+    </script>
+
+
+<!-- 
+<script src="js/windowwwwws/class-window.js"></script> -->
+<!-- 
+<script type="module">
+    import "./main.js";
+</script> -->
+    
+</body>
+</html> 
