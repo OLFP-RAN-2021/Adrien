@@ -24,7 +24,9 @@ export class MyFile {
     import(file, callback)
     {
         file.content;
+
     }
+
 
     /**
      * Import from server
@@ -34,55 +36,62 @@ export class MyFile {
      */
     load(uri, callback)
     {
-        fetch(uri)
+        fetch(uri, {
+            method:'GET'
+        })
         .then((response)=>{
-            if (response.ok) return response.blob;
+            if (response.ok) return response.blob();
             else {
                 console.log('File : ' + uri);
                 console.log('Network error : ' + response.statusText)
             };
         })
+        .then((data)=>{
+            console.log(data)
+            
+            this.uri = uri;
+            this.filename = uri.split('/')[uri.length - 1];
+            // this.content = response.blob();
+            MyFile.FilesList.uri = this;
+        })
         .catch((errors)=>{
             console.log(errors);
         })
-        .finally((blob)=>{
-            console.log('finnally');
-            this.uri = uri;
-            this.filename = uri.split('/')[uri.length - 1];
-            this.content = blob;
-            MyFile.FilesList.uri = this;
-            if(callback != null)
-            callback();
+        .finally(()=>{
+            if(callback != null) callback(this);
         });
+        
     }
-
+    
     /**
      * 
      * @param {*} callback 
      * @returns this
      */
-    save(callback){
-
+    save(uriBackScript, callback){
+        
         data = new FormData();
         data.append('uri', this.uri);
         data.append('filename', this.filename);
         data.append('content', this.content);
-
-        fetch(this.uri, {
+        
+        fetch(uriBackScript, {
             'method': 'POST',
             'body': data
         })
         .then((response)=>{
-            if (response.ok) return response.json();
+            if (response.ok) this.data = response.json();
             else console.log('Network error : '+response.statusText);
+        })
+        .then((data)=>{
+
         })
         .catch((errors)=>{
             console.log(errors);
         })
-        .finally((data)=>{
+        .finally(()=>{
             if(callback != null)
-            callback(data);
+            callback(this.data);
         });
-
     }
 }

@@ -9,10 +9,12 @@ var FILES = [];
 let file = new MyFile();
 file.load('drag&drop/class-File.js');
 
+
+
 /**
  * 
  */
 let myDrop = new DropArea( {"id":'dropArea', "class":'myClass'} );
 myDrop.bind( (file, image) => { console.log(image) } );
 
-console.log(myDrop);
+// console.log(myDrop);
