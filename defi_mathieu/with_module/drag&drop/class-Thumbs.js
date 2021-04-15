@@ -2,7 +2,7 @@ export class Thumbs extends HTMLCanvasElement
 {
     constructor(opts = { "id": null, "class": 'thumbnail' }) {
         
-        customElements.define('thumbs', DropArea);
+        customElements.define('thumbnail', DropArea);
         super();
 
         this.id = opts.id;
@@ -10,16 +10,25 @@ export class Thumbs extends HTMLCanvasElement
         this.style.display = 'inline-block';
     }
 
+
+
     import( file )
     {
+        if (file instanceof File)
         createImageBitmap(file)
         .then((image)=>{
-           let ctx = canvas.getContext('2d');
+            this.ctx = canvas.getContext('2d');
             
-
             
         });
     }
 
+    export()
+    {
+        if(this.ctx != null && this.ctx instanceof CanvasRenderingContext2D){
+            // get cavans saize
+            return this.ctx.getImageData();
+        }
+    }
 
 }
