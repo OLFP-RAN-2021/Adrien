@@ -3,7 +3,6 @@
  * 
  * @param {*} event 
  */
-
 function dropHandler(event) 
 {
     event.preventDefault();
@@ -25,10 +24,6 @@ function dropHandler(event)
 
             let resizer = document.getElementById('resize');
             let tw = parseInt(resizer.value) ?? 200;
-            if (tw > 10000) {
-                tw = 10000;
-                resizer.value = tw;
-            }
 
             // Hauteur en conservant le ratio
             let th = Math.floor(tw * (image.height/image.width));
