@@ -3,7 +3,7 @@ export class FileHandler {
     static FilesList = {};
 
     constructor(source = null) {
-        
+
         this.uri = null;
         this.filename = null;
         this.size = null;
@@ -31,16 +31,33 @@ export class FileHandler {
      * @param {*} file 
      */
     import(file, callback) {
-        let uri = URL.createObjectURL(file);
+
+
+
+        let uri = URL.createObjectURL(file); //  unique key random generator
         this.filename = file.name;
         this.uri = uri;
+        this.type = file.type;          // mime: image/jpeg
+        this.imported = Date.now();     // int: date importation
         this.lastModified = file.lastModified;
         this.size = file.size;
+
+        /**
+         * Object stored : 
+            {
+            "uri": "blob:http://127.0.0.1/c8bb7ce8-d8fe-46bc-bedb-2789d5364763",
+            "filename": "6144294188_762c20ab58_o.jpg",
+            "size": 118946,
+            "content": null,
+            "lastModified": 1591212300000,
+            "type": "image/jpeg",
+            "imported": 1618480612220
+            }
+         */
         FileHandler.FilesList.uri = this;
 
-        // console.log(FileHandler.FilesList.uri)
+        console.log(FileHandler.FilesList.uri)
     }
-
 
     /**
      * Import from server
