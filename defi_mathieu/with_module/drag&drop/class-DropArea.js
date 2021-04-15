@@ -1,3 +1,4 @@
+import { FileHandler } from "./class-FileHandler.js";
 
 export class DropArea extends HTMLElement {
     constructor(opts = { "id": 'dropArea', "class": 'dropArea' }) {
@@ -16,11 +17,13 @@ export class DropArea extends HTMLElement {
     /**
      * 
      */
-    bind(callback) {
+    bind() {
+        // debugger
+
         /**
          * Stop default browser 
          */
-        this.addEventListener('ondragover', (e) => {
+        this.addEventListener('dragover', (e) => {
             e.preventDefault();
             this.style.cursor = 'grab';
         });
@@ -28,21 +31,16 @@ export class DropArea extends HTMLElement {
         /**
          * Move default action to 
          */
-        this.addEventListener('ondrop', (e) => {
+        this.addEventListener('drop', (e) => {
             e.preventDefault();
 
             if (e.dataTransfer.items)
                 for (const item of e.dataTransfer.items) {
 
+                    // console.log(item.getAsFile())
+
                     // récupère chaque objet comme un fichier
-                    let file = item.getAsFile();
-
-                    createImageBitmap(file)
-                    .then((image) => {
-                        // console.log(image);
-                        callback(file, image);
-
-                    });
+                    new FileHandler(item.getAsFile());
                 }
         });
     }
