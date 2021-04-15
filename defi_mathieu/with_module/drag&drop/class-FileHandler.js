@@ -37,6 +37,8 @@ export class FileHandler {
         this.lastModified = file.lastModified;
         this.size = file.size;
         FileHandler.FilesList.uri = this;
+
+        // console.log(FileHandler.FilesList.uri)
     }
 
 

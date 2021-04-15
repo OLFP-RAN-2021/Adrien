@@ -3,7 +3,6 @@
  * Import drop area class
  */
 import { DragAndDrop } from "./class-DragAndDrop.js";
-import { FileHandler } from "./class-FileHandler.js";
 
 /**
  * 
