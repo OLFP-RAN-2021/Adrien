@@ -1,20 +1,23 @@
+
 /**
  * Import drop area class
  */
-import { DropArea } from "./class-DropArea.js";
-import { MyFile } from "./class-File.js";
-
-var FILES = [];
-
-let file = new MyFile();
-file.load('drag&drop/class-File.js');
-
-
+import { DragAndDrop } from "./class-DragAndDrop.js";
+import { FileHandler } from "./class-FileHandler.js";
 
 /**
  * 
  */
-let myDrop = new DropArea( {"id":'dropArea', "class":'myClass'} );
-myDrop.bind( (file, image) => { console.log(image) } );
+new DragAndDrop({
+    
+    // tag id : where you want to append the drag&drop
+    'DropTagId':'drop-module',
 
-// console.log(myDrop);
+    // forms : form id / is async (depend of form or not)
+    'form': {'form_id':'', 'is_async':false },
+
+    // drop area element properties
+    'DropArea': {"id":'dropArea', "class":'droparea'}
+});
+
+
