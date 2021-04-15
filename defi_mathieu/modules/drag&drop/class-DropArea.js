@@ -1,9 +1,5 @@
-
 export class DropArea extends HTMLElement {
-    constructor(opts = { "id": 'dropArea', "class": 'dropArea' }) {
-
-        // define element
-        customElements.define('drop-area', DropArea);
+    constructor(opts = { id: "dropArea", class: "dropArea" }) {
 
         // construire le parent (HTMLElement)
         super();
@@ -14,28 +10,27 @@ export class DropArea extends HTMLElement {
     }
 
     /**
-     * 
+     *
      */
     bind(callable) {
         // debugger
 
         /**
-         * Stop default browser 
+         * Stop default browser
          */
-        this.addEventListener('dragover', (e) => {
+        this.addEventListener("dragover", (e) => {
             e.preventDefault();
-            this.style.cursor = 'grab';
+            this.style.cursor = "grab";
         });
 
         /**
-         * Move default action to 
+         * Move default action to
          */
-        this.addEventListener('drop', (e) => {
+        this.addEventListener("drop", (e) => {
             e.preventDefault();
 
             if (e.dataTransfer.items)
                 for (const item of e.dataTransfer.items) {
-
                     // console.log(item.getAsFile())
 
                     // récupère chaque objet comme un fichier
@@ -44,4 +39,3 @@ export class DropArea extends HTMLElement {
         });
     }
 }
-
