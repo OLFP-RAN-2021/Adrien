@@ -1,4 +1,4 @@
-import { FileHandler } from "./class-FileHandler.js";
+import { FileHandler } from "../FilesHandler/class-FileHandler.js";
 
 export class Thumbs extends HTMLCanvasElement {
     constructor(opts = { id: null, class: "thumbnail" }) {

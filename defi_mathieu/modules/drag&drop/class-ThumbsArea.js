@@ -1,12 +1,10 @@
-import { FileHandler } from "./class-FileHandler.js";
+import { FileHandler } from "../FilesHandler/class-FileHandler.js";
 
 export class ThumbsArea extends HTMLElement {
   static listPrinted = [];
 
   constructor(opts = { id: "thumbsArea", class: "thumbsArea" }) {
-    // define element
-    customElements.define("thumbs-area", ThumbsArea);
-
+   
     // construire le parent (HTMLElement)
     super();
 
