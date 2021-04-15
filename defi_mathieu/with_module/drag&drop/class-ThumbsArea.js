@@ -1,3 +1,5 @@
+import { FileHandler } from "./class-FileHandler.js";
+
 
 export class ThumbsArea extends HTMLElement {
     constructor(opts = { "id": 'thumbsArea', "class": 'thumbsArea' }) {
@@ -11,6 +13,14 @@ export class ThumbsArea extends HTMLElement {
         // assigner ID et class
         this.id = opts.id;
         this.classList.add(opts.class);
+    }
+
+
+    refresh()
+    {
+        for (const file of FileHandler.FilesList) {
+            
+        }
     }
 }
 

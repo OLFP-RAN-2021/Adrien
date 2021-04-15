@@ -1,4 +1,3 @@
-import { FileHandler } from "./class-FileHandler.js";
 
 export class DropArea extends HTMLElement {
     constructor(opts = { "id": 'dropArea', "class": 'dropArea' }) {
@@ -17,7 +16,7 @@ export class DropArea extends HTMLElement {
     /**
      * 
      */
-    bind() {
+    bind(callable) {
         // debugger
 
         /**
@@ -40,7 +39,7 @@ export class DropArea extends HTMLElement {
                     // console.log(item.getAsFile())
 
                     // récupère chaque objet comme un fichier
-                    new FileHandler(item.getAsFile());
+                    callable(item.getAsFile());
                 }
         });
     }

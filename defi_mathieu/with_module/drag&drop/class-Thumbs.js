@@ -1,3 +1,5 @@
+import { FileHandler } from "./class-FileHandler.js";
+
 export class Thumbs extends HTMLCanvasElement
 {
     constructor(opts = { "id": null, "class": 'thumbnail' }) {
@@ -12,7 +14,7 @@ export class Thumbs extends HTMLCanvasElement
 
 
 
-    import( file )
+    import(file)
     {
         if (file instanceof File)
         createImageBitmap(file)

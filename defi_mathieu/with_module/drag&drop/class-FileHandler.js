@@ -32,8 +32,6 @@ export class FileHandler {
      */
     import(file, callback) {
 
-
-
         let uri = URL.createObjectURL(file); //  unique key random generator
         this.filename = file.name;
         this.uri = uri;
@@ -78,7 +76,7 @@ export class FileHandler {
             })
             .then((data) => {
                 console.log(data)
-
+                
                 this.uri = uri;
                 this.filename = uri.split('/')[uri.length - 1];
                 // this.content = response.blob();
