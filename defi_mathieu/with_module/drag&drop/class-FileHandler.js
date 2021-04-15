@@ -2,7 +2,7 @@ export class FileHandler {
 
     static FilesList = {};
 
-    constructor(source = null, callback = null) {
+    constructor(source = null) {
         
         this.uri = null;
         this.filename = null;
@@ -13,12 +13,12 @@ export class FileHandler {
         if (source != null) {
             if (typeof source == 'string')
                 if (source.match(/^https?\:\/\/([\w-_./])+\.[\w\.]{2,}/i))
-                    this.load(source, callback);
+                    this.load(source);
                 else
                     throw new Error('Javascript Can\'t load file from \'${source}\' cause url has a bad format.');
 
             else if (source instanceof File)
-                this.import(source, callback);
+                this.import(source);
 
             else
                 throw new Error('What is it ???');
@@ -37,10 +37,6 @@ export class FileHandler {
         this.lastModified = file.lastModified;
         this.size = file.size;
         FileHandler.FilesList.uri = this;
-
-        if (callback != null)
-            callback(this);
-
     }
 
 
