@@ -1,0 +1,77 @@
+
+html {
+    background-color: gray;
+}
+
+body {
+    margin: auto;
+    width: 80%;
+    background-color: white;
+}
+
+header {
+    background-color: seashell;
+    color:teal;
+    padding:1em;
+}
+
+nav {
+    background-color: teal;
+    position: sticky;
+    top:0px;
+}
+
+nav a {
+    padding:.5em;
+    display: inline-block;
+    text-decoration: none;
+    color:white;
+}
+nav a:hover {
+    background-color: white;
+    color: teal;
+}
+
+main {
+    padding:1em;
+}
+
+footer {
+    background-color: teal;
+    color:white;
+}
+
+footer .title {
+    padding:.5em;
+    text-align: center;
+}
+
+
+.widget {
+    margin:.5em;
+    padding:.5em;
+    
+}
+main .widget {
+    background-color: teal;
+    color:white;
+    border: 1px solid teal;
+}
+footer .widget {
+    background-color: white;
+    color:teal;
+    border: 1px solid white;
+}
+
+
+.frow {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.fcol {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
