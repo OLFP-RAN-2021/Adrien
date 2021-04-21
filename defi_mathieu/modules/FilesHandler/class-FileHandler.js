@@ -1,5 +1,8 @@
 import { FileList } from "./class-FileList.js";
 
+/**
+ *
+ */
 export class FileHandler {
     static FilesList = [];
     static indexByFileName = [];
@@ -65,16 +68,14 @@ export class FileHandler {
                     "L'objet a déjà été importé : souhaitez vous l'écraser ?";
                 if (
                     rgt.filename == this.filename &&
-                    rgt.lastModified == this.lastModified &&
-                    confirm(mssg)
+                    rgt.lastModified == this.lastModified
                 ) {
+                    if (confirm(mssg)) FileHandler.FilesList.push(this);
+                    else break;                    
                 } else {
-                    return;
+                    FileHandler.FilesList.push(this);
                 }
             }
-
-            //  registre file
-            FileHandler.FilesList.push(this);
         }
     }
 

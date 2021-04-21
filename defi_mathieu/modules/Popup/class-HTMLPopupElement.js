@@ -1,11 +1,9 @@
-
-
 export class HTMLPopupElement extends HTMLElement {
     static list = [];
 
     constructor(id, title = "unamed-popup", containerID = null, push = true) {
-        
-        
+    
+        // create 
         super();
 
         this.id = id;
@@ -40,13 +38,13 @@ export class HTMLPopupElement extends HTMLElement {
      */
     add(elem, id = null) {
         if (elem instanceof HTMLElement) {
-            elem.id = elem.id ?? id;
+            elem.id = id ?? elem.id ?? Math.random()+'';
             this.content.appendChild(elem);
+            console.log(elem.id)
             return elem.id;
         } else {
             let newelem = document.createElement("div");
             newelem.innerHTML = elem;
-            newelem.id = Math.random();
             this.add(newelem);
         }
     }

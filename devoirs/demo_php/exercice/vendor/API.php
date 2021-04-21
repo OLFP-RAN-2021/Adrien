@@ -14,23 +14,22 @@
  *  
  */
 
- // Si url contient la variable page
+// Si url contient la variable page
 if (isset($_GET['page'])) {
 
     // récupréer les pages
     $list = include '../data/pages.php';
-    
+
     // si page non précisée : tout envoyer
     if (empty($_GET['page'])) {
         sendJson($list);
-    }
-    else {
+    } else {
         // parcourir avec une boucle
         foreach ($list as $data) {
 
             // si entrée existe matche avec la requête
             if ($data['url'] == $_GET['page']) {
-                
+
                 // Envoyer la page demandé
                 sendJson($data);
             }
@@ -47,11 +46,10 @@ if (isset($_GET['article'])) {
     // si page non précisée : tout envoyer
     if (empty($_GET['article'])) {
         sendJson($list);
-    }
-    else {
+    } else {
         // parcourir avec une boucle
         foreach ($list as $data) {
-    
+
             // si entrée existe matche avec la requête
             if ($data['url'] == $_GET['article']) {
 
@@ -60,7 +58,6 @@ if (isset($_GET['article'])) {
             }
         }
     }
-    
 }
 
 // Sinon : http error code 404 (not found)
@@ -74,14 +71,14 @@ exit;
  * @param array data : tableau à envoyer
  * @return void 
  */
-function sendJson(array $data) : void
+function sendJson(array $data): void
 {
     // modiefier en-tête http
     header('Content-Type: application/json');
-    
+
     // formater en JSON et afficher
     echo json_encode($data, JSON_FORCE_OBJECT | JSON_PRETTY_PRINT);
-    
+
     // fin de script
     exit;
 }

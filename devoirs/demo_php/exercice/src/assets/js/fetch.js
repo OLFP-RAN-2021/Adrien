@@ -1,5 +1,5 @@
 
-fetch('includes/api.php?page=truc.html')
+fetch('includes/API.php?page=truc.html')
 .then((response)=>{
     if (response.ok) return response.json();
     else {

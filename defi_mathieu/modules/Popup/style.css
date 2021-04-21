@@ -12,28 +12,27 @@
 }
 
 .popup {
-    background-color: #fff;
-    color: #111;
     border-radius: 0.5em;
 }
 
 .popup .titleBar {
+    font-size:1.25em;
     display: flex;
     justify-content: space-between;
-    background-color: darkblue;
+    background-color: gray;
     color: white;
-    border-radius: 0.5em 0.5em 0 0;
+    border-radius: .5em;
 }
 .popup .titleBar button {
     padding: 0.5em;
     display: "block";
     border: "none";
-    border-radius: 0 0.5em 0 0;
+    border-radius: .5em;
 }
 
 .popup .content {
     background-color: #fff;
     color: #111;
     padding: 0.5em;
-    border-radius: 0 0 0.5em 0.5em;
+    border-radius: .5em;
 }
