@@ -1,3 +1,9 @@
+<?php
+
+include_once 'Framework/kernel.php';
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,15 +15,15 @@
     <title>Ma super page</title>
 
     <!-- style -->
-    <link rel="stylesheet" href="assets/css/main.css" type="text/css">
+    <link rel="stylesheet" href="src/assets/css/main.css" type="text/css">
 
     <!-- Facebook OpenGraph -->
-    <meta property="og:title" content="Mon super CV"/>
-    <meta property="og:description" content="Mon super CV"/>
+    <meta property="og:title" content="Mon super CV" />
+    <meta property="og:description" content="Mon super CV" />
     <meta property="og:image" content="CV/assets/medias/see&boat.jpg" />
     <meta property="og:image:type" content="image/jpeg" />
     <meta property="og:image:alt" content="La mer c'est beau..." />
-    
+
     <!-- TwitterCard -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="@monsite">
@@ -51,7 +57,7 @@
 
             <div class="nav-elem" id="login">
                 <a href="users/account.php?login.php">
-                    <img src="asset/user.jpg" alt="default_avatar" width="20" height="20">
+                    <img src="src/asset/user.jpg" alt="default_avatar" width="20" height="20">
                 </a>
             </div>
 
@@ -60,33 +66,33 @@
 
     <div id="core" class="container flex row">
 
-        <aside id="leftaside" class="sidebar">      
+        <aside id="leftaside" class="sidebar">
             <section id="picture" class="widget">
-                <img class="leftAsided" src="assets/medias/crop3_offset.png" alt="" width="100px">
+                <img class="leftAsided" src="src/assets/medias/crop3_offset.png" alt="" width="100px">
             </section>
-           
+
             <section id="About" class="menu-item widget">
-                    <h2>A propos</h2>
-                    <p>
-                        Passionné : J’ai découvert les
-                        systèmes Linux dès 2009. Puis je
-                        me suis intéressé aux langages du
-                        web. J’ai commencé par PHP, MySql
-                        et Javascript, et acquis des
-                        rudiments de C, C++ et Python.
-                    </p>
-                    <p>
-                        Patient : je sais prendre le temps
-                        de bien faire, je sais expliquer mon
-                        travail et développer mes idées.
-                    </p>
-                    <p>
-                        Curieux : J’apprends vite et
-                        m’adapte rapidement à de
-                        nouveaux langages, librairies,
-                        frameworks, outils et méthodes de
-                        travail.
-                    </p>
+                <h2>A propos</h2>
+                <p>
+                    Passionné : J’ai découvert les
+                    systèmes Linux dès 2009. Puis je
+                    me suis intéressé aux langages du
+                    web. J’ai commencé par PHP, MySql
+                    et Javascript, et acquis des
+                    rudiments de C, C++ et Python.
+                </p>
+                <p>
+                    Patient : je sais prendre le temps
+                    de bien faire, je sais expliquer mon
+                    travail et développer mes idées.
+                </p>
+                <p>
+                    Curieux : J’apprends vite et
+                    m’adapte rapidement à de
+                    nouveaux langages, librairies,
+                    frameworks, outils et méthodes de
+                    travail.
+                </p>
             </section>
 
             <section id="Music" class="menu-item widget">
@@ -120,7 +126,7 @@
                             </div>
                             <div class="detail">
                                 PHP7+ (OOP), Composer + Symfony (Doctrine, Back-end Twig), MariaDB / MySQL.
-                            </div> 
+                            </div>
                         </li>
                         <li class="square green">
                             <div class="title">
@@ -161,7 +167,7 @@
                                 Développement du site fastlab-timing.com
                                 Institut Femto-St
                                 Laboratoire : Temps Fréquences (ENSMM)
-                            </div> 
+                            </div>
                         </li>
                         <li class="square red">
                             <div class="date">
@@ -229,7 +235,7 @@
                         </li>
                     </ol>
                 </section>
-            
+
                 <!-- 
                     <section id="foo" class="menu-item"></section> 
                 -->
@@ -252,7 +258,7 @@
             <div>
                 <ul>
                     <li>
-                       <button onclick="popup('popup-formContact')">Formulaire</button>
+                        <button onclick="popup('popup-formContact')">Formulaire</button>
                     </li>
                     <li>
                         <a href="mailto:adrien.boilley@gmail.com">adrien.boilley@gmail.com</a>
@@ -267,11 +273,11 @@
             </div>
 
             <div>
-                <img src="assets/medias/d599c1ed3700b8990c26ca5bbb77ff4a.svg" alt="" width="100" height="100">
-                <img src="assets/medias/79993510bb0baff30c497a6a136f0b1c.svg" alt="" width="100" height="100">
+                <img src="src/assets/medias/d599c1ed3700b8990c26ca5bbb77ff4a.svg" alt="" width="100" height="100">
+                <img src="src/assets/medias/79993510bb0baff30c497a6a136f0b1c.svg" alt="" width="100" height="100">
             </div>
 
-            </div>
+        </div>
     </footer>
 
     <!-- Contient les popup : ceux ci sont cachés par défault -->
@@ -279,12 +285,12 @@
 
         <!-- exemple de popup -->
         <div class="popup-content" id="popup-formContact">
-            
+
             <h3>Contact</h3>
             <hr>
             <div class="flex reverse row h-between">
                 <div>
-                    <form action="includes/API/form.php" class="form-fetch" method="post">                
+                    <form action="includes/API/form.php" class="form-fetch" method="post">
                         <fieldset>
                             <label for="email">You're email</label>
                             <input class="input" type="text" name="email" id="email">
@@ -293,7 +299,7 @@
                                 Email non valide. <br> Format attendu : roberd.bidochon@service.com.
                             </label>
                         </fieldset>
-                        
+
                         <fieldset>
                             <label for="subject">Message object</label>
                             <input class="input" type="text" name="subject" id="subject">
@@ -302,7 +308,7 @@
                                 Objet invalide : au moins 5 caractères alpha-numériques attendus.
                             </label>
                         </fieldset>
-                        
+
                         <fieldset>
                             <label for="content">Message content</label>
                             <textarea class="input" name="content" id="content" cols="30" rows="10"></textarea>
@@ -311,14 +317,14 @@
                                 Contenu invalide : au moins 50 caractères alpha-numériques attendus.
                             </label>
                         </fieldset>
-                        
+
                         <fieldset>
                             <button type="submit">Submit form</button>
                             <button type="reset">Reset form</button>
                         </fieldset>
                     </form>
                 </div>
-            
+
                 <div>
                     <p>
                         Précisez un objet de message.
@@ -336,7 +342,7 @@
         JS 
      -->
     <script type="module">
-        import './assets/js/main.js';
+        import './src/assets/js/main.js';
     </script>
 
 </body>
