@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="triAChariot.js"></script>
+</head>
+<body>
+    
+    <pre id="atrier"></pre>
+    <pre id="trie"></pre>
+    
+    <script defer>
+        let tab = makeRandom(20);
+        document.getElementById('atrier').innerHTML = printtab(tab);
+        let sorted = triAChariot(tab);
+        document.getElementById('trie').innerHTML = printtab(sorted);
+    </script>
+
+</body>
+</html>
