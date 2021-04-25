@@ -4,10 +4,10 @@
 
 
 /**
- * Cette fonction est un tri a bulle. 
+ * Cette fonction est un tri a bulles. 
  * 
  */
-function triabulle(array &$tab)
+function triabulles(array &$tab)
 {
     /**
      * do { ... } while ( cond );
@@ -50,4 +50,4 @@ $tab = [42, 0, 1024, 28, -3.14, 128, 256, 13, 56, 4096, -279];
 // afficher tableau à trie
 echo 'Tableau à trier : ' . "\n<pre>\n" . print_r($tab, 1) . "\n</pre>\n";
 // afficher résultet
-echo "\n</pre>\n" . print_r(triabulle($tab), 1) . "\n</pre>\n";
+echo "\n</pre>\n" . print_r(triabulles($tab), 1) . "\n</pre>\n";

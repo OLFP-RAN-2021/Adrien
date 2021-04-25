@@ -1,4 +1,4 @@
-# Tri à bulle
+# Tri à bulles
 
 Considérons le tableau `$tab` suivant.
 
@@ -6,13 +6,13 @@ Considérons le tableau `$tab` suivant.
 |:---:|:---:|:---:|:---:|:---:|
 | 42 | 0 | 1024 | 28 | 32 |
 
-Nous devons le trier à  l'aide d'un algorithme nommé tri à bulle. 
+Nous devons le trier à  l'aide d'un algorithme nommé tri à bulles. 
 
 ----------------------------------
 
 ## Principe théorique
 
-Pour réaliser un tri à bulle, je dois, pour chaque entrée du tableau, la comparer avec la suivante, et inverser si besoin.
+Pour réaliser un tri à bulles, je dois, pour chaque entrée du tableau, la comparer avec la suivante, et inverser si besoin.
 
 Plus d'infos et une animation sympa sur [Tri à bulles | Wikipédia](https://fr.wikipedia.org/wiki/Tri_%C3%A0_bulles).
 
@@ -103,12 +103,12 @@ En PHP celà nous donne :
 
 ```php 
 /**
- * Cette fonction est un tri a bulle. 
+ * Cette fonction est un tri a bulles. 
  * 
  * @param array $tab : tableau à trier.
  * @return array $tab : le tableau trié.
  */
-function triabulle(array $tab): array
+function triabulles(array $tab): array
 {
     /**
      * do { ... } while ( cond );
