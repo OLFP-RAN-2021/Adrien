@@ -6,6 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Algo de tri</title>
     <script src="triAChariot.js"></script>
+    <style>
+        pre{
+            padding:.5em;
+            background-color: lightgray;
+        }
+    </style>
 </head>
 <body>
     
@@ -15,13 +21,56 @@
     <pre id="atrier"></pre>
     Tableau trié : 
     <pre id="trie"></pre>
-    
+
+    Description logique : 
+
+    <pre>
+        POUR ( iteration = 0 ; iteration < COMPTER(tableau) ; iteration + 1 )
+
+            suivant = iteration + 1
+            
+            SI ( tableau[iteration] > tableau[suivant] )
+                
+                transfert = tableau[suivant]
+                tableau[suivant] = tableau[iteration]
+                tableau[iteration] = transfert
+            
+            FIN_SI
+
+            precedant = iteration - 1
+
+            SI ( tableau[precedant] > tableau[iteration] )
+
+                POUR ( inverse = 0 ; inverse > 0 ; inverse - 1 )
+
+                    precedant = inverse - 1
+
+                    SI ( tableau[precedant] > tableau[inverse] )
+
+                        transfert = tableau[precedant]
+                        tableau[precedant] = tableau[inverse]
+                        tableau[inverse] = transfert
+
+                        CONTINUER_POUR
+
+                    FIN_SI
+                    
+                FIN_POUR
+
+            FIN_SI
+
+        FIN_POUR
+    </pre>
+
     <script defer>
         let tab = makeRandom(20);
         document.getElementById('atrier').innerHTML = printtab(tab);
         let sorted = triAChariot(tab);
         document.getElementById('trie').innerHTML = printtab(sorted);
     </script>
+
+
+
 
 </body>
 </html>

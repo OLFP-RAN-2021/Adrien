@@ -35,10 +35,12 @@ function makeRandom(nbr = 20) {
 function printtab(tab = [])
 {
     let str = '[';
+    let sum = 0;
     for (let i = 0; i<tab.length; i++){
         str = str + ' '+ tab[i] +' ';
+        sum = sum + tab[i];
     }
-    return str + '] ('+tab.length+')';
+    return str + '] (n = '+tab.length+' - Σ(n) = '+sum+' )';
 }
 
 
@@ -81,11 +83,11 @@ function triAChariot(tab = []) {
                     t = tab[c];
                     tab[c] = tab[p];
                     tab[p] = t;
+                    continue;
                     // continuer la boucle
-                } else {
-                    // arreter le recul
-                    break;
-                }
+                } 
+                // arreter le recul
+                break;
             }
         }
     }
