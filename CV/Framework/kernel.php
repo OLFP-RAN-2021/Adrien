@@ -4,15 +4,20 @@
 ini_set('display_errors', '1');
 
 /**
+ * Build Constante from App config.json
+ * 
+ * // penser à créer AppHandler class
+ *      -> doit vérifier intégriter config
+ */
+define('APP', include_once 'App/config/app.php');
+
+/**
  * Include Autoloader
  * Registre namspaces whith folders
  */
-include __DIR__ . '/Autoloader.php';
-Autoloader::register(
-    [
-        '*' => ['Vendor', 'Framework'],
-        'App\\' => 'App/src/includes',
-    ]
+include __DIR__ . '/Autoloader/Autoloader.php';
+Autoloader\Autoloader::register(
+    ['Vendor', 'Framework', APP['autoloader']]
 );
 
 /**

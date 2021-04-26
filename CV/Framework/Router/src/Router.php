@@ -83,8 +83,7 @@ class Router
         $router = new self;
 
         // get config
-        $config = $config ?? include_once '../config/Config.php';
-
+        $config = $config ?? include dirname(__DIR__) . '/config/Config.php';
         foreach ($config as $callable)
             $router->bindCall(
                 $callable['lvl'],
