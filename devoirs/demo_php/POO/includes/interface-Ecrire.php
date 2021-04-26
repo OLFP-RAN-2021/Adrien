@@ -9,7 +9,7 @@
  *
  *  @see https://www.php.net/manual/fr/language.oop5.interfaces.php
  */
-interface ecrire
+interface Ecrire
 {
     public function ecrire(string $mssg): void;
 }

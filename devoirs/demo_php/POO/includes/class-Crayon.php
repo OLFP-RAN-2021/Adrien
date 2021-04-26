@@ -6,13 +6,13 @@
  *  Il implémente une intreface "écrire".
  *  Il utilise le trait "trouer".
  */
-class crayon extends abstractCrayon implements ecrire
+class crayon extends AbstractCrayon implements Ecrire
 {
     /*
      * @use Importer le trait trouer.
      * Ce qui permet au crayon de trouer les feuilles...
      */
-    use trouer;
+    use Trouer;
 
     /**
      * @var string contient la couleur du crayon

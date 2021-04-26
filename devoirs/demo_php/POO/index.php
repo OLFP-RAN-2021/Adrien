@@ -1,29 +1,29 @@
 <?php
 
 // une classe abstraite
-include_once 'includes/class-abstractCrayon.php';
+include_once 'includes/class-AbstractCrayon.php';
 
 // une interface 
-include_once 'includes/interface-ecrire.php';
+include_once 'includes/interface-Ecrire.php';
 
 // un trait
-include_once 'includes/trait-trouer.php';
+include_once 'includes/trait-Trouer.php';
 
 // class crayon
-include_once 'includes/class-crayon.php';
+include_once 'includes/class-Crayon.php';
 
 // class stylo
-include_once 'includes/class-stylo.php';
+include_once 'includes/class-Stylo.php';
 
 // class anonyme
 include_once 'includes/class-anonyme.php';
 
 
 // Je créer mon stylo
-$stylo = new stylo(new $CartoucheEncre('blue'));
+// $stylo = new stylo(new $CartoucheEncre('blue'));
 
 // voir classe : stylo 
-// $stylo = stylo::getSingleton(new $CartoucheEncre('green'));
+$stylo = stylo::getSingleton(new $CartoucheEncre('green'));
 // var_dump(stylo::getSingleton());
 
 // le stylo hérite de la méthode de crayon

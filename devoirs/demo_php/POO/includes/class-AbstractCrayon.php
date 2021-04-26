@@ -6,7 +6,7 @@
  *
  * @see https://www.php.net/manual/fr/language.oop5.abstract.php
  */
-abstract class abstractCrayon
+abstract class AbstractCrayon
 {
     /**
      * Dessiner est une méthode abstraite dont on définira le code plus tard.

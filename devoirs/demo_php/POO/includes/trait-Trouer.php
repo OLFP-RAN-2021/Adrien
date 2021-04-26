@@ -6,7 +6,7 @@
  *
  * @see https://www.php.net/manual/fr/language.oop5.traits.php
  */
-trait trouer
+trait Trouer
 {
     // chaque instance peut faire des trous.
     private int $trous = 0;
