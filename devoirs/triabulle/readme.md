@@ -39,8 +39,7 @@ etc.
 
 on otient la logique suivante :
 
-```LOGIC
-    
+```
     POUR ( entree = 0 ; entree < COMPTER(tableau) ; entree + 1 )
         
         suivante = entree + 1
@@ -50,9 +49,6 @@ on otient la logique suivante :
             transfert = tableau[entree]
             tableau[entree] = tableau[suivante]
             tableau[suivante] = transfert
-
-        FINDESI
-    FINDEPOUR
 ```
 
 ----------------------------------
@@ -73,8 +69,7 @@ On va privilégier une boucle `do {} while()` pour deux raisons :
 - Executant le code au moins une fois, on peut s'assurer si le tableau entrée est déjà trié.
 - En ajoutant un booléen : un peu executer la boucle autant de fois que nécéssaire. 
 
-```LOGIC
-    
+```
     FAIRE 
 
         changement = faux
@@ -90,8 +85,6 @@ On va privilégier une boucle `do {} while()` pour deux raisons :
                 tableau[suivante] = transfert
                 changement = vrai
 
-            FINDESI
-        FINDEPOUR
     TANT QUE ( changement === vrai )
 ```
 
@@ -141,4 +134,27 @@ function triabulles(array $tab): array
     // retourner le tableau trié.
     return $tab;
 }
+```
+
+
+
+
+```
+
+partitionner(tableau T, entier premier, entier dernier, entier pivot)
+    échanger T[pivot] et T[dernier]  // échange le pivot avec le dernier du tableau , le pivot devient le dernier du tableau
+    j := premier
+    pour i de premier à dernier - 1 // la boucle se termine quand i = (dernier-1).
+        si T[i] <= T[dernier] alors
+            échanger T[i] et T[j]
+            j := j + 1
+    échanger T[dernier] et T[j]
+    renvoyer j
+
+tri_rapide(tableau T, entier premier, entier dernier)
+    si premier < dernier alors
+        pivot := choix_pivot(T, premier, dernier)
+        pivot := partitionner(T, premier, dernier, pivot)
+        tri_rapide(T, premier, pivot-1)
+        tri_rapide(T, pivot+1, dernier)
 ```
