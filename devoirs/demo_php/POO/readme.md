@@ -33,7 +33,7 @@ Tout ça pour faire un `index.php` :
 ```
 Qui affiche en vert :
 
-```php
+```
     Voici un message !
     Voici le deuxième message !
 ```
