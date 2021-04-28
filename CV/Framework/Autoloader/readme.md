@@ -1,4 +1,4 @@
 #
 
 ## todo 
-- développer le cache
+- fixer cache (classes appelées recusrsivement non cachées)
