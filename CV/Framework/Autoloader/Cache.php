@@ -1,9 +1,17 @@
 <?php
 
-namespace Autoloader;
+namespace Framework\Autoloader;
 
+
+
+/**
+ * Trait Cache
+ * 
+ */
 trait Cache
 {
+
+
     /**
      * Cache Data MUST be stored like :
      * \NAMSPACE\ClassName::/path/to/file.php
@@ -18,18 +26,29 @@ trait Cache
      * @param string $class
      * @return bool
      */
-    static function inCache(string $class)
+    static function loadFromCache(string $class)
     {
-        foreach (file(self::$CACHE) as $row)
-            if (strpos($row, $class, 0) !== false) {
-                include_once explode(self::$separator, $row)[1];
-                return true;
+        if (file_exists(self::$CACHE)) {
+            foreach (file(self::$CACHE) as $row) {
+                $classname = explode(self::$separator, $row)[0];
+                if ($classname == $class) {
+                    $file = explode(self::$separator, $row)[1];
+                    $file = str_replace("\n", '', $file);
+                    if (include_once $file) {
+                        // var_dump($file);
+                        // echo '<br>';
+                        // var_dump($class);
+                        // echo '<br>';
+                        return true;
+                    }
+                }
             }
+        }
         return false;
     }
 
     /**
-     * Clean empty paths.
+     * Clean empty path.
      * Use it in dev mod.
      * 
      * @param void

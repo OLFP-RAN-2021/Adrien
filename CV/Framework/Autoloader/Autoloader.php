@@ -1,14 +1,12 @@
 <?php
 
-namespace Autoloader;
-
-use Exception;
+namespace Framework\Autoloader;
 
 // get cache
 include_once __DIR__ . '/Cache.php';
 
 /**
- *  class autoloader : 
+ *  Class autoloader.
  *  
  */
 class Autoloader
@@ -26,76 +24,97 @@ class Autoloader
     /**
      * Registre from array 
      * 
-     * @param $array 
-     *              [
-     *                  ' namespace ' => ' folder/ ',
-     *              ]
+     * @param array $array 
+     *                  [
+     *                      ' namespace ' => ' folder/ ',
+     *                  ]
+     * @return 
      */
-    public static function register(array $config =  ['App\\' => 'src/']): bool
+    public static function register(): bool
     {
-        self::$config = $config;
         return spl_autoload_register([__CLASS__, 'loader']);
     }
 
     /**
-     * loader : colled by register above. And try to load config file if exists
-     * @param string classname
-     * @return void
+     * get a config
+     */
+    static function getConfig(array $config =  ['App\\' => 'src/'])
+    {
+        self::$config = $config;
+    }
+
+    /**
+     * Loader : colled by register above. And try to load config file if exists.
+     * 
+     * @param string $classname Nom de la classe.
+     * @return void 
      */
     public static function loader($class): void
     {
-        if (self::inCache($class)) return;
-        else {
+        if (!self::loadFromCache($class)) {
             $path = self::globalBrowser($class);
-            // var_dump($path);
-            // if ($path != null)
-            // self::addCache($class, $path);
+            if ($path != '') {
+                self::addCache($class, $path);
+            }
         }
     }
 
     /**
      * 
      */
-    static function globalBrowser($class): string
+    static function globalBrowser(string $class, string $s = DIRECTORY_SEPARATOR): string
     {
-        $s = DIRECTORY_SEPARATOR;
-        $classname = str_replace(['\\'], [$s], $class);
+        $classname = end(explode('\\', $class));
+        $namespaceRoot =  explode('\\', $class)[0];
 
-        // explode
-        foreach (self::$config as $folder) {
-            $path = $folder . $s . $classname . '.php';
+        // array(3) { ["Vendor"]=> string(7) "Vendor/" ["Framework"]=> string(10) "Framework/" ["App\"]=> string(16) "App/src/includes" } 
+        // var_dump(self::$config);
 
-            var_dump($path);
-            if (file_exists($path)) {
-                include_once $path;
-                break;
-            } else {
-                $classname = end(explode('\\', $class));
-                if (is_string($folder))
-                    $path = self::recursiveBrowser($folder, $classname);
-            }
+        if (in_array($namespaceRoot, array_keys(self::$config)))
+            $folder = self::$config[$namespaceRoot];
+        else {
+            $folder = self::$config['*'];
         }
-        return $path;
+
+        // escape path to working on current OS
+        $folder = str_replace(['\\', '/'], $s, $folder);
+
+        // include path logicly PSR-4 standard  compatible
+        $classpath = str_replace('\\', $s, $class);
+        $path = $folder . $s . $classpath . '.php';
+        if (file_exists($path)) {
+            include_once $path;
+            return $path;
+        }
+        // include other bullshit
+        else {
+            return self::recursiveBrowser($folder, $class, $s);
+        }
     }
 
     /**
+     * Parcourir les fichiers récursivement.
+     * 
      * @param string $folder
      * @param string $pattern
      */
-    static function recursiveBrowser(string $folder, string $pattern): string
+    static function recursiveBrowser(string $folder, string $class, string $s = DIRECTORY_SEPARATOR): string
     {
-        $path = '';
+        $classname = end(explode('\\', $class));
+        // $path = '';
         foreach (glob($folder . '/*') as $file) {
-            if (is_file($file) && strpos($file, $pattern) !== false) {
-                include_once $file;
-                $path = $file;
-            } else if (is_dir($file)) {
-                $path = self::recursiveBrowser($file, $pattern);
-            } else {
-                // A garder ? 
-                // throw new Exception('Links not supported yet.');
+            if (is_dir($file)) {
+                $path = self::recursiveBrowser($file, $class, $s);
+            }
+            if (is_file($file) && basename($file) == $classname . '.php') {
+
+                if (include_once $file) {
+                    // var_dump($class);
+                    // echo '<br>';
+                    $path = $file;
+                }
             }
         }
-        return $path;
+        return ($path ?? '');
     }
 }
