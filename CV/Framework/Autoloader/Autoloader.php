@@ -51,18 +51,14 @@ class Autoloader
      */
     public static function loader($class): void
     {
-        if (!self::loadFromCache($class)) {
-            $path = self::globalBrowser($class);
-            if ($path != '') {
-                self::addCache($class, $path);
-            }
-        }
+        if (!self::loadFromCache($class))
+            self::globalBrowser($class);
     }
 
     /**
      * 
      */
-    static function globalBrowser(string $class, string $s = DIRECTORY_SEPARATOR): string
+    static function globalBrowser(string $class, string $s = DIRECTORY_SEPARATOR)
     {
         $classname = end(explode('\\', $class));
         $namespaceRoot =  explode('\\', $class)[0];
@@ -84,11 +80,11 @@ class Autoloader
         $path = $folder . $s . $classpath . '.php';
         if (file_exists($path)) {
             include_once $path;
-            return $path;
+            self::addCache($class, $file);
         }
         // include other bullshit
         else {
-            return self::recursiveBrowser($folder, $class, $s);
+            self::recursiveBrowser($folder, $class, $s);
         }
     }
 
@@ -98,10 +94,10 @@ class Autoloader
      * @param string $folder
      * @param string $pattern
      */
-    static function recursiveBrowser(string $folder, string $class, string $s = DIRECTORY_SEPARATOR): string
+    static function recursiveBrowser(string $folder, string $class, string $s = DIRECTORY_SEPARATOR)
     {
         $classname = end(explode('\\', $class));
-        // $path = '';
+        $path = '';
         foreach (glob($folder . '/*') as $file) {
             if (is_dir($file)) {
                 $path = self::recursiveBrowser($file, $class, $s);
@@ -109,12 +105,9 @@ class Autoloader
             if (is_file($file) && basename($file) == $classname . '.php') {
 
                 if (include_once $file) {
-                    // var_dump($class);
-                    // echo '<br>';
-                    $path = $file;
+                    self::addCache($class, $file);
                 }
             }
         }
-        return ($path ?? '');
     }
 }

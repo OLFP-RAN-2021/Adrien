@@ -28,23 +28,27 @@ trait Cache
      */
     static function loadFromCache(string $class)
     {
+        $cache = self::readCache($class);
+        if ($cache != null && include_once $cache)
+            return true;
+        return false;
+    }
+
+    /**
+     * Check if class is registred.
+     */
+    static function readCache(string $class)
+    {
         if (file_exists(self::$CACHE)) {
             foreach (file(self::$CACHE) as $row) {
-                $classname = explode(self::$separator, $row)[0];
-                if ($classname == $class) {
-                    $file = explode(self::$separator, $row)[1];
-                    $file = str_replace("\n", '', $file);
-                    if (include_once $file) {
-                        // var_dump($file);
-                        // echo '<br>';
-                        // var_dump($class);
-                        // echo '<br>';
-                        return true;
-                    }
+                $p = explode(self::$separator, $row);
+                if ($p[0] == $class) {
+                    $file =  str_replace("\n", '', explode(self::$separator, $p[1]));
+                    // $file = $file);
+                    return $file[0];
                 }
             }
         }
-        return false;
     }
 
     /**
