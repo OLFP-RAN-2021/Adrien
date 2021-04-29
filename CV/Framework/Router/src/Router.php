@@ -1,6 +1,6 @@
 <?php
 
-namespace Router;
+namespace Framework\Router;
 
 
 /**
@@ -35,9 +35,11 @@ class Router
         define('RELPATH', str_replace($_SERVER['DOCUMENT_ROOT'], '', ABSPATH));
     }
 
-
     /**
-     * Associer une callable à une objet URL
+     * Associer une callable à une objet URL.
+     * 
+     * @param int $lvl : 0 = default, 1, 2, 3... 
+     * @param callable $callable 
      */
     function bindCall(int $lvl = null, callable $callable = null)
     {
@@ -50,7 +52,10 @@ class Router
     }
 
     /**
+     * Start routing
      * 
+     * @param void
+     * @return void
      */
     function route()
     {

@@ -1,17 +1,40 @@
 <?php
 
+namespace Framework;
+
 class DevMod
 {
+
     /**
-     * Class DevMod : 
+     * @var $devmod : singleton DevMod 
      */
-    public function __construct(bool $mod = false)
+    static $devmod = null;
+
+    /**
+     * @static : set/get the singleton
+     * 
+     * @param ...$params : voir DevMod::__construct();
+     * @return selfMyNamespace
+     */
+    static function singleton(...$params)
     {
-        define('DEV', $mod);
-        if (DEV === true) {
-        }
+        if (null == self::$devmod)
+            self::$devmod = new self(...$params);
+        return self::$devmod;
     }
 
+    /**
+     *  
+     */
+    public function __construct()
+    {
+        ini_set('display_errors', '1');
+        $this->debbuger = new Debbuger();
+    }
+
+    /**
+     * 
+     */
     public function __destruct()
     {
     }
