@@ -1,5 +1,7 @@
 <?php
 
+namespace Framework;
+
 define('DEBBUGER_ERROR', 1);
 define('DEBBUGER_WARNING', 2);
 define('DEBBUGER_NOTICE', 3);
@@ -7,7 +9,7 @@ define('DEBBUGER_NOTICE', 3);
 /**
  * 
  */
-class Debbuguer
+class Debbuger
 {
     static $list = [];
     static $phperrors = [];
@@ -20,12 +22,12 @@ class Debbuguer
         $backtrace = debug_backtrace();
     }
 
-    static function getTPDOException(PDOException $exception)
+    static function getTPDOException(\PDOException $exception)
     {
         $backtrace = debug_backtrace();
     }
 
-    static function getTException(Exception $exception)
+    static function getTException(\Exception $exception)
     {
         $backtrace = debug_backtrace();
     }
