@@ -9,21 +9,22 @@ include_once 'includes/interface-Ecrire.php';
 // un trait
 include_once 'includes/trait-Trouer.php';
 
-// class crayon
+// une class crayon
 include_once 'includes/class-Crayon.php';
 
-// class stylo
+// une class stylo
 include_once 'includes/class-Stylo.php';
 
-// class anonyme
+// une class anonyme
 include_once 'includes/class-anonyme.php';
 
 
 // Je créer mon stylo
-// $stylo = new stylo(new $CartoucheEncre('blue'));
+$stylo = new stylo(new $CartoucheEncre('green'));
+
 
 // voir classe : stylo 
-$stylo = stylo::getSingleton(new $CartoucheEncre('green'));
+// $stylo = stylo::getSingleton(new $CartoucheEncre('green'));
 // var_dump(stylo::getSingleton());
 
 // le stylo hérite de la méthode de crayon
@@ -34,8 +35,7 @@ $stylo = stylo::getSingleton(new $CartoucheEncre('green'));
 // var_dump($stylo);
 // echo '<br>';
 
-$stylo
-    ->rediger('Voici un message !')
+$stylo->rediger('Voici un message !')
     ->rediger('Voici le deuxième message !');
 
 // affiche : int(2)
