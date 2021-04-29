@@ -68,38 +68,49 @@ class Autoloader
      * Browse files to found PSR-4 compatible PHP files.
      * 
      * @param string $class Class name sto load.
-     * @param string $s [DIRECTORY_SEPARATOR] 
      * @return void 
      */
-    static function globalBrowser(string $class, string $s = DIRECTORY_SEPARATOR)
+    static function globalBrowser(string $class)
     {
+        $s = DIRECTORY_SEPARATOR;
+
+        // get namespace root
         $namespaceRoot =  explode('\\', $class)[0];
-        $classpath = str_replace('\\', $s, $class);
 
-        // array(3) { ["Vendor"]=> string(7) "Vendor/" ["Framework"]=> string(10) "Framework/" ["App\"]=> string(16) "App/src/includes" } 
-        // var_dump(self::$config);
+        // format : MyNamspace\folder\class
+        // to : folder/class.php 
+        $replace = ['\\', $namespaceRoot . $s];
+        $with = [$s, ''];
+        $classpath = str_replace($replace, $with, $class);
 
+        // Get config : 
         if (array_key_exists($namespaceRoot, self::$config)) {
             $folder = self::$config[$namespaceRoot];
         } else {
             $folder = self::$config['*'];
         }
 
-        // escape path to working on current OS
         $folder = str_replace(['\\', '/'], $s, $folder);
 
-        // build path
         $path = $folder . $s . $classpath . '.php';
 
         // Include path logicly PSR-4 standard  compatible.
         // And prefer namespaces matching folders.
         if (file_exists($path)) {
             include_once $path;
-            self::addCache($class, $file);
+            self::addCache($class, $path);
         }
         // include other bullshits
         else {
-            self::recursiveBrowser($folder, $class, $s);
+            // check if wa can save some loops.
+            if (file_exists($folder . $s . $namespaceRoot))
+                $folder = $folder . $s . $namespaceRoot;
+            if (file_exists($folder . $s . strtolower($namespaceRoot)))
+                $folder = $folder . $s . strtolower($namespaceRoot);
+            if (file_exists($folder . $s . 'src'))
+                $folder = $folder . $s . 'src';
+
+            self::recursiveBrowser($folder, $class);
         }
     }
 
@@ -107,15 +118,16 @@ class Autoloader
      * Parcourir les fichiers récursivement.
      * 
      * @param string $folder
-     * @param string $pattern
+     * @param string $class
+     * @return 
      */
-    static function recursiveBrowser(string $folder, string $class, string $s = DIRECTORY_SEPARATOR)
+    static function recursiveBrowser(string $folder, string $class)
     {
         $classname = end(explode('\\', $class));
         $path = '';
         foreach (glob($folder . '/*') as $file) {
             if (is_dir($file)) {
-                $path = self::recursiveBrowser($file, $class, $s);
+                $path = self::recursiveBrowser($file, $class);
             }
             if (is_file($file) && basename($file) == $classname . '.php') {
 

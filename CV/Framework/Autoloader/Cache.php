@@ -98,13 +98,14 @@ trait Cache
     static function cleanCache(): void
     {
         $append = null;
-        foreach (file(self::$CACHE) as $row) {
-            $p = self::unformat($row);
-            if (file_exists($p[1])) {
-                file_put_contents(self::$CACHE, $row, $append);
-                $append = FILE_APPEND;
+        if (file_exists(self::$CACHE))
+            foreach (file(self::$CACHE) as $row) {
+                $p = self::unformat($row);
+                if (file_exists($p[1])) {
+                    file_put_contents(self::$CACHE, $row, $append);
+                    $append = FILE_APPEND;
+                }
             }
-        }
     }
 
     /**
