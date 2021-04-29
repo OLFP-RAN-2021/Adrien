@@ -4,8 +4,8 @@ return [
     "description" => "Ma suoer App !",
     "owner" => "Boilley Adrien",
     "licence" => "MIT Licence",
-    "namespace" => "App\\",
-    "autoloader" => ["App/src/includes"],
+    "namespace" => "App",
+    "autoloader" => "App/src/includes",
     "router" => [
         "controllers" => "App\\controllers\\",
         "default" => [

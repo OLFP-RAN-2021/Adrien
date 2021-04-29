@@ -1,24 +1,49 @@
 <?php
+
 namespace App\controllers;
 
-use stdClass;
-use Twig\TwigFunction;
+use App\models\Page as ModelsPage;
 
 // use app\http\Request;
 // use app\http\Response;
 
 class Page
 {
-    function __construct()
+    /**
+     * 
+     */
+    function __construct(...$params)
     {
-        var_dump('object Page built');
-        $loader = new \Twig\Loader\ArrayLoader([
-            'index' => 'Hello {{ name }}!',
-        ]);
+        var_dump(array('built'));
 
-        $twig = new \Twig\Environment($loader);
-        echo $twig->render('index', ['name' => 'Adrien']);
-        
+        // $PAGE = new ModelsPage();
+
+        // var_dump('Controllers object Page built');
+
+
     }
 
+    /**
+     * 
+     * 
+     */
+    function list()
+    {
+    }
+
+    /**
+     * 
+     */
+    function read(...$params)
+    {
+        var_dump(array('read'));
+        var_dump($params);
+    }
+
+    /**
+     * 
+     */
+    function print(...$params)
+    {
+    }
 }

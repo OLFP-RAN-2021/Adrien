@@ -17,7 +17,7 @@ class Page extends PageEntity
     /**
      * 
      */
-    function get()
+    function gettitle(string $title)
     {
     }
 
@@ -47,6 +47,16 @@ class Page extends PageEntity
      */
     function __toString()
     {
+
+
+        $loader = new \Twig\Loader\FilesystemLoader('App/src/includes/views/twig');
+        $twig = new \Twig\Environment($loader, [
+            'cache' => 'CV/App/src/includes/views/twig/cache',
+        ]);
+
+        echo $twig->render('index.html', ['name' => 'Fabien']);
+
+
         $loader = new \Twig\Loader\ArrayLoader([
             'index' => 'Hello {{ name }}!',
         ]);
