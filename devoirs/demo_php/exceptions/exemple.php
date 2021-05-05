@@ -14,7 +14,8 @@ class MathException extends LogicException
      */
     function __toString(): string
     {
-        $error = end($this->getTrace());
+        $error = $this->getTrace();
+        $error = end($error);
 
         $string = $this->getCode() . ' : ' . $this->getMessage() . ' ';
         return $string . ' on file  <b>' . $error['file'] . '</b> on line <b>' . $error['line'] . "</b>.<br>\n";
@@ -64,6 +65,8 @@ function diviser($a, $b): float
  */
 try {
     echo diviser(4, 0) . "\n";
+} catch (MathException $error) {
+    echo $error;
 } catch (Exception $error) {
     echo $error;
 }
