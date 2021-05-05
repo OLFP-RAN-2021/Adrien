@@ -2,19 +2,18 @@
 
 ## Dilème : comment rapporter une erreur ?
 
-Il existe déjà des fonctions comme `trigger_error()`, mais elles sont **_trop limitées_** pour des architectures complexes !
-
 Dans le cas de la POO : et suivant les principes [SOLID](https://fr.wikipedia.org/wiki/SOLID_(informatique)) : chaque composant du programme devra fonctionner indépendament des autres.
 
-Il faut alors mettre en place un système de repoort d'erreur :
+Il faut alors mettre en place un système de repport d'erreur :
 
 -   Écrit en **Orienté Objet**,
 -   **Personnalisable**,
 -   Capable d'intégrer des **erreurs inaccessibles** à la compilation ou à l'execution de PHP.
-    -   Sans nécéssairement stopper l'exécution du programme.
+    -   **Sans stopper** l'exécution du programme.
     -   Exemple : une erreur de connexion à une base de donnée, elle même étant souvant sur un autre serveur !
--   Retourne **la pile d'appel**.
--   
+-   Et retourne **la pile d'appel**
+
+On peut ainsi, soit renvoyer les erreurs vers un debbuger, soit les journaliser plus facilement.
 
 # L'exception
 
