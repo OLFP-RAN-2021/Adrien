@@ -1,0 +1,24 @@
+<?php
+
+namespace Framework\Router;
+
+/**
+ * This class give bind methods to bind 
+ */
+abstract class RouterCallable
+{
+
+    /**
+     * Function to add comportement to Router.
+     * 
+     * @param int 
+     * @param string 
+     * @param callable 
+     * @param array
+     * @return void 
+     */
+    final function bind(int $lvl, string $key, callable $callable, array $args = []): void
+    {
+        Router::getInstance()->bindCall($lvl, $key, $callable, $args);
+    }
+}
