@@ -14,13 +14,10 @@ class Page
      */
     function __construct(...$params)
     {
-        var_dump(array('built'));
-
+        // var_dump(array('built'));
+        throw new \Framework\Exception("La page a été construite.", ['php' => 'http://php.net'], "Page construite");
         // $PAGE = new ModelsPage();
-
         // var_dump('Controllers object Page built');
-
-
     }
 
     /**
