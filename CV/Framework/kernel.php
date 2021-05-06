@@ -2,6 +2,7 @@
 
 namespace Framework;
 
+use Exception;
 use Framework\Autoloader\Autoloader;
 use Framework\DevMod;
 use Framework\Router\Router;
@@ -28,20 +29,26 @@ define('PATHINFO', ($_SERVER['PATH_INFO'] ?? '/'));
  */
 define('APP', include_once 'App/config/app.php');
 
-/**
- * Include Autoloader PSR-4
- */
-include __DIR__ . '/Autoloader/Autoloader.php';
-Autoloader::default(APP['namespace'], APP['autoloader']);
+try {
 
-/**
- * Initialize Routing
- */
-$router = Router::getInstance();
-$router->import(__DIR__ . '/Router/RouterDefault.php');
-$router->route();
+    /**
+     * Include Autoloader PSR-4
+     */
+    include __DIR__ . '/Autoloader/Autoloader.php';
+    Autoloader::default(APP['namespace'], APP['autoloader']);
 
-// Router::importBehaviour('');
+    /**
+     * Initialize Routing
+     */
+    $router = Router::getInstance();
+    $router->import(__DIR__ . '/Router/RouterDefault.php');
+    $router->route();
 
-// if (DEV === true) 
-// DevMod::singleton();
+    // Router::importBehaviour('');
+
+    // if (DEV === true) 
+    // DevMod::singleton();
+
+} catch (\Exception $error) {
+    echo $error;
+}
