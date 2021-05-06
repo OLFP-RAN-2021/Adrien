@@ -46,20 +46,14 @@ class Router
 
 
     /**
-     * Build a Router.
      * 
-     * Import behaviour
-     * 
-     * Execute routing
-     *  
-     * @param void
      */
     private function __construct()
     {
     }
 
     /**
-     * 
+     * Import behaviour class from a file.
      * 
      * @param string|null 
      */
@@ -68,20 +62,21 @@ class Router
         if (null != $fileToGet && file_exists($fileToGet)) {
 
             $class = include $fileToGet;
-            if (null !== ($reflection = new ReflectionClass($class))) {
-                if (false !== ($parent = $reflection->getParentClass())) {
 
-                    if ('Framework\Router\RouterCallable' == $parent->name) {
-                        $this->behaviour = $class;
-                    };
-                } else {
-                    throw new LogicException("The behavior class require to extends \Framework\Router\RouterCallable");
-                }
-            } else {
-                throw new LogicException("Router require a behavior class.");
-            }
+            // if (null !== ($reflection = new ReflectionClass($class))) {
+            //     if (false !== ($parent = $reflection->getParentClass())) {
+
+            //         if ('Framework\Router\RouterCallable' == $parent->name) {
+            //             // $this->behaviour = $class;
+            //         };
+            //     } else {
+            //         throw new LogicException("The behavior class require to extends \Framework\Router\RouterCallable");
+            //     }
+            // } else {
+            //     throw new LogicException("Router require a behaviour class.");
+            // }
         } else {
-            throw new LogicException("Router require a a valid file.");
+            throw new LogicException("Router require a valid behaviour file. See Framework/Router/readme.md to know more.");
         }
     }
 
@@ -105,48 +100,28 @@ class Router
     /**
      * Start routing.
      * 
-     * @param void
+     * @param Url 
      * @return void
      */
-    function route()
+    function route(&$url = null, &$hineritence = null)
     {
-        $url = new Url(PATHINFO);
-        // var_dump($url);
+        if (null === $url) {
+            $url = new Url(PATHINFO);
+        }
+        foreach ($this->callStack[$url->key()] as $registredCallable) {
 
-        foreach ($url as $key => $elemt) {
-            $herited = null;
+            $callable = $registredCallable[0];
+            $args = $registredCallable[1];
 
-            var_dump($url);
-            // var_dump($key);
-
-            foreach ($this->callStack[$key] as $tagname => $registredCallable) {
-                $callable = $registredCallable[0];
-                $args = $registredCallable[1];
-                $herited =  $callable($url, $herited, ...$args);
+            $hineritence =  $callable($url, $hineritence, ...$args);
+            if (null != $hineritence) {
+                break;
             }
         }
 
-        // if (!empty($urlStack)) {
-        //     $i = 0;
-        //     $herited = null;
-        //     foreach ($url as $pathElem) {
-
-        //         if (isset($this->callStack[$i])) {
-        //             foreach ($this->callStack[$i] as $registredCallable) {
-
-        //                 $callable = $registredCallable[0];
-        //                 $args = $registredCallable[1];
-
-        //                 array_unshift($urlStack);
-        //                 $herited =  $callable($urlStack, $pathElem, $herited, ...$args);
-        //             }
-        //             $i++;
-        //         }
-        //     }
-        // } else {
-        //     $callable = $this->callStack[0][0];
-        //     $args = $this->callStack[0][1];
-        //     $callable($urlStack, null, null, ...$args);
-        // }
+        if (null != $hineritence) {
+            $url->next();
+            $this->route($url, $hineritence);
+        }
     }
 }
