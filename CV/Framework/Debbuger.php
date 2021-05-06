@@ -11,25 +11,27 @@ define('DEBBUGER_NOTICE', 3);
  */
 class Debbuger
 {
-    static $list = [];
+    static $Exceptions = [];
     static $phperrors = [];
 
     /**
      * get thrown;
      */
-    static function getTthrown($exception)
+    static function getTExceptions(\Exception $exception)
     {
-        $backtrace = debug_backtrace();
+        self::$Exceptions[] = $exception;
     }
 
-    static function getTPDOException(\PDOException $exception)
+    /**
+     * 
+     */
+    static function getErrors()
     {
-        $backtrace = debug_backtrace();
-    }
-
-    static function getTException(\Exception $exception)
-    {
-        $backtrace = debug_backtrace();
+        // get php errors
+        while (($error = error_get_last()) != null) {
+            self::$phperrors[] = $error;
+            error_clear_last();
+        }
     }
 
     /**
@@ -37,12 +39,6 @@ class Debbuger
      */
     static function printDebbug()
     {
-        // get php errors
-        while (($error = error_get_last()) != null) {
-            self::$phperrors[] = $error;
-            error_clear_last();
-        }
-
         // If STDIN
         if (STDIN != null) {
             self::printConsoleDebbug();
