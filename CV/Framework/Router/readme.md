@@ -1,5 +1,37 @@
 # 
 
+## How its work ? 
+
+- Url is splited and will browsed in url loop.
+    - Each one would be binded to a callstack level.
+    - **IF** callable return null, other of level will be tested to end of stack.
+        - else stack is closed and url loop continue.
+    - **IF** level is closed without hinertience : url loop is closed too.
+        - else url loop continue.
+
+### Logic model :
+```
+    url -> rewind()
+
+    FAIRE
+        hineritence = null
+
+        BROWSE stack[ key ] AS callable        
+            hineritence = callable ( url, hineritence, ...args )
+
+            IF hineritence == null 
+                CONTINUE
+            ELSE
+                BREAK
+        
+        IF hineritence != null 
+            CONTINUE
+        ELSE
+            BREAK
+    
+    TANT QUE url -> suivant()
+
+```
 
 ## Customize behaviour
 
