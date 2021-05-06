@@ -7,7 +7,6 @@ namespace Framework\Router;
  */
 abstract class RouterCallable
 {
-
     /**
      * Function to add comportement to Router.
      * 

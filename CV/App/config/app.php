@@ -11,7 +11,8 @@ return [
         "default" => [
             "call" => "App\\controllers\\Page",
             "args" => ["home.html"]
-        ]
+        ],
+        "behaviur" => ""
     ],
 
 

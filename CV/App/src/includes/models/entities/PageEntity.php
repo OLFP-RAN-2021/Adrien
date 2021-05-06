@@ -6,7 +6,7 @@ namespace App\models\entities;
  * [ 
  *      default(mixed), 
  *      
- *      'TYPE'(string), 
+ *      'SQL_TYPE'(string), 
  *      
  *      max(int),
  *      
@@ -27,12 +27,13 @@ namespace App\models\entities;
  */
 class PageEntity
 {
-    public $ID =               [0,                 'INTEGER',    16,     true,  true];
-    public $FGID =             [0,                 'INTEGER',    16,     'registre_urls.id',  true, []];
-    public $title =            ['default',         'VARCHAR',    150];
-    public $owner_id =         [0,                 'INTEGER',    16];
+    public $ID =               [0,                 'INTEGER',   16,     true,                  true];
+    public $FGID =             [0,                 'INTEGER',   16,     'registre_urls.id',    true];
+    public $title =            ['default',         'VARCHAR',   150];
+    public $owner_id =         [0,                 'INTEGER',   16];
     public $publication =      [null,              'DATETIME'];
     public $edition =          [null,              'DATETIME'];
-    public $description =      ['default',         'TEXT',  500];
+    public $description =      ['default',         'TEXT',      500];
+    public $contentType =      ['SELF',            'VARCHAR',   150];
     public $content =          ['',                'TEXT'];
 }
