@@ -12,130 +12,95 @@ trait Cache
 {
 
     /**
-     * @var $CACHE Data MUST be stored like
-     * \NAMSPACE\ClassName::/path/to/file.php
+     * @var $file
      */
-    static $CACHE = __DIR__ . '/cache/classlist.txt';
+    static string $cacheFile = __DIR__ . '/cache/classlist.php';
 
     /**
-     * @var $separator
+     * @var array class $list
      */
-    static $separator = '::';
+    static array $listClass = [];
 
     /**
-     * Format data to string to store in cache file.
+     * Add class and path to cache list.
      * 
-     * @param string $class
-     * 
+     * @param string $classname
      * @param string $filename
-     * 
-     * @return string
-     */
-    static function format(string $class, string $filename): string
-    {
-        $filename = str_replace('/', DIRECTORY_SEPARATOR, $filename);
-        return $class . self::$separator . $filename . "\n";
-    }
-
-    /**
-     * Read a cache row.
-     * 
-     * @param string $row
-     * 
-     * @return array 
-     */
-    static function unformat(string $filrow): array
-    {
-        return explode(self::$separator, str_replace("\n", "", $filrow));
-    }
-
-
-    /**
-     * Load unique class.
-     * 
-     * @param string $class
-     * 
      * @return bool
      */
-    static function loadFromCache(string $class): bool
+    static function addCache(string $classname, string $filename): bool
     {
-        $cache = self::readCache($class);
-        if ('' !== $cache && include_once $cache)
-            // echo 'autoloader : from cache.<br>';
-            return true;
+        if (file_exists($filename)) {
+            self::$listClass[$classname] = $filename;
+            if (self::writeCache()) {
+                return true;
+            }
+        }
         return false;
     }
 
     /**
-     * Check if class is registred. Return a string, empty one if not found.
-     * 
-     * @param string $class
-     * 
-     * @return string 
-     */
-    static function readCache(string $class): string
-    {
-        if (file_exists(self::$CACHE)) {
-            foreach (file(self::$CACHE) as $row) {
-                $p = self::unformat($row);
-                if ($p[0] == $class) {
-                    // var_dump($p[1]);
-                    return $p[1];
-                }
-            }
-        }
-        return '';
-    }
-
-    /**
      * Clean empty path.
-     * Use it in dev mod (to don't overload running)
      * 
      * @param void
-     * 
      * @return void
      */
-    static function cleanCache(): void
+    static function cleanCache(): bool
     {
-        $append = null;
-        if (file_exists(self::$CACHE))
-            foreach (file(self::$CACHE) as $row) {
-                $p = self::unformat($row);
-                if (file_exists($p[1])) {
-                    file_put_contents(self::$CACHE, $row, $append);
-                    $append = FILE_APPEND;
-                }
+        foreach (self::$listClass as $namespace => $path) {
+            if (!file_exists($path)) {
+                unset(self::$listClass[$namespace]);
             }
+        }
+        return self::writeCache();
     }
 
     /**
      * Load cached file.
      * 
      * @param void
-     * 
      * @return void
      */
     static function loadCache(): void
     {
-        if (file_exists(self::$CACHE))
-            foreach (file(self::$CACHE) as $row) {
-                $p = self::unformat($row);
-                include_once $p[1];
+        if (self::readCache()) {
+            foreach (include self::$cacheFile as $path) {
+                include_once $path;
             }
+        }
     }
 
     /**
-     * Add class and path to cache file.
+     * Read cache from file.
      * 
-     * @param string $classname
+     * @param void
+     * @return void
+     * @throw Exception If cache not found  
+     */
+    static function readCache(): bool
+    {
+        if (file_exists(self::$cacheFile)) {
+            self::$listClass = include self::$cacheFile;
+            return true;
+        } else {
+            throw new \Exception('Autoloader has no cache file.');
+            return false;
+        }
+    }
+
+    /**
+     * Ecrire le fichier cache.
      * 
-     * @param string $filename
-     * 
+     * @param void
      * @return bool
      */
-    static function addCache(string $classname, string $filename): bool
+    static function writeCache(): bool
     {
-        $string = self::format($classname, $filename);
-        return file_put_contents(self::$CACHE, $string, FILE_APPEND);
+        $str = "<?php\nreturn [\n";
+        foreach (self::$listClass as $key => $value) {
+            $str .= "\t '" . $key . "' => '" . $value . "',\n";
+        }
+        $str .= "\n];";
+        return (bool) file_put_contents(self::$cacheFile, $str);
     }
 }

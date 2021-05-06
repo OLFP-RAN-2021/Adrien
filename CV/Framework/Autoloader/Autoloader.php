@@ -2,6 +2,9 @@
 
 namespace Framework\Autoloader;
 
+use Framework\Debbuger;
+use LogicException;
+
 // get cache
 include_once __DIR__ . '/Cache.php';
 
@@ -29,12 +32,13 @@ class Autoloader
      * Registre from array. 
      * 
      * @param void
-     * @return bool
+     * @return
      */
-    public static function register(): bool
+    public static function register()
     {
         return spl_autoload_register([__CLASS__, 'loader']);
     }
+
 
     /**
      * Load config array;
@@ -50,27 +54,14 @@ class Autoloader
         self::$config = array_merge(include 'registre.php', $config);
     }
 
-    /**
-     * Loader : called by register above. And try to load config file if exists.
-     * 
-     * @param string $classname Nom de la classe.
-     * @return void 
-     */
-    public static function loader($class): void
-    {
-        if (null != DEV && true === DEV)
-            self::cleanCache();
-        if (!self::loadFromCache($class))
-            self::globalBrowser($class);
-    }
 
     /**
-     * Browse files to found PSR-4 compatible PHP files.
+     * Loader : Browse files to found PSR-4 compatible PHP files.
      * 
      * @param string $class Class name sto load.
      * @return void 
      */
-    static function globalBrowser(string $class)
+    static function loader(string $class)
     {
         $s = DIRECTORY_SEPARATOR;
 
@@ -100,11 +91,10 @@ class Autoloader
             include_once $path;
             self::addCache($class, $path);
         }
+
         // include other bullshits
         else {
             // check if wa can save some loops.
-            if (file_exists($folder . $s . $namespaceRoot))
-                $folder = $folder . $s . $namespaceRoot;
             if (file_exists($folder . $s . strtolower($namespaceRoot)))
                 $folder = $folder . $s . strtolower($namespaceRoot);
             if (file_exists($folder . $s . 'src'))
@@ -130,11 +120,43 @@ class Autoloader
                 $path = self::recursiveBrowser($file, $class);
             }
             if (is_file($file) && basename($file) == $classname . '.php') {
-
                 if (include_once $file) {
                     self::addCache($class, $file);
                 }
             }
+        }
+    }
+
+    /**
+     * Default() Default autloader behaviour.
+     * 
+     * @param void
+     * @return void
+     */
+    static function default(string $appnamespace, string $appfolder)
+    {
+        /**
+         * Insert config app like
+         *      $namespace => $folder
+         */
+        self::loadConfig(
+            [
+                $appnamespace => $appfolder,
+            ]
+        );
+
+        try {
+            // LoadCache
+            self::loadCache();
+
+            // Clean cache
+            if (true === DEV) {
+                self::register();
+                self::cleanCache();
+            }
+        } catch (\Exception $e) {
+            echo $e->getMessage();
+            // Debbuger::add();
         }
     }
 }
