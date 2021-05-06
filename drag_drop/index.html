@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        #drop_zone{ 
+            margin:1em;
+            text-align: center;
+            vertical-align: middle;
+            width: 400px;
+            height: 200px;
+            border:1px dotted black;
+            background-color: skyblue;
+        }
+        .form_files {
+            display: flex;
+            flex-direction: column ;
+        }
+        .form_files > div {
+            padding:1em;
+        }
+        .opts{
+            padding:.5em;
+            width: 300px;
+            display: flex;
+            flex-direction: column ;
+            background-color: gainsboro;
+        }
+    </style>
+
+    <!-- script ici -->
+
+    <script src="drag&grop.js" defer></script>
+  
+</head>
+<body>
+
+    <form id="form" action="" class="form_files">
+        <div>
+            Zone de droppage :
+            <div id="drop_zone" ondrop="dropHandler(event);" ondragover="dragOverHandler(event);">
+            Glisser ici ...
+            </div>
+        </div>
+        
+        <div class="opts">
+    
+            <label for="rotation">Rotation</label>
+            <select name="rotation" id="rotation">
+                <option value="0"> - </option>
+                <option value="90"> 90° à droite</option>
+                <option value="180"> inverser</option>
+                <option value="230"> 90° à gauche</option>
+            </select>
+        
+            <label for="resize">Resize (px)</label>
+            <input id="resize" type="number" min="50" max="10000" value="150">
+    
+        </div>
+    
+        <div>
+            <button onclick="clean()"> Reset </button>
+        </div>
+    
+        <div>
+            Afficher le résultat :
+            <div id="printResult">
+        
+            </div>
+        </div>  
+
+    </form>
+
+
+
+</body>
+</html>
