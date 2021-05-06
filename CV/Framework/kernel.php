@@ -6,6 +6,7 @@ use Framework\Autoloader\Autoloader;
 use Framework\DevMod;
 use Framework\Router\Router;
 
+
 /**
  * Enable DEV mod :
  *      printings errors
@@ -14,6 +15,10 @@ use Framework\Router\Router;
  *      etc.     
  */
 define('DEV', true);
+
+define('RELPATH',   '/' . str_replace($_SERVER['DOCUMENT_ROOT'], '',  getcwd()));
+
+define('PATHINFO', ($_SERVER['PATH_INFO'] ?? '/'));
 
 /**
  * Build Constante from App config.json
@@ -27,35 +32,16 @@ define('APP', include_once 'App/config/app.php');
  * Include Autoloader PSR-4
  */
 include __DIR__ . '/Autoloader/Autoloader.php';
+Autoloader::default(APP['namespace'], APP['autoloader']);
 
 /**
- * Insert config app like
- *      $namespace => $folder
+ * Initialize Routing
  */
-Autoloader::loadConfig(
-    [
-        APP['namespace'] => APP['autoloader'],
-    ]
-);
+$router = Router::getInstance();
+$router->import(__DIR__ . '/Router/RouterDefault.php');
+$router->route();
 
-// 
-Autoloader::register();
-
-/**
- * Get DevMod class in singleton. 
- *  
- */
-if (DEV === true)
-    DevMod::singleton();
-
-/**
- * Absolute path : call getcwd();
- * ex : ABSPATH = /srv/http/html 
- * 
- * Relative path (relative to DocumentRoot)
- * ex : RELPATH = domain.com/ [sub/folder/] app/assets/...
- */
-Router::default();
+// Router::importBehaviour('');
 
 // if (DEV === true) 
 // DevMod::singleton();
