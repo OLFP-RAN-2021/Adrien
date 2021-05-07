@@ -51,4 +51,5 @@ try {
 
 } catch (\Exception $error) {
     echo $error;
+    // echo '<pre>' . print_r($error, 1) . '</pre>';
 }
