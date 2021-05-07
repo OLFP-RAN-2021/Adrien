@@ -5,6 +5,8 @@ namespace Framework\Exceptions;
 
 class GenericException extends \Exception
 {
+    static $nbr = 0;
+
     private string $description;
     private array $docUrl = [];
 
@@ -13,14 +15,19 @@ class GenericException extends \Exception
      */
     function __construct(array $options)
     {
+        ++self::$nbr;
+        $this->key = self::$nbr;
+
         parent::__construct(
             $options['message'],
             $options['code'],
             $options['throwable']
         );
+
+
         $this->levelAlert($options['code']);
-        $this->description = $options['description'] ?? null;
-        $this->docUrl = $options['refs'];
+        $this->description = $options['description'] ?? '';
+        $this->docUrl = $options['refs'] ?? [];
     }
 
     /**
@@ -85,6 +92,7 @@ class GenericException extends \Exception
             }
             return $docs . ' </ul></div>';
         }
+        return $docs;
     }
 
     /**
@@ -95,10 +103,17 @@ class GenericException extends \Exception
      */
     function __toString(): string
     {
+        $key = $this->key;
+
+        // Afficher les précédants
+        if ($this->getPrevious() instanceof self) {
+            echo $this->getPrevious();
+        }
+
         $message = $this->getMessage();
         $error = end($this->getTrace());
 
-        $description = (null != $this->description) ? '<div class="hidden"><h3> Description </h3> 
+        $description = ('' != $this->description) ? '<div class="hidden"><h3> Description </h3> 
         ' . $this->description . '</div>' : '';
 
         $level = $this->level;
@@ -125,8 +140,8 @@ class GenericException extends \Exception
         <h2>Exception : $message</h2>
         <b>$file</b> :: <b>$line</b>
     </div>
-    <input id="activator" class="hidden" type="checkbox">
-    <label for="activator">Détails</label>
+    <input id="activator_$key" class="hidden activator" type="checkbox">
+    <label for="activator_$key">Détails</label>
         $description
         $docs
     <div class="hidden">
