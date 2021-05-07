@@ -11,15 +11,30 @@ define('DEBBUGER_NOTICE', 3);
  */
 class Debbuger
 {
-    static $Exceptions = [];
-    static $phperrors = [];
+    static $singleton;
+    private $Exception;
+    private $phperrors = [];
 
     /**
-     * get thrown;
+     * Start debbuger
      */
-    static function getTExceptions(\Exception $exception)
+    static function getInstance()
     {
-        self::$Exceptions[] = $exception;
+        if (null == self::$singleton) {
+            ini_set('error_reporting', E_ALL);
+            ini_set('display_errors', true);
+            self::$singleton = new self();
+        }
+        return self::$singleton;
+    }
+
+    /**
+     * Get thrown
+     * 
+     */
+    static function getTException(\Exception $exception)
+    {
+        self::getInstance()->Exception = $exception;
     }
 
     /**
@@ -29,7 +44,7 @@ class Debbuger
     {
         // get php errors
         while (($error = error_get_last()) != null) {
-            self::$phperrors[] = $error;
+            self::getInstance()->phperrors[] = $error;
             error_clear_last();
         }
     }
@@ -39,8 +54,9 @@ class Debbuger
      */
     static function printDebbug()
     {
+
         // If STDIN
-        if (STDIN != null) {
+        if ('cli' == php_sapi_name()) {
             self::printConsoleDebbug();
         } else {
             self::printHTMLDebbug();
@@ -52,6 +68,7 @@ class Debbuger
      */
     static function printHTMLDebbug()
     {
+        echo self::getInstance()->Exception;
     }
 
     /**

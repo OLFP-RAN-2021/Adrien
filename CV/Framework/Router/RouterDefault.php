@@ -12,9 +12,6 @@ return new class extends \Framework\Router\RouterCallable
         $this->bind(0, 'default', [self::class, 'routeObjController'], []);
         $this->bind(0, 'switcher', [self::class, 'switcher'], []);
         $this->bind(1, 'routeObjMethode',  [self::class, 'routeObjMethode'], []);
-        // $this->bind(1,);
-        // $this->bind(2,);
-        // $this->bind(3,);
     }
 
     /**
@@ -40,15 +37,6 @@ return new class extends \Framework\Router\RouterCallable
         else {
         }
     }
-
-    // "router" => [
-    //     "controllers" => "App\\controllers\\",
-    //     "default" => [
-    //         "call" => "App\\controllers\\Page",
-    //         "args" => ["home.html"]
-    //     ],
-    //     "behaviur" => ""
-    // ],
 
     /**
      * Try to instance object if class exists.

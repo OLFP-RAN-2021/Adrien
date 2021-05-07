@@ -2,6 +2,8 @@
 
 namespace Framework\Router;
 
+use Exception;
+use Framework\Exception as FrameworkException;
 use LogicException;
 use ReflectionClass;
 
@@ -56,27 +58,18 @@ class Router
      * Import behaviour class from a file.
      * 
      * @param string|null 
+     * @throw 
      */
-    function import(?string $fileToGet)
+    function import(?string $fileToGet): void
     {
         if (null != $fileToGet && file_exists($fileToGet)) {
-
-            $class = include $fileToGet;
-
-            // if (null !== ($reflection = new ReflectionClass($class))) {
-            //     if (false !== ($parent = $reflection->getParentClass())) {
-
-            //         if ('Framework\Router\RouterCallable' == $parent->name) {
-            //             // $this->behaviour = $class;
-            //         };
-            //     } else {
-            //         throw new LogicException("The behavior class require to extends \Framework\Router\RouterCallable");
-            //     }
-            // } else {
-            //     throw new LogicException("Router require a behaviour class.");
-            // }
+            include_once $fileToGet;;
         } else {
-            throw new LogicException("Router require a valid behaviour file. See Framework/Router/readme.md to know more.");
+            throw new FrameworkException([
+                "message" => "Router require a valid behaviour file.",
+                "code" => 400,
+                "description" => "Router require a valid behaviour file. See Framework/Router/readme.md to know more."
+            ]);
         }
     }
 
@@ -86,14 +79,19 @@ class Router
      * @param int $lvl : 0 = default, 1, 2, 3... 
      * @param callable $callable 
      */
-    function bindCall(int $lvl, string $key, callable $callable, ?array $args)
+    function bindCall(int $lvl, string $key, array $callable, ?array $args): string|null
     {
         if ($lvl >= 0) {
             ('default' === $key)  ? $key = -1 : null;
             $this->callStack[$lvl][$key] = [$callable, $args];
-            return end(array_keys($this->callStack[$lvl]));
+            $keys = array_keys($this->callStack[$lvl]);
+            return end($keys);
         } else {
-            throw new \Exception("Error : Router can't handle a negative urls.");
+            throw new FrameworkException([
+                "message" => " Router can't handle a negative urls.",
+                "code" => 400,
+                "description" => " Router can't handle a negative urls."
+            ]);
         }
     }
 
@@ -103,17 +101,19 @@ class Router
      * @param Url 
      * @return void
      */
-    function route(&$url = null, &$hineritence = null)
+    function route(&$url = null, &$hineritence = null): void
     {
         if (null === $url) {
             $url = new Url(PATHINFO);
         }
         foreach ($this->callStack[$url->key()] as $registredCallable) {
 
-            $callable = $registredCallable[0];
+            $callable = $registredCallable[0][0];
+            $callable = new $callable();
+            $method = $registredCallable[0][1];
             $args = $registredCallable[1];
 
-            $hineritence =  $callable($url, $hineritence, ...$args);
+            $hineritence =  $callable->$method($url, $hineritence, ...$args);
             if (null != $hineritence) {
                 break;
             }

@@ -25,6 +25,30 @@
 .alert .title.unicorn {
     background-color:rgb(199, 110, 211);
 }
+.alert .title.nether {
+    color:white;
+    background-color:rgb(39, 39, 39);
+}
+.alert .title.deepsea {
+    color:white;
+    background-color:rgb(52, 46, 80);
+}
+.alert .title.orangemec {
+    color:white;
+    background-color:rgb(133, 101, 64);
+}
+.alert .title.blackforest {
+    color:white;
+    background-color:rgb(49, 90, 49);
+}
+.alert .title.bordeau {
+    color:white;
+    background-color:rgb(71, 30, 30);
+}
+
+
+
+
 .alert label, .alert div{
     border-top:1px solid black;
     border-bottom:1px solid black;
@@ -42,7 +66,7 @@
     font-family: monospace;
     content:" [+]";
 }
-#activator:checked ~ label::after {
+.alert .activator:checked ~ label::after {
     content:" [-]";
 }
 .hidden{

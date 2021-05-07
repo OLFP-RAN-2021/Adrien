@@ -15,11 +15,12 @@ class Page
      */
     function __construct(...$params)
     {
+
         // var_dump(array('built'));
         $throwable =  new \Framework\Exception([
             "message" => "Page construite",
             "refs" => ['php' => 'http://php.net'],
-            "code" => 100,
+            "code" => 200,
             // "description" => "La page a été construite.",
         ]);
 

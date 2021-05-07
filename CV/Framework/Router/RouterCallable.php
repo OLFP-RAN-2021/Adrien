@@ -16,7 +16,7 @@ abstract class RouterCallable
      * @param array
      * @return void 
      */
-    final function bind(int $lvl, string $key, callable $callable, array $args = []): void
+    final function bind(int $lvl, string $key, array $callable, array $args = []): void
     {
         Router::getInstance()->bindCall($lvl, $key, $callable, $args);
     }

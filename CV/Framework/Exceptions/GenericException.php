@@ -19,12 +19,10 @@ class GenericException extends \Exception
         $this->key = self::$nbr;
 
         parent::__construct(
-            $options['message'],
-            $options['code'],
-            $options['throwable']
+            $options['message'] ?? null,
+            $options['code'] ?? null,
+            $options['throwable'] ?? null
         );
-
-
         $this->levelAlert($options['code']);
         $this->description = $options['description'] ?? '';
         $this->docUrl = $options['refs'] ?? [];
@@ -49,6 +47,16 @@ class GenericException extends \Exception
             $this->level = "alert";
         if ($code >= 500)
             $this->level = "unicorn";
+        if ($code >= 1000)
+            $this->level = "nether";
+        if ($code >= 1100)
+            $this->level = "deepsea";
+        if ($code >= 1200)
+            $this->level = "blackforest";
+        if ($code >= 1300)
+            $this->level = "orangemec";
+        if ($code >= 1400)
+            $this->level = "bordeau";
     }
 
     /**
@@ -111,7 +119,8 @@ class GenericException extends \Exception
         }
 
         $message = $this->getMessage();
-        $error = end($this->getTrace());
+        $array = $this->getTrace();
+        $error = end($array);
 
         $description = ('' != $this->description) ? '<div class="hidden"><h3> Description </h3> 
         ' . $this->description . '</div>' : '';

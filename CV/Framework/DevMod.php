@@ -16,7 +16,7 @@ class DevMod
      * @param ...$params : voir DevMod::__construct();
      * @return selfMyNamespace
      */
-    static function singleton(...$params)
+    static function getInstance(...$params)
     {
         if (null == self::$devmod)
             self::$devmod = new self(...$params);
@@ -28,8 +28,7 @@ class DevMod
      */
     public function __construct()
     {
-        ini_set('display_errors', '1');
-        $this->debbuger = new Debbuger();
+        Debbuger::getInstance();
     }
 
     /**

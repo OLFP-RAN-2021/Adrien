@@ -29,6 +29,8 @@ define('PATHINFO', ($_SERVER['PATH_INFO'] ?? '/'));
  */
 define('APP', include_once 'App/config/app.php');
 
+
+
 try {
 
     /**
@@ -38,18 +40,23 @@ try {
     Autoloader::default(APP['namespace'], APP['autoloader']);
 
     /**
+     * start DevMod
+     */
+    if (true === DEV)
+        DevMod::getInstance();
+
+    /**
      * Initialize Routing
      */
     $router = Router::getInstance();
     $router->import(__DIR__ . '/Router/RouterDefault.php');
     $router->route();
 
-    // Router::importBehaviour('');
-
-    // if (DEV === true) 
-    // DevMod::singleton();
-
+    // --
 } catch (\Exception $error) {
-    echo $error;
-    // echo '<pre>' . print_r($error, 1) . '</pre>';
+    if (true === DEV) {
+        Debbuger::getTException($error);
+        Debbuger::getErrors();
+        Debbuger::printDebbug();
+    }
 }
