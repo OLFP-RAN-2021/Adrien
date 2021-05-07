@@ -17,7 +17,7 @@ use Framework\Router\Router;
  */
 define('DEV', true);
 
-define('RELPATH',   '/' . str_replace($_SERVER['DOCUMENT_ROOT'], '',  getcwd()));
+define('RELPATH', str_replace($_SERVER['DOCUMENT_ROOT'], '',  getcwd()));
 
 define('PATHINFO', ($_SERVER['PATH_INFO'] ?? '/'));
 
