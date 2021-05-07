@@ -34,10 +34,10 @@
     background-color:rgb(224, 224, 224);
     display:block;
 }
-#activator:checked ~ div {
+.alert .activator:checked ~ div {
     display:block;
 }
-#activator ~ label::after  {
+.alert .activator ~ label::after  {
     font-weight: bolder;
     font-family: monospace;
     content:" [+]";

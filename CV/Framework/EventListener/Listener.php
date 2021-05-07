@@ -24,18 +24,12 @@ abstract class Listener
     }
 
 
-
-
-
     /**
      * 
      */
     final function rmSuscriber(callable $callable)
     {
-
-        $DOM = new DOMDocument();
-        $DOM->loadHTML('<!DOCTYPE html>');
-        $DOM->$name = $this->getCallableName($callable);
+        $name = $this->getCallableName($callable);
         if (strpos($name, 'Closure::', 0) !== false && !array_key_exists($name, $this->suscribers)) {
             throw new LogicException('Do you lost closure name returned by addSuscriber() ??');
         }
