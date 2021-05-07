@@ -66,7 +66,6 @@ trait Cache
         if (self::readCache()) {
             foreach (include self::$cacheFile as $path) {
                 if (file_exists($path)) {
-                    // var_dump($path);
                     include_once $path;
                 }
             }

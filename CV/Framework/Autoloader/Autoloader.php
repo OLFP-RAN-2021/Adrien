@@ -39,6 +39,17 @@ class Autoloader
         return spl_autoload_register([__CLASS__, 'loader']);
     }
 
+    /**
+     * Unregistre 
+     * 
+     * @param void
+     * @return
+     */
+    public static function unregiste()
+    {
+        return spl_autoload_unregister([__CLASS__, 'loader']);
+    }
+
 
     /**
      * Load config array;
@@ -63,6 +74,7 @@ class Autoloader
      */
     static function loader(string $class)
     {
+        // directory separator
         $s = DIRECTORY_SEPARATOR;
 
         // get namespace root
