@@ -1,0 +1,50 @@
+.alert{
+    border:1px solid black;
+}
+.alert div, .alert label  {
+    padding:1em;
+}
+.alert .title {
+    padding:1em;
+}
+.alert .title.alert {
+    background-color:rgb(233, 102, 102);
+}
+.alert .title.warning {
+    background-color:rgb(233, 202, 102);
+}
+.alert .title.success {
+    background-color:rgb(102, 233, 135);
+}
+.alert .title.info {
+    background-color:rgb(102, 174, 233);
+}
+.alert .title.gray {
+    background-color:rgb(221, 221, 221);
+}
+.alert .title.unicorn {
+    background-color:rgb(199, 110, 211);
+}
+.alert label, .alert div{
+    border-top:1px solid black;
+    border-bottom:1px solid black;
+    background-color:white;
+}
+.alert label{
+    background-color:rgb(224, 224, 224);
+    display:block;
+}
+#activator:checked ~ div {
+    display:block;
+}
+#activator ~ label::after  {
+    font-weight: bolder;
+    font-family: monospace;
+    content:" [+]";
+}
+#activator:checked ~ label::after {
+    content:" [-]";
+}
+.hidden{
+    display:none;
+}
