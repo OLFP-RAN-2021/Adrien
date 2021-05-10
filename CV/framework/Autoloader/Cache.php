@@ -61,7 +61,7 @@ trait Cache
      * @param void
      * @return void
      */
-    static function loadCache(): void
+    static function loadCache(): bool
     {
         if (self::readCache()) {
             foreach (include self::$cacheFile as $path) {
@@ -69,14 +69,16 @@ trait Cache
                     include_once $path;
                 }
             }
+            return true;
         }
+        return false;
     }
 
     /**
      * Read cache from file.
      * 
      * @param void
-     * @return void
+     * @return bool
      * @throw Exception If cache not found  
      */
     static function readCache(): bool
