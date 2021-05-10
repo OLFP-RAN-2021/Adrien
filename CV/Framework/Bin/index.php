@@ -11,7 +11,8 @@ try {
     $phar = new Phar(__DIR__ . '/console.phar');
 
     if (Phar::canWrite()) {
-        // $phar->buildFromDirectory(__DIR__ . '/src');
+        $phar->buildFromDirectory(__DIR__ . '/src');
+        $phar->setStub($phar->createDefaultStub(dirname(__FILE__) . 'src/cli.php', null));
         // $phar->setStub($phar->createDefaultStub(dirname(__FILE__) . 'src/cli.php', null));
         // $phar = $phar->convertToExecutable(Phar::TAR, Phar::GZ);
         $phar->startBuffering();
