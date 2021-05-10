@@ -1,24 +1,23 @@
-//  
-// Flex throught class, like bootstrap.   
+//
+// Flex throught class, like bootstrap.
 // <div class="flex row reverse h-around" > ... </div>
 // See above for more info.
-// 
-// BOILLEY Adrien © GPL v2 - 2021 
-// 
+//
+// BOILLEY Adrien © GPL v2 - 2021
+//
 .flex {
-    display:flex;
+    display: flex;
 
     &.row {
         flex-direction: row;
-        &-reverse{
+        &-reverse {
             flex-direction: row-reverse;
         }
     }
 
-
-    &.column{
+    &.column {
         flex-direction: column;
-        &-reverse{
+        &-reverse {
             flex-direction: column-reverse;
         }
     }
@@ -48,7 +47,6 @@
     }
 
     &.align-content {
-
         &-top {
             align-content: flex-start;
         }
@@ -107,10 +105,9 @@
     }
 
     &* {
-        display:inherit;
-        align-items:inherit;
-        justify-content:inherit;
+        display: inherit;
+        align-items: inherit;
+        justify-content: inherit;
         // width:100%;
     }
 }
-

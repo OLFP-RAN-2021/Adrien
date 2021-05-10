@@ -1,46 +1,45 @@
-
 form {
     border: 1px solid lightgray;
-    border-radius : .5em;
-    padding: .5em;
-    margin: .5em;
-    background-color:#ddd;
+    border-radius: 0.5em;
+    padding: 0.5em;
+    margin: 0.5em;
+    background-color: #ddd;
     width: 100%;
     * {
-        padding: .5em;
+        padding: 0.5em;
     }
-    
+
     label {
-        display:block;
-        padding: .5em;
+        display: block;
+        padding: 0.5em;
 
         &.mssg {
-            display:none;
-            padding:.5em;
-            background-color:#ddd;
-            position : absolute;
-            border:1px solid rgb(190, 29, 29);
-            border-radius:.5em;
-            color:rgb(190, 29, 29);
+            display: none;
+            padding: 0.5em;
+            background-color: #ddd;
+            position: absolute;
+            border: 1px solid rgb(190, 29, 29);
+            border-radius: 0.5em;
+            color: rgb(190, 29, 29);
         }
     }
-    
+
     input {
         border: 0px;
-        border-left : 1px solid gray;
-        border-bottom : 1px solid gray;
+        border-left: 1px solid gray;
+        border-bottom: 1px solid gray;
         background-color: #fff;
         border-radius: 0;
-        
+
         &:focus {
             border: 0px;
         }
     }
-    
+
     textarea {
         border: 0px;
-        border-left : 1px solid gray;
-        border-bottom : 1px solid gray;
+        border-left: 1px solid gray;
+        border-bottom: 1px solid gray;
         border-radius: 0;
     }
 }
