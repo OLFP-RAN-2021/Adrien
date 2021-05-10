@@ -4,6 +4,7 @@ namespace Framework;
 
 use Exception;
 use Framework\Autoloader\Autoloader;
+use Framework\Databases\PDOHandler;
 use Framework\DevMod;
 use Framework\Router\Router;
 
@@ -44,6 +45,15 @@ try {
      */
     if (true === DEV)
         DevMod::getInstance();
+
+    /**
+     * Build connections DB
+     */
+    foreach (APP['PDO_connect'] as $tag => $DBConnectArgs)
+        $PDO = PDOHandler::getInstance($tag, ...$DBConnectArgs);
+
+    // that ok ! 
+    var_dump(PDOHandler::$PDO);
 
     /**
      * Initialize Routing
