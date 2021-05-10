@@ -8,7 +8,7 @@
  *      'namespace' =>  'folder_name'
  */
 return [
-    '*' => 'Vendor',
-    'Framework' => 'Framework',
+    '*' => 'vendor',
+    'Framework' => 'framework',
     //add_more_here
 ];

@@ -41,6 +41,6 @@ Be sure namespace matching clearly with componants folders.
 Must be stored in tranparent folder
 
 ```
-    Vendor/MyNamespace/src/Loader/MyClass.php
+    MyNamespace/Loader/MyClass.php
 ``` 
 Like i did for my Framework.
