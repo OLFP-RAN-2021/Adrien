@@ -1,9 +1,7 @@
 <?php
 
 /**
- * Include framework kernel
+ * Include framework kernel.
  * 
  */
 include_once 'framework/kernel.php';
-
-// phpinfo();

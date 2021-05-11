@@ -1,7 +1,7 @@
 <?php
 
 /**
- *  Default router Behaviours.
+ *  Default router behavior.
  *  Copy this model to build your !    
  * 
  */

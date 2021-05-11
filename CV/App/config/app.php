@@ -18,7 +18,9 @@ return [
     // autoloader folder
     "autoloader" => "App/src/includes",
 
+    // 
     "router" => [
+        // 
         "controllers" => "App\\controllers\\",
         "default" => [
             "call" => "App\\controllers\\Page",

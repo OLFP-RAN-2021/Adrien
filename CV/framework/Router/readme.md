@@ -13,7 +13,7 @@
 ```
     url -> rewind()
 
-    FAIRE
+    Route ( url )
         hineritence = null
 
         BROWSE stack[ key ] AS callable        
@@ -24,22 +24,19 @@
             ELSE
                 BREAK
         
-        IF hineritence != null 
-            CONTINUE
-        ELSE
-            BREAK
-    
-    TANT QUE url -> suivant()
+        IF hineritence != null
+            url -> next 
+            Route ( url )
 
 ```
 
-## Customize behaviour
+## Customize behavior
 
-Use abstract RouterCallable Class to extends you own behaviour.
+Use abstract RouterCallable Class to extends you own behavior.
 
 - You MUST `return anonym class`.
 - Anonym class class MUST `extends \Framework\Router\RouterCallable`.
-- You MUST descrip behaviour in named methods.
+- You MUST descrip behavior in named methods.
 - You MUST binding method to url stack with `$this->bind();` in `__construct()`.
 
 To know more [about binding]();

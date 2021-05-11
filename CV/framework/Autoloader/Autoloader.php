@@ -158,10 +158,6 @@ class Autoloader
         );
 
         try {
-            // LoadCache
-            // ;
-
-            // Clean cache
             if (true === DEV || !self::loadCache()) {
                 self::register();
                 self::cleanCache();

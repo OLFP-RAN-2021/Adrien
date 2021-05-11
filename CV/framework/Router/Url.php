@@ -4,12 +4,27 @@ namespace Framework\Router;
 
 use Iterator;
 
+/**
+ * Class Url
+ */
 class Url implements Iterator
 {
 
+    /**
+     * @var int $pos Current position.
+     */
     private int $pos = 0;
+
+    /**
+     * @var array $stack Stack of elements.
+     */
     private array $stack = [];
 
+    /**
+     * 
+     * 
+     * @param string $url
+     */
     function __construct(string $url)
     {
         $this->stack = explode('/', $url);
@@ -19,11 +34,21 @@ class Url implements Iterator
         }
     }
 
+    /**
+     * Return current element.
+     * 
+     * @param void
+     * @return mixed
+     */
     public function current()
     {
-        return $this->stack[$this->pos];
+        if (isset($this->stack[$this->pos]))
+            return $this->stack[$this->pos];
     }
 
+    /**
+     * Return key. 
+     */
     public function key()
     {
         return $this->pos;

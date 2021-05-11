@@ -8,7 +8,7 @@ namespace Framework\Router;
 abstract class RouterCallable
 {
     /**
-     * Function to add comportement to Router.
+     * Function to add behavior to Router.
      * 
      * @param int 
      * @param string 

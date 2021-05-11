@@ -55,7 +55,7 @@ class Router
     }
 
     /**
-     * Import behaviour class from a file.
+     * Import behavior class from a file.
      * 
      * @param string|null 
      * @throw 
@@ -66,9 +66,9 @@ class Router
             include_once $fileToGet;;
         } else {
             throw new FrameworkException([
-                "message" => "Router require a valid behaviour file.",
+                "message" => "Router require a valid behavior file.",
                 "code" => 400,
-                "description" => "Router require a valid behaviour file. See Framework/Router/readme.md to know more."
+                "description" => "Router require a valid behavior file. See Framework/Router/readme.md to know more."
             ]);
         }
     }

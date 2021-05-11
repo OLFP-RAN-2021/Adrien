@@ -2,7 +2,9 @@
 
 namespace Framework\Exceptions;
 
-
+/**
+ * 
+ */
 class GenericException extends \Exception
 {
     static $nbr = 0;
@@ -23,9 +25,10 @@ class GenericException extends \Exception
             $options['code'] ?? null,
             $options['throwable'] ?? null
         );
-        $this->levelAlert($options['code']);
-        $this->description = $options['description'] ?? '';
-        $this->docUrl = $options['refs'] ?? [];
+
+        $this->levelAlert(($options['code'] ?? 0));
+        $this->description = ($options['description'] ?? '');
+        $this->docUrl = ($options['refs'] ?? []);
     }
 
     /**
@@ -122,8 +125,7 @@ class GenericException extends \Exception
         $array = $this->getTrace();
         $error = end($array);
 
-        $description = ('' != $this->description) ? '<div class="hidden"><h3> Description </h3> 
-        ' . $this->description . '</div>' : '';
+        $description = ('' != $this->description) ? '<div class="hidden"><h3> Description </h3> ' . $this->description . '</div>' : '';
 
         $level = $this->level;
         $file = $error['file'];
@@ -133,9 +135,7 @@ class GenericException extends \Exception
         $backtrace = $this->formatBacktrace();
 
         // $backtrace = print_r($this->getTrace(), 1);
-
-
-        $css = RELPATH . '/Framework/Exceptions/style.css';
+        $css = RELPATH . '/framework/Exceptions/style.css';
 
         /**
          * 
@@ -143,21 +143,26 @@ class GenericException extends \Exception
          * 
          */
         return <<<HTML
-<link rel="stylesheet" href="$css">
-<div class="alert">
-    <div class="title $level">
-        <h2>Exception : $message</h2>
-        <b>$file</b> :: <b>$line</b>
-    </div>
-    <input id="activator_$key" class="hidden activator" type="checkbox">
-    <label for="activator_$key">Détails</label>
-        $description
-        $docs
-    <div class="hidden">
-        <h3>Backtrace </h3>
-            $backtrace        
-    </div>
-</div>
+
+<html>
+    <body>
+        <link rel="stylesheet" href="$css">
+        <div class="alert">
+            <div class="title $level">
+                <h2>Exception : $message</h2>
+                <b>$file</b> :: <b>$line</b>
+            </div>
+            <input id="activator_$key" class="hidden activator" type="checkbox">
+            <label for="activator_$key">Détails</label>
+                $description
+                $docs
+            <div class="hidden">
+                <h3>Backtrace </h3>
+                    $backtrace        
+            </div>
+        </div>
+    </body>
+</html>
 HTML;
     }
 }

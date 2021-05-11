@@ -31,7 +31,6 @@ define('PATHINFO', ($_SERVER['PATH_INFO'] ?? '/'));
 define('APP', include_once 'App/config/app.php');
 
 
-
 try {
 
     /**
@@ -53,7 +52,7 @@ try {
         $PDO = PDOHandler::getInstance($tag, ...$DBConnectArgs);
 
     // that ok ! 
-    var_dump(PDOHandler::$PDO);
+    // var_dump(PDOHandler::$PDO);
 
     /**
      * Initialize Routing
