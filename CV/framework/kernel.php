@@ -5,6 +5,8 @@ namespace Framework;
 use Exception;
 use Framework\Autoloader\Autoloader;
 use Framework\Databases\PDOHandler;
+use Framework\Databases\Query;
+use Framework\Databases\QueryHandler;
 use Framework\DevMod;
 use Framework\Router\Router;
 
@@ -48,11 +50,22 @@ try {
     /**
      * Build connections DB
      */
-    foreach (APP['PDO_connect'] as $tag => $DBConnectArgs)
-        $PDO = PDOHandler::getInstance($tag, ...$DBConnectArgs);
+    foreach (APP['PDO_connect'] as $tag => $DBConnectArgs) {
+        PDOHandler::openInstance($tag, ...$DBConnectArgs);
+        $PDO = PDOHandler::getInstance($tag);
+    }
+
+    $data = Query::on("MyAppDB")
+        ->prepare('SELECT url,title,content FROM page WHERE url=:url;')
+        ->bind([':url' => 'test_2.html'])
+        ->execute()
+        ->fetch();
+
+
+    // var_dump($queryhandler);
+    var_dump($data);
 
     // that ok ! 
-    // var_dump(PDOHandler::$PDO);
 
     /**
      * Initialize Routing
@@ -65,7 +78,6 @@ try {
 } catch (\Exception $error) {
     if (true === DEV) {
         Debbuger::getTException($error);
-        Debbuger::getErrors();
         Debbuger::printDebbug();
     }
 }
