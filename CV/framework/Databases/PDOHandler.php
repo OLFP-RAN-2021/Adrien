@@ -14,6 +14,10 @@ class PDOHandler
      */
     static $PDO;
 
+    private function __construct()
+    {
+    }
+
     /**
      *
      * @param string $tag DB identifier for this handler.
@@ -25,7 +29,7 @@ class PDOHandler
      * @param string $charset [optional]  Charset (utf8mb4-general-ci)
      * @param string $collation [optional] Collation (utf8mb4-general-ci) 
      */
-    private function __construct(
+    static function openInstance(
         string $tag,
         string $dbname,
         string $dbhost,
@@ -49,18 +53,37 @@ class PDOHandler
      * @param ...$args see __construct() above;
      * @return self
      */
-    static function getInstance(...$params)
+    static function getInstance($instance)
     {
-        if (!isset(self::$PDO[$params[0]])) {
-            if (count($params) >= 5) {
-                new self(...$params);
-            } else {
-                throw new Exception([
-                    "message" => "getInstance() require __construct() args.",
-                    "code" => 400
-                ]);
-            }
+        if (self::issetInstance($instance)) {
+            return self::$PDO[$instance];
         }
-        return self::$PDO[$params[0]];
+    }
+
+    /**
+     * Get PDO Instance.
+     * 
+     * @param ...$args see __construct() above;
+     * @return self
+     */
+    static function issetInstance($instance)
+    {
+        return isset(self::$PDO[$instance]);
+    }
+
+    /**
+     * 
+     */
+    static function listInstances()
+    {
+        return array_keys(self::$PDO);
+    }
+
+    /**
+     * 
+     */
+    static function closeInstance($instance)
+    {
+        unset(self::$PDO[$instance]);
     }
 }
