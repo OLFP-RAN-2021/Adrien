@@ -1,74 +1,115 @@
 <?php
 
+namespace Framework\EventListener;
+
+use Framework\Exception;
+
 /**
- * 
+ * Listener will built by Emitter class.
  * 
  */
-abstract class Listener
+class Listener
 {
     /**
-     * List of suscribers.
+     * @var callable 
      */
-    private $suscribers = [];
+    private $callable;
+
+    /**
+     * @var int Priority index. 
+     */
+    public int $priority = 0;
+
+    /**
+     * @var int Nbr of called.
+     */
+    private int $called = 0;
+
+    /**
+     * @var bool Execute once.
+     */
+    private bool $once = false;
+
+    /**
+     * @var bool Strop propagation.
+     */
+    private bool $propagation = true;
 
     /**
      * 
-     * 
-     * @return string
+     * @param callable
+     * @param int $priority
+     * @param bool $once
+     * @return void 
      */
-    final function addSuscriber(callable $callable): string
+    function __construct($callable, $priority, $once)
     {
-        $name = $this->getCallableName($callable);
-        $this->suscribers[$name] = $callable;
-        return $name;
-    }
-
-
-    /**
-     * 
-     */
-    final function rmSuscriber(callable $callable)
-    {
-        $name = $this->getCallableName($callable);
-        if (strpos($name, 'Closure::', 0) !== false && !array_key_exists($name, $this->suscribers)) {
-            throw new LogicException('Do you lost closure name returned by addSuscriber() ??');
-        }
-        // if (array_key_exists($name, $this->suscribers)) {
-        //     unset($this->suscribers[$name]);
-        // }
-    }
-
-    /**
-     * 
-     */
-    final function sendSuscribers(...$param)
-    {
-        foreach ($this->suscribers as $callable) {
-            call_user_func_array($callable, $param);
-        }
+        $this->callable = $callable;
+        $this->priority = $priority;
+        $this->once = $once;
     }
 
     /**
-     * Get callable name. If Closure : create a name randomly.
+     * Call the callable.
      * 
-     * @param callable $callable callable to 
-     * @return string
+     * @param ...$args  
+     * @return self
      */
-    final function getCallableName(callable $callable): string
+    function call(...$args): self
     {
-        if (is_string($callable)) {
-            return $callable;
-        } else if (is_array($callable)) {
-            if (is_object($callable[0])) {
-                return get_class($callable[0]) . '::' . $callable[1];
-            } else {
-                return $callable[0] . '::' . $callable[1];
-            }
-        } else if ($callable instanceof \Closure) {
-            do {
-                $key = 'Closure::' . md5(microtime(true), true);
-            } while (array_key_exists($key, $this->suscribers));
-            return $key;
+        if (!$this->once || 0 == $this->called) {
+            call_user_func_array($this->callable, $args);
+            ++$this->called;
+        } else {
+            throw new Exception([
+                "message" => "This listener must called once.",
+                "code" => 301
+            ]);
         }
+        return $this;
+    }
+
+    /**
+     * Return callable.
+     * 
+     * @param void
+     * @return callable
+     */
+    function getCallable(): callable
+    {
+        return $this->callable;
+    }
+
+    /**
+     * Return priority.
+     * 
+     * @param void
+     * @return int
+     */
+    function getPriority(): int
+    {
+        return $this->priority;
+    }
+
+    /**
+     * Return propagation bool.
+     * 
+     * @param void
+     * @return bool
+     */
+    function getPropagation(): bool
+    {
+        return $this->propagation;
+    }
+
+    /**
+     * Stop propagation.
+     *  
+     * @param void
+     * @return void
+     */
+    function stopPropagation(): void
+    {
+        $this->propagation = false;
     }
 }
