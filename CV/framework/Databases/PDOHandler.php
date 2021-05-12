@@ -13,6 +13,7 @@ class PDOHandler
      * @static array $PDO : Store array of PDO connections.
      */
     static $PDO;
+    static $current = null;
 
     private function __construct()
     {
@@ -42,6 +43,7 @@ class PDOHandler
         try {
             $dsn = $dbtype . ':dbname=' . $dbname . ';hostname=' . $dbhost . ';';
             self::$PDO[$tag] =  new PDO($dsn, $login, $passwd);
+            self::$current = $tag;
         } catch (PDOException $e) {
             throw new Exception(["message" => $e, "code" => 300]);
         }
@@ -53,9 +55,11 @@ class PDOHandler
      * @param ...$args see __construct() above;
      * @return self
      */
-    static function getInstance($instance)
+    static function getInstance(?string $instance = null)
     {
+        $instance = $instance ?? self::$current;
         if (self::issetInstance($instance)) {
+            self::$current = $instance;
             return self::$PDO[$instance];
         }
     }
@@ -66,7 +70,7 @@ class PDOHandler
      * @param ...$args see __construct() above;
      * @return self
      */
-    static function issetInstance($instance)
+    static function issetInstance(string $instance)
     {
         return isset(self::$PDO[$instance]);
     }
@@ -82,8 +86,10 @@ class PDOHandler
     /**
      * 
      */
-    static function closeInstance($instance)
+    static function closeInstance(string $instance)
     {
-        unset(self::$PDO[$instance]);
+        if (self::issetInstance($instance)) {
+            unset(self::$PDO[$instance]);
+        }
     }
 }
