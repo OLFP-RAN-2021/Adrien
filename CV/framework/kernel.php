@@ -52,18 +52,46 @@ try {
      */
     foreach (APP['PDO_connect'] as $tag => $DBConnectArgs) {
         PDOHandler::openInstance($tag, ...$DBConnectArgs);
-        $PDO = PDOHandler::getInstance($tag);
+        // $PDO = PDOHandler::getInstance($tag);
     }
 
-    $data = Query::on("MyAppDB")
-        ->prepare('SELECT url,title,content FROM page WHERE url=:url;')
-        ->bind([':url' => 'test_2.html'])
+
+
+    Query::on()
+        ->getRequest('SELECT title,content FROM pages WHERE urlid = :nest;')
+        ->nest(
+            'nest',
+            Query::on()
+                ->getRequest('SELECT id FROM urls WHERE url = :url')
+                ->getData(['url' => 'accueil.html'])
+        )
         ->execute()
-        ->fetch();
+        ->fetchAllCall(
+            function ($row, $data) {
+
+
+                var_dump($data);
+            },
+            \PDO::FETCH_ASSOC
+        );
+
+
+
+
 
 
     // var_dump($queryhandler);
-    var_dump($data);
+    // echo '<pre>' . print_r($data, 1) . '</pre></br>';
+
+
+    // $data = Query::on()
+    //     ->getRequest('DESCRIBE pages;')
+    //     ->execute()
+    //     ->fetch(true, null);
+
+
+    // var_dump($queryhandler);
+    // echo '<pre>' . print_r($data, 1) . '</pre></br>';
 
     // that ok ! 
 
