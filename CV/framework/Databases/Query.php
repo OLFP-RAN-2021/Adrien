@@ -207,6 +207,20 @@ class Query
     /**
      * 
      */
+    function fetchClass(string $class)
+    {
+    }
+
+    /**
+     * 
+     */
+    function fetchObj(object $obj)
+    {
+    }
+
+    /**
+     * 
+     */
     function fetch(...$fetchMethod)
     {
         return $this->fetcher(false, null,  ...$fetchMethod);
