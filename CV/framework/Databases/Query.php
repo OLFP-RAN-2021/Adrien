@@ -12,8 +12,6 @@ class Query
     private ?PDOStatement $statement = null;
     private ?PDO $PDO = null;
 
-    const LAST = -1;
-
     /**
      * Construct 
      */
@@ -156,12 +154,23 @@ class Query
         try {
             $this->statement->execute();
         } catch (PDOException $error) {
+            switch ($error->getCode()) {
+                case '42S02':
+                    $code = 400;
+                    break;
+                case '00000':
+                    $code = 200;
+                    break;
+                default:
+                    $code = 100;
+                    break;
+            }
+            $data = ($this->data ?? []);
             throw new Exception([
-                'message' => $error->getMessage() . '<br>'
-                    . '<br>' . $this->request
-                    . '<br>' . print_r($this->data, 1),
-                // .'<br>',
-                "code" => 303,
+                'message' => $error->getMessage() . '<br>',
+                'description' => '<br><b>Request : </b>' . $this->request
+                    . '<br><br><b>Data : </b><br>' . print_r($data, 1),
+                "code" => $code,
                 "throwable" => $error
             ]);
         }

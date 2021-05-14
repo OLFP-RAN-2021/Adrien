@@ -1,11 +1,14 @@
 <?php
 
-namespace Framework\Databases\SQLElements\Keys;
+namespace Framework\Databases\SQLElements\Key;
 
-class UniqueKey extends Keys
+class UniqueKey extends Key
 {
-    function __construct()
-    {
-        $this->is_unique = true;
+    function __construct(
+        string $name,
+        ?string $index = null,
+
+    ) {
+        parent::__construct($name, $index, true);
     }
 }

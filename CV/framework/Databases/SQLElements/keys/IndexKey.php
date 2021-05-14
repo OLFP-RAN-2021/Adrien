@@ -1,15 +1,13 @@
 <?php
 
-namespace Framework\Databases\SQLElements\Keys;
+namespace Framework\Databases\SQLElements\Key;
 
-use Framework\Databases\SQLElements\Type;
-
-class IndexKey extends Keys
+class IndexKey extends Key
 {
     function __construct(
-        private string $name,
-        private string $index,
+        string $name,
+        string $index,
     ) {
-        parent::__construct($this->name, $this->index);
+        parent::__construct($name, $index);
     }
 }

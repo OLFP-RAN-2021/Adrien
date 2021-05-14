@@ -1,3 +1,10 @@
+# 
+
+Dans l'état actuel : on va opérer des reqêtes simple.
+
+    PS : les dossiers `SQLElement` et `SQLQueries` seront développés ultérieurement pour construire une réprensentation complète des tables et des structures de données.
+
+
 ## 1. Requête simple retournant un tableu.
 
 ```php

@@ -1,10 +1,10 @@
 <?php
 
-namespace Framework\Databases\SQLElements\Keys;
+namespace Framework\Databases\SQLElements\Key;
 
-use Framework\Databases\SQLExceptions;
+use Framework\Databases\DBExceptions;
 
-class Keys
+class Key
 {
     /**
      * 
@@ -16,24 +16,17 @@ class Keys
      * @param string    The table column name as key name.
      * @param string    The index name. If empty : column name.
      * @param bool      Is unique value.
-     * @param bool      Is auto_incremented
-     * @param bool      Is primary
-     * @param bool      Is foreign
      */
     function __construct(
         private string $name,
-        private ?string $indexName = null,
+        private ?string $index = null,
         private ?bool $is_unique = false,
-        private ?bool $auto_increment = false,
-        private ?bool $is_primary = false,
-        private ?bool $is_foreign = false,
     ) {
-        $this->indexName = $indexName ?? $name;
-
+        $this->index = $index ?? $name;
         if (!self::issetKey($name)) {
             self::$keysList[$name] = $this;
         } else {
-            // throw new SQLExceptions(["mmsg"=>""]);
+            throw new DBExceptions(["message" => "This table Key elready exist."]);
         }
     }
 
@@ -75,22 +68,30 @@ class Keys
 
     /**
      * 
+     * @param void
+     * @return string
      */
     function getIndex(): bool
     {
-        return $this->indexName;
+        return $this->index;
     }
 
     /**
+     * Return name.
      * 
+     * @param void
+     * @return string
      */
-    function getName(): bool
+    function getName(): string
     {
         return $this->name;
     }
 
     /**
      * 
+     * 
+     * @param void
+     * @return bool
      */
     function isUnique(): bool
     {
@@ -99,25 +100,21 @@ class Keys
 
     /**
      * 
+     * @param void
+     * @return bool
      */
     function isPrimary(): bool
     {
-        return $this->is_primary;
+        return $this instanceof PrimaryKey;
     }
 
     /**
      * 
+     * @param void
+     * @return bool
      */
     function isForeign(): bool
     {
-        return $this->is_foreign;
-    }
-
-    /**
-     * 
-     */
-    function isAutoIncremented(): bool
-    {
-        return $this->auto_increment;
+        return $this instanceof ForeignKey;
     }
 }

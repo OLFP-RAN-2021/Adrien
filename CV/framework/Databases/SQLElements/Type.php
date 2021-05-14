@@ -2,7 +2,9 @@
 
 namespace Framework\Databases\SQLElements;
 
+use Framework\Databases\DBExceptions;
 use Framework\Databases\SQLExceptions;
+use Framework\Exception;
 
 class Type
 {
@@ -31,12 +33,55 @@ class Type
         private $type = self::INT,
         private ?int $min = null,
         private ?int $max = null,
-        private ?mixed $default = null,
+        private ?bool $nullable = true,
+        private ?mixed $value = null,
     ) {
-        if ($this->min < $this->type[1]) $this->min = $this->type[1];
-        // else throw new SQLExceptions("message"=>);
-        if ($this->max > $this->type[2]) $this->min = $this->type[2];
-        // else throw new SQLExceptions("message"=>);
+        if ($this->min < $this->type[1]) {
+            $this->min = $this->type[1];
+        } else {
+            throw new DBExceptions([
+                "message" => "Min must be heigther or equal to DB support(" . $this->type[1] . ").",
+                "code" => 400
+            ]);
+        }
+        if ($this->max > $this->type[2]) {
+            $this->max = $this->type[2];
+        } else {
+            throw new DBExceptions([
+                "message" => "Max must be lower or equal to DB support(" . $this->type[2] . ").",
+                "code" => 400
+            ]);
+        }
+    }
+
+    /**
+     * 
+     */
+    function getValue()
+    {
+        return $this->value;
+    }
+
+    /**
+     * 
+     */
+    function setValue(?mixed $value = null)
+    {
+        if (!$this->isNullable() && null == $value) {
+            throw new DBExceptions([
+                "message" => "This field is not nullable.",
+                "code" => 400
+            ]);
+        }
+        $this->value = $value;
+    }
+
+    /**
+     * 
+     */
+    function isNullable()
+    {
+        return $this->nullable;
     }
 
     /**

@@ -3,7 +3,8 @@
 namespace Framework\Databases;
 
 use Framework\Exception;
+use PDOStatement;
 
-class SQLExceptions extends Exception
+class DBExceptions extends Exception
 {
 }
