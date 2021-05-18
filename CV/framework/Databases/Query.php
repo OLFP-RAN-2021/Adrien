@@ -6,18 +6,31 @@ use Framework\Exception;
 use PDO;
 use PDOException;
 use PDOStatement;
-use QueryCMD;
-use QueryJoin;
-use ReflectionClass;
 
 class Query
 {
 
-    // use QueryCmd;
+    use QueryFactoryFacades;
+    use QueryFactory;
     // use QueryJoin;
 
-    private ?PDOStatement $statement = null;
-    private ?PDO $PDO = null;
+    public ?PDOStatement $statement = null;
+    public ?PDO $PDO = null;
+
+    public ?string $dbname = null;
+    public ?string $tablename = null;
+
+    // public array $stack = [];
+
+    public string $request = '';
+    public array $data = [];
+
+    const Equal = '=';
+    const Not = '!=';
+    const Highter = '>';
+    const HighterOrEqual = '>=';
+    const Lower = '<';
+    const LowerOrEqual = '<=';
 
     /**
      * Construct 
@@ -44,141 +57,10 @@ class Query
             $dbname = $parts[0];
             $tablename = $parts[1];
         } else {
-            $dbname = null;
             $tablename = $dbname;
+            $dbname = null;
         }
         return new self($dbname, $tablename);
-    }
-
-    /**
-     * 
-     */
-    function caller(string $name, $args)
-    {
-        $classname = '\Framework\Databases\cmd\\' . strtolower($name);
-        if (class_exists($classname, true)) {
-            var_dump('ok');
-            $reflection = new ReflectionClass($classname);
-            if ($reflection->isInstantiable()) {
-                $cmdObj = $reflection->newInstanceArgs($args);
-                // append request
-                $this->appendRequest((string) $cmdObj);
-                // var_dump((string) $cmdObj);
-                // append data
-                $this->appendData((array) $cmdObj->args);
-                // var_dump((array) $cmdObj->args);
-            }
-        }
-    }
-
-
-    function select(array $list = [])
-    {
-        $this->caller('Select', $list);
-        return $this;
-    }
-
-
-    /**
-     * Add request string.
-     * 
-     * @param array Data to push in request.
-     * @return self
-     */
-    function appendRequest(string $request = '')
-    {
-        $this->request .= $request;
-        // return $this;
-    }
-
-    /**
-     * Add append data.
-     */
-    function appendData(array $data = [])
-    {
-        $this->data = array_merge($this->data, $data);
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-    /**
-     * Enqueue a query.
-     * 
-     * @param self Query to push in sub.
-     * @return self
-     */
-    // function enqueue(self $query): self
-    // {
-    //     foreach ($query->data as $ckey => $value) {
-    //         $nkey = $ckey;
-    //         while (isset($this->data[$nkey])) {
-    //             $nkey .= "_";
-    //         }
-    //         $this->data[$nkey] = $value;
-    //         $query->request = str_replace(':' . $ckey, ':' . $nkey, $query->request);
-    //     }
-    //     $this->request .= $query->request;
-    //     return $this;
-    // }
-
-    /**
-     * Add nested request.
-     * 
-     * @param string Key where to push.
-     * @param self Query to push in sub.
-     * @return self
-     */
-    function nest(string $key, self $query): self
-    {
-        if (isset($query->data)) {
-            foreach ($query->data as $ckey => $value) {
-                $nkey = $ckey;
-                while (isset($this->data[$nkey])) {
-                    $nkey .= "_";
-                }
-                $this->data[$nkey] = $value;
-                $query->request = str_replace(':' . $ckey, ':' . $nkey, $query->request);
-            }
-            $this->request = str_replace(':' . $key, '( ' . $query->request . ' )', $this->request);
-        }
-
-        return $this;
-    }
-
-
-    /**
-     *  Importer les données.
-     * 
-     * @param array Data to push in request.
-     * @return self
-     */
-    function setData(array $data): self
-    {
-        foreach ($data as $key => $value) {
-            $this->data[$key] = $value;
-        }
-        $this->catchErrors();
-        return $this;
-    }
-
-    /**
-     *  Importer les données.
-     * 
-     * @param array Data to push in request.
-     * @return array
-     */
-    function getData(): array
-    {
-        return $this->data;
     }
 
     /**
@@ -199,6 +81,20 @@ class Query
     }
 
     /**
+     * Dump request state.
+     * 
+     */
+    function dump()
+    {
+        foreach ($this->stack as $stack) {
+            echo "<pre><b>" . get_class($stack) . "</b><br>";
+            echo "" . ($stack->request ?? '') . "<br>";
+            echo "" . print_r($stack->data, 1) . "</pre><br>";
+        }
+        return $this;
+    }
+
+    /**
      * Get a PDOStatement.
      * 
      * @param array List of options for PDO Driver.
@@ -206,10 +102,14 @@ class Query
      */
     function getStatement(array $optionsDriver = [])
     {
-        $this->statement = $this->PDO->prepare($this->request, $optionsDriver);
+        $this->runStack();
+
+        $this->statement = $this->PDO->prepare($this->request . ';', $optionsDriver);
         if (isset($this->data)) {
             foreach ($this->data as $key => $value) {
-                $this->statement->bindValue($key, $value);
+                if (!$this->statement->bindValue($key, $value)) {
+                    // var_dump('error');
+                }
             }
             $this->catchErrors();
         }
@@ -231,10 +131,13 @@ class Query
             $this->statement->execute();
         } catch (PDOException $error) {
             switch ($error->getCode()) {
-                case '42S02':
+                case '42000':   // empty request
+                    $code = 300;
+                    break;
+                case '42S02':   // sql string format error
                     $code = 400;
                     break;
-                case '00000':
+                case '00000':   // nothing
                     $code = 200;
                     break;
                 default:
