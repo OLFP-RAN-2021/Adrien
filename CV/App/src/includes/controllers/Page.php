@@ -17,19 +17,19 @@ class Page
     function __construct(...$params)
     {
 
-        var_dump(array('page built'));
+        echo "<br><br>page built<br><br>";
 
-        $callable = function () {
-            echo "message 1<br>";
-        };
+        // $callable = function () {
+        //     echo "message 1<br>";
+        // };
 
-        $emitter = new Emitter();
+        // $emitter = new Emitter();
 
-        $emitter->on('event_1', $callable, 2);
-        $emitter->on('event_1', $callable, 2);
-        $emitter->on('event_1', $callable, 2);
+        // $emitter->on('event_1', $callable, 2);
+        // $emitter->on('event_1', $callable, 2);
+        // $emitter->on('event_1', $callable, 2);
 
-        $emitter->emit('event_1');
+        // $emitter->emit('event_1');
 
 
         // $PAGE = new ModelsPage();
