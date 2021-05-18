@@ -50,7 +50,6 @@ class Autoloader
         return spl_autoload_unregister([__CLASS__, 'loader']);
     }
 
-
     /**
      * Load config array;
      * 
@@ -64,7 +63,6 @@ class Autoloader
     {
         self::$config = array_merge(include 'registre.php', $config);
     }
-
 
     /**
      * Loader : Browse files to found PSR-4 compatible PHP files.
@@ -125,7 +123,8 @@ class Autoloader
      */
     static function recursiveBrowser(string $folder, string $class)
     {
-        $classname = end(explode('\\', $class));
+        $array = explode('\\', $class);
+        $classname = end($array);
         $path = '';
         foreach (glob($folder . '/*') as $file) {
             if (is_dir($file)) {
@@ -136,35 +135,6 @@ class Autoloader
                     self::addCache($class, $file);
                 }
             }
-        }
-    }
-
-    /**
-     * Default() Default autloader behaviour.
-     * 
-     * @param void
-     * @return void
-     */
-    static function default(string $appnamespace, string $appfolder)
-    {
-        /**
-         * Insert config app like
-         *      $namespace => $folder
-         */
-        self::loadConfig(
-            [
-                $appnamespace => $appfolder,
-            ]
-        );
-
-        try {
-            if (true === DEV || !self::loadCache()) {
-                self::register();
-                self::cleanCache();
-            }
-        } catch (\Exception $e) {
-            echo $e->getMessage();
-            // Debbuger::add();
         }
     }
 }
