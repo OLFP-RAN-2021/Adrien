@@ -8,7 +8,7 @@ class ForeignKey extends Key
 {
     function __construct(
         private string $name,
-        private string $foreign = null,
+        private string $foreign,
         private ?string $index = null,
     ) {
         parent::__construct($name, $index);

@@ -10,7 +10,7 @@ class Field
         private string $name,
         private Key $key,
         private Type $type,
-        private ?mixed $value = null,
+        private mixed $value = null,
     ) {
     }
 

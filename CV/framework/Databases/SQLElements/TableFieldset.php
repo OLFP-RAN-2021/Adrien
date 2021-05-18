@@ -4,7 +4,7 @@ namespace Framework\Databases\SQLElements;
 
 use Traversable;
 
-class TableFieldset implements Traversable
+class TableFieldset
 {
     /**
      * field list

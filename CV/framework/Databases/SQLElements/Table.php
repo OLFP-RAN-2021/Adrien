@@ -4,7 +4,6 @@ namespace Framework\Databases\SQLElements;
 
 class Table
 {
-
     function __construct(
         private string $name,
         private TableFieldset $fieldset,
