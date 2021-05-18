@@ -4,9 +4,10 @@ namespace Framework;
 
 use Exception;
 use Framework\Autoloader\Autoloader;
+use Framework\Autoloader\DefaultAutoload;
+use Framework\Autoloader\DefaultAutoloader;
 use Framework\Databases\PDOHandler;
 use Framework\Databases\Query;
-use Framework\Databases\QueryHandler;
 use Framework\DevMod;
 use Framework\Router\Router;
 
@@ -38,8 +39,8 @@ try {
     /**
      * Include Autoloader PSR-4
      */
-    include __DIR__ . '/Autoloader/Autoloader.php';
-    Autoloader::default(APP['namespace'], APP['autoloader']);
+    include __DIR__ . '/Autoloader/Default.php';
+    new DefaultAutoloader(APP['namespace'], APP['autoloader']);
 
     /**
      * start DevMod
@@ -47,53 +48,35 @@ try {
     if (true === DEV)
         DevMod::getInstance();
 
+
+
     /**
      * Build connections DB
+     * 
      */
     foreach (APP['PDO_connect'] as $tag => $DBConnectArgs) {
         PDOHandler::openInstance($tag, ...$DBConnectArgs);
         // $PDO = PDOHandler::getInstance($tag);
     }
 
-
-
-    Query::on()
-        ->getRequest('SELECT title,content FROM pages WHERE urlid = :nest;')
+    // SELECT * FROM pages WHERE urlid = (SELECT id FROM urls WHERE url = accueil.html);
+    $data = Query::on('pages')
+        ->select('title, content')
+        ->where('title', Query::Equal, 'accueil')
         ->nest(
-            'nest',
-            Query::on()
-                ->getRequest('SELECT id FROM urls WHERE url = :url')
-                ->getData(['url' => 'accueil.html'])
+            'urlid',
+            Query::on('urls')
+                ->select('id')
+                ->where('url', Query::Equal, 'accueil.html')
+            // ->dump()
         )
         ->execute()
-        ->fetchAllCall(
-            function ($row, $data) {
+        ->fetchAll(\PDO::FETCH_ASSOC);
+    var_dump($data);
+
+    echo '<br><br><br>';
 
 
-                var_dump($data);
-            },
-            \PDO::FETCH_ASSOC
-        );
-
-
-
-
-
-
-    // var_dump($queryhandler);
-    // echo '<pre>' . print_r($data, 1) . '</pre></br>';
-
-
-    // $data = Query::on()
-    //     ->getRequest('DESCRIBE pages;')
-    //     ->execute()
-    //     ->fetch(true, null);
-
-
-    // var_dump($queryhandler);
-    // echo '<pre>' . print_r($data, 1) . '</pre></br>';
-
-    // that ok ! 
 
     /**
      * Initialize Routing
