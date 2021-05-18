@@ -73,7 +73,7 @@ class GenericException extends \Exception
         $backtrace = '';
         foreach ($this->getTrace() as $error) {
             if (isset($error['function'])) {
-                $backtrace .= 'Called by :';
+                $backtrace .= 'Called by : ';
                 if (isset($error['class']))
                     if (strpos($error['class'], 'class@anonymous', 0) !== false) {
                         $backtrace .= 'class@anonymous->';
@@ -82,7 +82,7 @@ class GenericException extends \Exception
                     }
                 $backtrace .= '<b>' . $error['function'] . '()</b> ';
             }
-            $backtrace .= 'at line <b>' . $error['line'] . '</b> in <b>' . $error['file'] . '</b><br>';
+            $backtrace .= 'at line <b>' . ($error['line'] ?? '') . '</b> in <b>' . ($error['file'] ?? '') . '</b><br>';
         }
         return $backtrace;
     }
@@ -138,9 +138,7 @@ class GenericException extends \Exception
         $css = RELPATH . '/framework/Exceptions/style.css';
 
         /**
-         * 
          * Attention, à parir de là, ça pique les yeux... lol
-         * 
          */
         return <<<HTML
 
