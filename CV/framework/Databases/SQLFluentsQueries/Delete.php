@@ -18,8 +18,20 @@ class Delete extends AbstractCmd
         }
     }
 
-    function __toString(): string
+    function callback()
     {
-        return 'DELETE :' . implode(',:', array_keys($this->args)) . ' ';
+    }
+
+    // function __toString(): string
+    // {
+    //     return 'DELETE :' . implode(',:', array_keys($this->args)) . ' ';
+    // }
+
+    /**
+     * 
+     */
+    function solve(): array
+    {
+        return [];
     }
 }

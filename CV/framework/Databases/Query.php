@@ -35,14 +35,13 @@ class Query
     /**
      * Construct 
      */
-    function __construct(?string $dbname, ?string $tablename = null)
+    function __construct(?string $dbname)
     {
         if (($PDO = PDOHandler::getInstance($dbname)) === null) {
             throw new Exception(["message" => "QueryHandler can't get PDO called '$dbname'."]);
         }
         $this->PDO = $PDO;
         $this->dbname =  $dbname;
-        $this->tablename = $tablename;
     }
 
     /**
@@ -50,17 +49,9 @@ class Query
      * 
      * 
      */
-    static function on(string $dbname)
+    static function on(?string $dbname = null)
     {
-        if (strpos($dbname, '.')) {
-            $parts = explode('.', $dbname);
-            $dbname = $parts[0];
-            $tablename = $parts[1];
-        } else {
-            $tablename = $dbname;
-            $dbname = null;
-        }
-        return new self($dbname, $tablename);
+        return new self($dbname);
     }
 
     /**

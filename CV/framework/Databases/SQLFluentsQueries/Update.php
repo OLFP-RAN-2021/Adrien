@@ -13,8 +13,21 @@ class Update extends AbstractCmd
         ++self::$selcall;
     }
 
+
+    function callback()
+    {
+    }
+
     function __toString(): string
     {
         return 'UPDATE :' . implode(',:', array_keys($this->args)) . ' ';
+    }
+
+    /**
+     * 
+     */
+    function solve(): array
+    {
+        return [];
     }
 }

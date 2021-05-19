@@ -13,8 +13,20 @@ class Insert extends AbstractCmd
         ++self::$selcall;
     }
 
-    function __toString(): string
+    // function __toString(): string
+    // {
+    //     return 'INSERT :' . implode(',:', array_keys($this->args)) . ' ';
+    // }
+
+    function callback()
     {
-        return 'INSERT :' . implode(',:', array_keys($this->args)) . ' ';
+    }
+
+    /**
+     * 
+     */
+    function solve(): array
+    {
+        return [];
     }
 }

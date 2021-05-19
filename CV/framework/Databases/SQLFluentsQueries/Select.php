@@ -12,10 +12,16 @@ class Select extends AbstractCmd
     {
         ++self::$selcall;
         $this->parent = $parent;
+        $this->request = 'SELECT ';
     }
 
     function callback(string $data = "")
     {
-        $this->request = 'SELECT ' . $this->esc_var_list($data) . ' FROM ' . $this->parent->tablename . ' ';
+        $this->request .= $this->esc_var_list($data);
+    }
+
+    function solve(): array
+    {
+        return [$this->request, []];
     }
 }

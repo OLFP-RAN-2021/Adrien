@@ -10,4 +10,16 @@ class Nest extends AbstractCmd
     function __construct(Query $parent, Query $query)
     {
     }
+
+    function callback()
+    {
+    }
+
+    /**
+     * 
+     */
+    function solve(): array
+    {
+        return [];
+    }
 }

@@ -4,7 +4,6 @@ namespace Framework\Databases\SQLFluentsQueries;
 
 use Framework\Databases\DBExceptions;
 use Framework\Databases\Query;
-use Framework\Exception;
 
 class From extends AbstractCmd
 {
@@ -25,14 +24,13 @@ class From extends AbstractCmd
     }
 
     /**
-     *  'OR'|'AND'|'', 'key', 'operator logic', (mixed) value
+     * target table
      */
-    function callback(...$data)
+    function callback(string $data = '')
     {
-        if (is_string($data)) {
-            $data = $this->esc_var($data);
-            $this->fromstack[] = $data;
-        }
+        $newname = $this->esc_var($data);
+        $this->fromstack[] = $newname;
+        $this->parent->tablename = $newname;
     }
 
     /**

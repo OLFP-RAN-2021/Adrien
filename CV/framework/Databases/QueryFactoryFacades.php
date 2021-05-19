@@ -8,7 +8,7 @@ trait QueryFactoryFacades
 {
 
     /**
-     * Select elements.
+     * Select element.
      * 
      * @param array List of column to load.
      * @return self;
@@ -16,6 +16,18 @@ trait QueryFactoryFacades
     function select(?string $list = '*'): self
     {
         $this->factory('Select', $list);
+        return $this;
+    }
+
+    /**
+     * From element.
+     * 
+     * @param array List of column to load.
+     * @return self;
+     */
+    function from(?string $list = '*'): self
+    {
+        $this->factory('From', $list);
         return $this;
     }
 
@@ -29,7 +41,7 @@ trait QueryFactoryFacades
      */
     function where(...$args)
     {
-        return $this->factory('Where', ['', ...$args]);
+        return $this->factory('Where', 'AND', ...$args);
     }
 
     /**
@@ -44,7 +56,7 @@ trait QueryFactoryFacades
      */
     function and(...$args): self
     {
-        $this->factory($this->lastCmd, ['AND', ...$args]);
+        $this->factory('Where', 'AND', ...$args);
         return $this;
     }
 
@@ -56,7 +68,7 @@ trait QueryFactoryFacades
      */
     function or(...$args): self
     {
-        $this->factory($this->lastCmd, ['OR', ...$args]);
+        $this->factory('Where', 'OR', ...$args);
         return $this;
     }
 
@@ -110,6 +122,15 @@ trait QueryFactoryFacades
     function nest(string $key, Query $query)
     {
         $this->factory('Nest', $key, $query);
+        return $this;
+    }
+
+    /**
+     * 
+     */
+    function join(...$args)
+    {
+        $this->factory('Join', ...$args);
         return $this;
     }
 

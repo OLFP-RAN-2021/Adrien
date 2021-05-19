@@ -10,35 +10,42 @@ class Where extends AbstractCmd
 {
     static $called = 0;
 
-    public $data = [];
-    public $request = ' WHERE ';
-    // private $id = microtime();
+    public string $request = ' WHERE ';
+    private array $wherestack = [];
 
     function __construct(Query $parent)
     {
         $this->parent = $parent;
+        $this->objcalled = 0;
     }
 
     /**
-     * 
-     *  'OR'|'AND'|'', 'key', 'operator logic', (mixed) value
-     *
+     *  
      */
-    function callback(...$data)
+    function callback(?string $op = 'AND', ?string $key = '', ?string $logic = '', $value = null, bool $insert = false)
     {
-        while (is_array($data[0]))
-            $data = $data[0];
 
-        $insert = end($data);
-        $insert = (is_bool($insert)) ? $insert : false;
+        $op = (0 == $this->objcalled) ?  '' : $op;
 
-        $nkey = $data[1] . '_' . self::$called;
+        $nkey = $key .  self::$called  . $this->objcalled;
+        ++$this->objcalled;
 
         if ($insert) {
-            $this->request .=  $data[0] . ' ' . $data[1] . ' ' . $data[2] . ' ' . $data[3] . ' ';
+            $this->wherestack[] =  ' ' . $op . ' ' . $key . ' ' . $logic . ' ' . $value;
         } else {
-            $this->request .=  $data[0] . ' ' . $data[1] . ' ' . $data[2] . ' :' . $nkey . ' ';
+            $this->wherestack[] =  ' ' . $op . ' ' . $key . ' ' . $logic . ' :' . $nkey;
+            $this->data[$nkey] = $value;
         }
-        $this->data[$nkey] = $data[3];
+    }
+
+    /**
+     * Prepare request... 
+     * 
+     */
+    function solve()
+    {
+        foreach ($this->wherestack as $stack) {
+            $this->request .= $stack;
+        }
     }
 }

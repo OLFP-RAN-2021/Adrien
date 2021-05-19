@@ -113,10 +113,14 @@ INSERT INTO urls VALUES
     (null, '404.html');
 
 INSERT INTO pages VALUES 
-    (null, 1, 'accueil', 'Accueil du site'), 
-    (null, 2, 'A propos', 'Pour en savoir plus.'), 
-    (null, 3, '404.html', "Cette page n'existe pas");
+    (null, 1, 1, 'accueil', 'Accueil du site'), 
+    (null, 2, 1, 'A propos', 'Pour en savoir plus.'), 
+    (null, 3, 0, '404', "Cette page n'existe pas");
 
+INSERT INTO pages_meta VALUES 
+    (null, 'accueil', 'page', 'CURRENT_TIME()', null), 
+    (null, 'A propos', 'page', 'CURRENT_TIME()', null), 
+    (null, '404', 'page', 'CURRENT_TIME()', null);
 
 ```
 

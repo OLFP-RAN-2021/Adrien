@@ -7,7 +7,6 @@ use ReflectionClass;
 trait QueryFactory
 {
     // string las cmd given
-    private $lastCmd;
 
     // Array stack
     private array $stack = [];
@@ -27,7 +26,6 @@ trait QueryFactory
                 }
             }
         }
-        $this->lastCmd = $name;
         $this->stack[$name]->callback(...$args);
         return $this;
     }
@@ -49,12 +47,10 @@ trait QueryFactory
     function runStack()
     {
         foreach ($this->stack as $stack) {
-            if (isset($stack->request))
-                $this->request .= $stack->request;
-            if (isset($stack->data))
-                $this->data = array_merge($this->data, (array)$stack->data);
+            $array = $stack->return();
+            $this->request .= (string) $array[0];
+            $this->data = array_merge($this->data, (array)$array[1]);
         }
-
         return $this;
     }
 }

@@ -14,14 +14,21 @@ class Nest extends AbstractCmd
         $this->parent = $parent;
     }
 
-    function callback(string $key, ?Query $query)
+    /**
+     * 
+     */
+    function callback(string $key = '', ?Query $query = null)
     {
         $query->runStack();
-        if (null == $this->parent->Where) {
-            $this->request = ' WHERE ' . $key . ' = (' . $query->request . ')';
-        } else {
-            $this->request = ' AND ' . $key . ' = (' . $query->request . ')';
-        }
+        $this->parent->where($key, Query::Equal, '(' . $query->request . ')', true);
         $this->data = $query->data;
+    }
+
+    /**
+     * 
+     */
+    function solve()
+    {
+        // var_dump($this->data);
     }
 }
