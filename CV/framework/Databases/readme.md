@@ -10,9 +10,11 @@ Dans l'état actuel : on va opérer des reqêtes simple.
 ```php
 <?php
     $data = Query::on()
-        ->getRequest('SELECT * FROM pages;')
+        ->select()
+        ->from('pages')
         ->execute()
         ->fetchAll(\PDO::FETCH_ASSOC);
+
     echo '<pre>' . print_r($data, 1) . '</pre></br>';
 ```
 
@@ -48,33 +50,69 @@ Array
 )
 ```
 
-## 2. Requête imbriquée retrounée dans une callback.
+## 2. Requête imbriquée et jointure à gauche retrounée dans une callback.
 
 ```php
 <?php
-    Query::on()
-        ->getRequest('SELECT title,content FROM pages WHERE urlid = :nest;')
+   $data = Query::on()
+        ->select()
+        ->from('pages')
+        ->join('id', 'pages_meta.id', SQL::JOIN_LEFT)
         ->nest(
-            'nest',
+            'urlid',
             Query::on()
-                ->getRequest('SELECT id FROM urls WHERE url = :url')
-                ->getData(['url' => 'accueil.html'])
+                ->select('id')
+                ->from('urls')
+                ->where('url', SQL::EQUAL, 'accueil.html')
         )
         ->execute()
-        ->fetchCall(
-            function ($row, $data) {
-                echo $row . ' => ' . $data . '<br>';
-            }, 
-            \PDO::FETCH_ASSOC);
+        ->fetch();
+
 
 ```
 
 Will return :
 
 ```
-    title => accueil
-    content => Accueil du site
+Array
+(
+    [0] => Array
+        (
+            [id] => 1
+            [urlid] => 1
+            [authorid] => 1
+            [title] => accueil
+            [content] => Accueil du site
+            [keyword] => accueil
+            [categorie] => page
+            [publication] => 2021-05-18 18:27:16
+            [edition] => 
+        )
+
+)
 ```
+
+
+## 3. Insert 
+
+```php
+    Query::on()
+        ->insert(
+            'urls',
+            [
+                [null, 'test.html'],
+                [null, 'test1.html'],
+                [null, 'test2.html']
+            ],
+
+        )
+        ->execute()
+        ->fetch();
+
+```
+
+
+
 
 ## to myself
 

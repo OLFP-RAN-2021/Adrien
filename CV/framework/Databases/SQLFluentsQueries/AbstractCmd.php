@@ -4,9 +4,29 @@ namespace Framework\Databases\SQLFluentsQueries;
 
 abstract class AbstractCmd
 {
+    static int $count = 0;
     public array $args = [];
     public string $request = '';
     public array $data = [];
+
+    function constuct()
+    {
+        $this->name = 'CMD#' . ++self::$count;
+    }
+
+    /**
+     * 
+     */
+    function merge(array $data = [])
+    {
+        $keys = [];
+        foreach ($data as $key => $value) {
+            $nkey = $this->name . ':' . $key;
+            $this->data[$nkey] = $value;
+            $keys[] = $nkey;
+        }
+        return $keys;
+    }
 
     /**
      * 

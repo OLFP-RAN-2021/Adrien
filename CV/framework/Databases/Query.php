@@ -25,13 +25,6 @@ class Query
     public string $request = '';
     public array $data = [];
 
-    const Equal = '=';
-    const Not = '!=';
-    const Highter = '>';
-    const HighterOrEqual = '>=';
-    const Lower = '<';
-    const LowerOrEqual = '<=';
-
     /**
      * Construct 
      */

@@ -3,6 +3,7 @@
 namespace Framework\Databases\SQLFluentsQueries;
 
 use Framework\Databases\Query;
+use Framework\Databases\SQL;
 
 class Nest extends AbstractCmd
 {
@@ -20,7 +21,7 @@ class Nest extends AbstractCmd
     function callback(string $key = '', ?Query $query = null)
     {
         $query->runStack();
-        $this->parent->where($key, Query::Equal, '(' . $query->request . ')', true);
+        $this->parent->where($key, SQL::EQUAL, '(' . $query->request . ')', true);
         $this->data = $query->data;
     }
 

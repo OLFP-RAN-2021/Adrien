@@ -75,30 +75,30 @@ trait QueryFactoryFacades
     /**
      * 
      */
-    function insert(array $data = []): self
+    function insert(string $tablename = null, array $data = []): self
     {
-        $this->factory('Insert', $data);
+        $this->factory('Insert', $tablename, $data);
         return $this;
     }
 
     /**
      * 
      */
-    function update(array $data = []): self
+    function update(string $tablename = '', array $data = []): self
     {
-        $this->update = $this->factory('Update', $data);
+        $this->factory('Update', $tablename, $data);
         return $this;
     }
 
     /**
      * Delete someting.
      * 
-     * @param
+     * @param string $tablename
      * @return
      */
-    function delete(array $data = []): self
+    function delete(string $tablename = null): self
     {
-        $this->factory('Delete', $data);
+        $this->factory('Delete', $tablename);
         return $this;
     }
 
@@ -131,15 +131,6 @@ trait QueryFactoryFacades
     function join(...$args)
     {
         $this->factory('Join', ...$args);
-        return $this;
-    }
-
-    /**
-     * 
-     */
-    function enqueue(Query $query)
-    {
-        $this->factory('Enqueue', $query);
         return $this;
     }
 }
