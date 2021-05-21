@@ -6,6 +6,59 @@ use Framework\Databases\Query;
 
 trait QueryFactoryFacades
 {
+    /**
+     * 
+     */
+    function createTable(string $tablename, ?array $fields = [], ?string $charset = null, ?string $collation = null)
+    {
+        $this->factory('CreateTable', $fields, $tablename, $charset, $collation);
+        return $this;
+    }
+
+    /**
+     * 
+     */
+    function alterTable(string $tablename, ?array $data = [])
+    {
+        $this->factory('AlterTable', $tablename);
+        return $this;
+    }
+
+    /**
+     * 
+     */
+    function dropTable(string $tablename)
+    {
+        $this->factory('DropTable', $tablename);
+        return $this;
+    }
+
+    /**
+     * 
+     */
+    function addPrimaryColumn(string $tablename = 'id')
+    {
+        $this->factory('addPrimary', $tablename);
+        return $this;
+    }
+
+    /**
+     * 
+     */
+    function addForeignColumn(string $tablename = 'fid', string $foreign = 'foreign.id', bool $update = false, bool $delete = false)
+    {
+        $this->factory('addForeign', $tablename, $foreign, $update, $delete);
+        return $this;
+    }
+
+    /**
+     * 
+     */
+    function addColumn(array $opts)
+    {
+        $this->factory('addColumn', $opts);
+        return $this;
+    }
 
     /**
      * Select element.
