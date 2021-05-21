@@ -26,7 +26,16 @@ trait QueryFactory
                 }
             }
         }
-        $this->stack[$name]->callback(...$args);
+        if (method_exists($this->stack[$name], 'callonce')) {
+            if (false == $this->stack[$name]->callonce) {
+                $this->stack[$name]->callonce(...$args);
+                $this->stack[$name]->callonce = true;
+            } else {
+                throw new DBExceptions(["message" => "This object must be called once."]);
+            }
+        } else if (method_exists($this->stack[$name], 'callback')) {
+            $this->stack[$name]->callback(...$args);
+        }
         return $this;
     }
 
