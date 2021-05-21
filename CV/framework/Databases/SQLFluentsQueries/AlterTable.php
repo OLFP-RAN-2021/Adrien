@@ -10,16 +10,16 @@ class CreateTable extends AbstractCmd
     function __constuct(Query $parent)
     {
         $this->parent = $parent;
-        $this->request = 'DROP TABLE ';
+        $this->request = 'ALTER TABLE ';
     }
 
+    /**
+     * 
+     * @param string tablename Table name
+     * @return void     
+     */
     function callback(string $tablename = '')
     {
-        $this->request .= $tablename . ',';
-    }
-
-    function solve()
-    {
-        $this->request = substr($this->request, 0, -1);
+        $this->request .= $tablename . ' ';
     }
 }

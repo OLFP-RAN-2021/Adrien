@@ -8,10 +8,13 @@ abstract class AbstractCmd
     public array $args = [];
     public string $request = '';
     public array $data = [];
+    public bool $callonce = false;
 
+    /**
+     * 
+     */
     function constuct()
     {
-        $this->name = 'CMD#' . ++self::$count;
     }
 
     /**
