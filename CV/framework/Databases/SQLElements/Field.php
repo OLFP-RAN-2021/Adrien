@@ -9,7 +9,6 @@ class Field
     function __construct(
         private string $name,
         private Key $key,
-        private Type $type,
         private mixed $value = null,
     ) {
     }
@@ -29,11 +28,13 @@ class Field
         return $this->name;
     }
 
-    function setValue($value)
+    function setValue(mixed $value)
     {
+        $this->vaulue = $value;
     }
 
     function getValue()
     {
+        return $this->vaulue;
     }
 }

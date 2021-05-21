@@ -34,7 +34,6 @@ class Type
         private ?int $min = null,
         private ?int $max = null,
         private ?bool $nullable = true,
-        private mixed $value = null,
     ) {
         if (null != $this->min && $this->min < $this->type[1]) {
             $this->min = $this->type[1];
@@ -44,7 +43,6 @@ class Type
             ]);
         }
         if (null != $this->max && $this->max > $this->type[2]) {
-            var_dump($this->max);
             $this->max = $this->type[2];
             throw new DBExceptions([
                 "message" => "Max must be lower or equal to DB support(" . $this->type[2] . ").",

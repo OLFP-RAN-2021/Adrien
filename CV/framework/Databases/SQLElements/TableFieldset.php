@@ -12,6 +12,7 @@ class TableFieldset
     private $data = [];
 
     /**
+     * Create a fieldset
      * 
      * @param array : list of fields.
      */
@@ -47,7 +48,6 @@ class TableFieldset
             return null;
         }
     }
-
 
     /**
      * 

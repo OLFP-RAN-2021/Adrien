@@ -3,6 +3,7 @@
 namespace Framework\Databases\SQLElements\Key;
 
 use Framework\Databases\DBExceptions;
+use Framework\Databases\SQLElements\Type;
 
 class Key
 {
@@ -19,6 +20,7 @@ class Key
      */
     function __construct(
         private string $name,
+        private Type $type,
         private ?string $index = null,
         private ?bool $is_unique = false,
     ) {
@@ -29,6 +31,15 @@ class Key
             throw new DBExceptions(["message" => "This table Key elready exist."]);
         }
     }
+
+    /**
+     * 
+     */
+    function toString()
+    {
+        return $this->name;
+    }
+
 
     /**
      * Isset key.

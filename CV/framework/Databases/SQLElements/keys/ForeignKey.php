@@ -8,14 +8,24 @@ class ForeignKey extends Key
 {
     function __construct(
         private string $name,
+        private Type $type,
         private string $foreign,
         private ?string $index = null,
     ) {
-        parent::__construct($name, $index);
+        parent::__construct($name, $type, $index);
     }
 
     function getForeign()
     {
         return $this->foreign;
+    }
+
+    /**
+     * 
+     */
+    function __toString()
+    {
+        $foreign = explode('.', $this->foreign);
+        ' FOREIGN KEY ' . $foreign[1] . ' REFERENCES ' . $foreign[0] . '(' . $foreign[1] . ')';
     }
 }
