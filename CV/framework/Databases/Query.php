@@ -30,23 +30,27 @@ class Query
     /**
      * Construct 
      */
-    function __construct(?string $dbname)
+    function __construct(?string $DB = null, ?PDO $pdo = null)
     {
-        if (($PDO = PDOHandler::getInstance($dbname)) === null) {
-            throw new Exception(["message" => "QueryHandler can't get PDO called '$dbname'."]);
+        if (($PDO = PDOHandler::getInstance($DB)) !== null) {
+            $this->dbname =  $DB;
+            $this->PDO = $PDO;
+        } else if ($pdo instanceof \PDO) {
+            $this->dbname = $DB;
+            $this->PDO = $pdo;
+        } else {
+            throw new Exception(["message" => "QueryHandler require a PDO instance or a PDOHandler key(string)."]);
         }
-        $this->PDO = $PDO;
-        $this->dbname =  $dbname;
     }
+
 
     /**
      * Use to taget dbname.tablename or only tablename
      * 
-     * 
      */
-    static function on(?string $dbname = null)
+    static function on(?string $DB = null, ?PDO $pdo = null)
     {
-        return new self($dbname);
+        return new self($DB, $pdo);
     }
 
     /**

@@ -15,7 +15,7 @@ trait QueryFactory
      * Build or return factorised SQL query elements.
      * 
      */
-    function factory(string $name, ...$args)
+    private function factory(string $name, ...$args)
     {
         if (!isset($this->stack[$name])) {
             $classname = __NAMESPACE__ . '\SQLFluentsQueries\\' . $name;
@@ -26,14 +26,7 @@ trait QueryFactory
                 }
             }
         }
-        if (method_exists($this->stack[$name], 'callonce')) {
-            if (false == $this->stack[$name]->callonce) {
-                $this->stack[$name]->callonce(...$args);
-                $this->stack[$name]->callonce = true;
-            } else {
-                throw new DBExceptions(["message" => "This object must be called once."]);
-            }
-        } else if (method_exists($this->stack[$name], 'callback')) {
+        if (!$this->stack[$name]->callonce or 0 == $this->stack[$name]->called) {
             $this->stack[$name]->callback(...$args);
         }
         return $this;

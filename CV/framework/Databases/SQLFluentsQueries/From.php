@@ -7,8 +7,6 @@ use Framework\Databases\Query;
 
 class From extends AbstractCmd
 {
-    static $called = 0;
-
     public string $request = ' FROM ';
     private array $fromstack = [];
 
@@ -26,7 +24,7 @@ class From extends AbstractCmd
     /**
      * target table
      */
-    function callback(string $data = '')
+    function callback(string $data = ''): void
     {
         $newname = $this->esc_var($data);
         $this->fromstack[] = $newname;
@@ -37,7 +35,7 @@ class From extends AbstractCmd
      * Prepare request... 
      * 
      */
-    function solve()
+    function solve(): void
     {
         $this->request .= implode(',', $this->fromstack);
     }

@@ -6,32 +6,25 @@ use Framework\Databases\Query;
 
 class Insert extends AbstractCmd
 {
-    static $called = 0;
 
     function __construct(Query $parent)
     {
-        $this->objcalled = 0;
         $this->request .= ' INSERT INTO ';
     }
 
     /**
      * 
      */
-    function callback(string $tablename = '', array $data = [])
+    function callback(string $tablename = '', array $data = []): void
     {
-        if (0 == $this->objcalled) {
+        if (0 == $this->called) {
             $this->request .= $tablename . ' VALUES ';
         }
-        $this->objcalled++;
-        ++self::$called;
 
-        // $data = (!is_array($data[0])) ? [$data] : $data;
-        $i = 0;
         foreach ($data as $row) {
             $this->request .= '(';
             foreach ($row as $key => $value) {
-                $i++;
-                $nkey = self::$called . $this->objcalled . 'insert' . $i . $key;
+                $nkey = 'key' . md5(microtime());
                 $this->data[$nkey] = $value;
                 $this->request .= ':' . $nkey . ',';
             }
@@ -43,7 +36,7 @@ class Insert extends AbstractCmd
     /**
      * 
      */
-    function solve()
+    function solve(): void
     {
         $this->request = substr($this->request, 0, -1);
     }

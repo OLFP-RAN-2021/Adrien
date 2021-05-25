@@ -23,16 +23,13 @@ class addColumn extends AbstractCmd
      *    
      *    
      */
-    function callback(?array $opts = [],)
+    function callback(?array $opts = [],): void
     {
         if (!isset($opts['name'])) {
             throw new DBExceptions(["message" => "Add column require a column name."]);
         }
         if (!isset($opts['type'])) {
             throw new DBExceptions(["message" => "Add column require a column a SQL type : VARCHAR, INT, etc.. "]);
-        }
-        if (!isset($opts['length'])) {
-            throw new DBExceptions(["message" => "Add column require a column max length."]);
         }
 
         $this->request .= ' ADD ' . $opts['name'] . ' ' . $opts['type'] . '(' . $opts['length'] . ') ';
@@ -48,5 +45,9 @@ class addColumn extends AbstractCmd
         if (isset($opts['ai'])) {
             $this->request .= ' AUTO_INCREMENT ';
         }
+    }
+
+    function solve(): void
+    {
     }
 }

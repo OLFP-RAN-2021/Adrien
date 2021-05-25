@@ -15,13 +15,12 @@ class Select extends AbstractCmd
         $this->request = 'SELECT ';
     }
 
-    function callback(string $data = "")
+    function callback(string $data = ""): void
     {
         $this->request .= $this->esc_var_list($data);
     }
 
-    function solve(): array
+    function solve(): void
     {
-        return [$this->request, []];
     }
 }

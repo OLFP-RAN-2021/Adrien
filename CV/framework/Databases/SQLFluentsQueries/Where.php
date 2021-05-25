@@ -8,7 +8,6 @@ use Framework\Exception;
 
 class Where extends AbstractCmd
 {
-    static $called = 0;
 
     public string $request = ' WHERE ';
     private array $wherestack = [];
@@ -19,16 +18,17 @@ class Where extends AbstractCmd
         $this->objcalled = 0;
     }
 
-    /**
-     *  
-     */
-    function callback(?string $op = 'AND', ?string $key = '', ?string $logic = '', $value = null, bool $insert = false)
-    {
+    function callback(
+        ?string $op = 'AND',
+        ?string $key = '',
+        ?string $logic = '',
+        $value = null,
+        bool $insert = false
+    ): void {
 
         $op = (0 == $this->objcalled) ?  '' : $op;
 
-        $nkey = $key .  self::$called  . $this->objcalled;
-        ++$this->objcalled;
+        $nkey = 'key' . md5(microtime());
 
         if ($insert) {
             $this->wherestack[] =  ' ' . $op . ' ' . $key . ' ' . $logic . ' ' . $value;
@@ -38,11 +38,7 @@ class Where extends AbstractCmd
         }
     }
 
-    /**
-     * Prepare request... 
-     * 
-     */
-    function solve()
+    function solve(): void
     {
         foreach ($this->wherestack as $stack) {
             $this->request .= $stack;

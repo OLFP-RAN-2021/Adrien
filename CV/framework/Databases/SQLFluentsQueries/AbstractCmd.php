@@ -2,13 +2,15 @@
 
 namespace Framework\Databases\SQLFluentsQueries;
 
+use Framework\Databases\Query;
+
 abstract class AbstractCmd
 {
-    static int $count = 0;
     public array $args = [];
     public string $request = '';
     public array $data = [];
     public bool $callonce = false;
+    public int $called = 0;
 
     /**
      * 
@@ -18,24 +20,15 @@ abstract class AbstractCmd
     }
 
     /**
-     * 
+     * Callback can be called any time.
      */
-    function merge(array $data = [])
-    {
-        $keys = [];
-        foreach ($data as $key => $value) {
-            $nkey = $this->name . ':' . $key;
-            $this->data[$nkey] = $value;
-            $keys[] = $nkey;
-        }
-        return $keys;
-    }
+    abstract function callback(): void;
 
     /**
-     * 
+     * solve will be called at end.
+     * Just before merge request & data in main request.
      */
-    abstract function callback();
-    // abstract function solve();
+    abstract function solve(): void;
 
     /**
      * 
@@ -45,11 +38,9 @@ abstract class AbstractCmd
      *      array   $data
      *  ]
      */
-    function return(): array
+    final function return(): array
     {
-        if (method_exists($this, 'solve')) {
-            call_user_func([$this, 'solve']);
-        }
+        call_user_func([$this, 'solve']);
         return [$this->request, $this->data];
     }
 

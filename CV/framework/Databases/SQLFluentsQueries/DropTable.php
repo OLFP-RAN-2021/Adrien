@@ -13,12 +13,12 @@ class CreateTable extends AbstractCmd
         $this->request = 'DROP TABLE ';
     }
 
-    function callback(string $tablename = '')
+    function callback(string $tablename = ''): void
     {
         $this->request .= $tablename . ',';
     }
 
-    function solve()
+    function solve(): void
     {
         $this->request = substr($this->request, 0, -1);
     }

@@ -10,39 +10,27 @@ class Update extends AbstractCmd
 
     function __construct(Query $parent)
     {
-        $this->objcalled = 0;
-        ++self::$ccalled;
         $this->request = ' UPDATE ';
     }
 
     /**
      * 
      */
-    function callback(string $tablename = '', array $data = [])
+    function callback(string $tablename = '', array $data = []): void
     {
         if (!empty($tablename)) {
             $this->request .= $tablename . ' SET  ';
         }
-        ++$this->objcalled;
-        $i = 0;
 
-        // foreach ($data as $row) {
-        //     $this->request .= '(';
         foreach ($data as $key => $value) {
-            $i++;
-            $nkey = self::$ccalled . $this->objcalled . 'update' . $i . $key;
+            $nkey = 'key' . md5(microtime());
             $this->data[$nkey] = $value;
             $this->request .= $key . ' = :' . $nkey . ', ';
         }
         $this->request = substr($this->request, 0, -1);
-        //     $this->request .= '),';
-        // }
     }
 
-    /**
-     * 
-     */
-    function solve()
+    function solve(): void
     {
         $this->request = substr($this->request, 0, -1) . ' ';
     }

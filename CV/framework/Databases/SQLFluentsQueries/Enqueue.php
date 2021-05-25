@@ -23,10 +23,14 @@ class Enqueue extends AbstractCmd
      * 
      * @param Query $query Quryt to melt down.
      */
-    function callback(?Query $query = null)
+    function callback(?Query $query = null): void
     {
         $query->runStack();
         $this->request = $query->request;
         $this->data = array_merge($this->data, $query->data);
+    }
+
+    function solve(): void
+    {
     }
 }

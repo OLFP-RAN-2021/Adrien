@@ -46,7 +46,6 @@ Array
             [title] => 404.html
             [content] => Cette page n'existe pas
         )
-
 )
 ```
 
@@ -67,8 +66,6 @@ Array
         )
         ->execute()
         ->fetch();
-
-
 ```
 
 Will return :
@@ -88,7 +85,6 @@ Array
             [publication] => 2021-05-18 18:27:16
             [edition] => 
         )
-
 )
 ```
 
@@ -104,7 +100,6 @@ Array
                 [null, 'test1.html'],
                 [null, 'test2.html']
             ],
-
         )
         ->execute()
         ->fetch();
@@ -117,6 +112,8 @@ Array
 ## to myself
 
     Rappel de la commande SQL.
+
+    Vais je supprimer SQLElements ? 
 
 ```SQL
 CREATE TABLE urls (

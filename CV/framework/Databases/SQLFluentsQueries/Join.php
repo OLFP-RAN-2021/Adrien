@@ -9,8 +9,9 @@ class Join extends AbstractCmd
 {
     static $selcall = 0;
 
-
-
+    /**
+     * 
+     */
     function __construct(Query $parent)
     {
         ++self::$selcall;
@@ -23,8 +24,12 @@ class Join extends AbstractCmd
      * @param string $foreignTableId Name of table.id of foreign table.
      * @param int $jointype Self class constant like Join::LeftInnerJoin.
      */
-    function callback(string $localid = "id", string $foreignTableId = 'table.id', ?int $jointype = SQL::JOIN_LEFT, ?string $queryop = SQL::EQUAL)
-    {
+    function callback(
+        string $localid = "id",
+        string $foreignTableId = 'table.id',
+        ?int $jointype = SQL::JOIN_LEFT,
+        ?string $queryop = SQL::EQUAL
+    ): void {
         // 
         $foreign = explode('.', $foreignTableId);
         $local = [$this->parent->tablename, $localid];
@@ -67,7 +72,7 @@ class Join extends AbstractCmd
     /**
      * 
      */
-    function solve()
+    function solve(): void
     {
     }
 }

@@ -11,21 +11,16 @@ class Delete extends AbstractCmd
     function __construct(Query $parent)
     {
         ++self::$ccall;
+        $this->request = ' DELETE FROM ';
     }
 
-    /**
-     * 
-     */
-    function callback(string $tablename = '')
+    function callback(string $tablename = ''): void
     {
-        $this->tablename = $tablename;
+        $this->request .= $tablename . ',';
     }
 
-    /**
-     * 
-     */
-    function solve()
+    function solve(): void
     {
-        $this->request = ' DELETE FROM ' . $this->tablename . ' ';
+        $this->request = substr($this->request, 0, -1);
     }
 }

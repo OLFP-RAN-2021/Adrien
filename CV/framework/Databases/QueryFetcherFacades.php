@@ -2,21 +2,25 @@
 
 namespace Framework\Databases;
 
+use PDO;
+
 trait QueryFetcherFacades
 {
 
     /**
      * 
      */
-    function fetchClass(string $class)
+    function fetchClass(string $classname)
     {
+        return $this->fetcher(false, null, PDO::FETCH_CLASS, $classname);
     }
 
     /**
      * 
      */
-    function fetchObj(object $obj)
+    function fetchObj()
     {
+        return $this->fetcher(false, null, PDO::FETCH_OBJ);
     }
 
     /**

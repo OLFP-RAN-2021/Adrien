@@ -20,19 +20,22 @@ trait QueryFetcher
         if (null === $this->statement) {
             throw new Exception(['message' => "QueryHandler require to execute statement before fetching."]);
         }
-
         if (null !== $callable) {
-            if (!$All)
-                foreach ($this->statement->fetch(...$fetchMethod) as $key => $row)
+            if (!$All) {
+                foreach ($this->statement->fetch(...$fetchMethod) as $key => $row) {
                     call_user_func_array($callable, [$key, $row]);
-            else
-                foreach ($this->statement->fetchAll(...$fetchMethod) as $key => $row)
+                }
+            } else {
+                foreach ($this->statement->fetchAll(...$fetchMethod) as $key => $row) {
                     call_user_func_array($callable, [$key, $row]);
+                }
+            }
         } else {
-            if (!$All)
+            if (!$All) {
                 $array = $this->statement->fetch(...$fetchMethod);
-            else
+            } else {
                 $array = $this->statement->fetchAll(...$fetchMethod);
+            }
             $this->catchErrors();
             $this->statement->closeCursor();
             return $array;
