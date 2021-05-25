@@ -9,11 +9,13 @@ use PDOStatement;
 
 class Query
 {
+    // call traits describing fluents
+    use QueryFactoryFacades, QueryFactory;
 
-    use QueryFactoryFacades;
-    use QueryFactory;
-    // use QueryJoin;
+    // call traits describing fetch 
+    use QueryFetcherFacades, QueryFetcher;
 
+    // PDO handling
     public ?PDOStatement $statement = null;
     public ?PDO $PDO = null;
 
@@ -139,86 +141,5 @@ class Query
         }
         $this->catchErrors();
         return $this;
-    }
-
-    /**
-     * Fetch data.
-     * 
-     * @param null|string Callable to execute.
-     * @param mixed Args for fetch.
-     * @return null|mixed
-     */
-    private function fetcher(bool $All = false, ?callable $callable = null,  ...$fetchMethod)
-    {
-        $fetchMethod = (!empty($fetchMethod)) ?  $fetchMethod : [\PDO::FETCH_ASSOC];
-
-        if (null === $this->statement) {
-            throw new Exception(['message' => "QueryHandler require to execute statement before fetching."]);
-        }
-
-        if (null !== $callable) {
-            if (!$All)
-                foreach ($this->statement->fetch(...$fetchMethod) as $key => $row)
-                    call_user_func_array($callable, [$key, $row]);
-            else
-                foreach ($this->statement->fetchAll(...$fetchMethod) as $key => $row)
-                    call_user_func_array($callable, [$key, $row]);
-        } else {
-            if (!$All)
-                $array = $this->statement->fetch(...$fetchMethod);
-            else
-                $array = $this->statement->fetchAll(...$fetchMethod);
-            $this->catchErrors();
-            $this->statement->closeCursor();
-            return $array;
-        }
-        $this->catchErrors();
-        $this->statement->closeCursor();
-    }
-
-    /**
-     * 
-     */
-    function fetchClass(string $class)
-    {
-    }
-
-    /**
-     * 
-     */
-    function fetchObj(object $obj)
-    {
-    }
-
-    /**
-     * 
-     */
-    function fetch(...$fetchMethod)
-    {
-        return $this->fetcher(false, null,  ...$fetchMethod);
-    }
-
-    /**
-     * 
-     */
-    function fetchAll(...$fetchMethod)
-    {
-        return $this->fetcher(true, null,  ...$fetchMethod);
-    }
-
-    /**
-     * 
-     */
-    function fetchCall(callable $callback, ...$fetchMethod)
-    {
-        return $this->fetcher(false, $callback,  ...$fetchMethod);
-    }
-
-    /**
-     * 
-     */
-    function fetchAllCall(callable $callback, ...$fetchMethod)
-    {
-        return $this->fetcher(true, $callback,  ...$fetchMethod);
     }
 }
