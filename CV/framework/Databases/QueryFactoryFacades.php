@@ -7,16 +7,60 @@ use Framework\Databases\Query;
 trait QueryFactoryFacades
 {
     /**
-     * 
+     *
      */
-    function createTable(string $tablename, ?array $fields = [], ?string $charset = null, ?string $collation = null)
-    {
-        $this->factory('CreateTable', $fields, $tablename, $charset, $collation);
+    function createTable(
+        string $tablename,
+        ?array $fields = [],
+        ?string $charset = null,
+        ?string $collation = null
+    ) {
+        $this->factory('CreateTable', $tablename, false, false, $fields, $charset, $collation);
         return $this;
     }
 
     /**
-     * 
+     *
+     */
+    function createTableTemporary(
+        string $tablename,
+        ?array $fields = [],
+        ?string $charset = null,
+        ?string $collation = null
+    ): self {
+        $this->factory('CreateTable', $tablename, true, false, $fields, $charset, $collation);
+        return $this;
+    }
+
+    /**
+     *
+     */
+    function createTableIfNotExists(
+        string $tablename,
+        ?array $fields = [],
+        ?string $charset = null,
+        ?string $collation = null
+    ) {
+        $this->factory('CreateTable', $tablename, false, true, $fields, $charset, $collation);
+        return $this;
+    }
+
+    /**
+     *
+     */
+    function createTableTemporaryIfNotExists(
+        string $tablename,
+        ?array $fields = [],
+        ?string $charset = null,
+        ?string $collation = null
+      ) {
+        $this->factory('CreateTable', $tablename, true, true, $fields, $charset, $collation);
+        return $this;
+    }
+
+
+    /**
+     *
      */
     function alterTable(string $tablename, ?array $data = [])
     {
@@ -25,7 +69,7 @@ trait QueryFactoryFacades
     }
 
     /**
-     * 
+     *
      */
     function dropTable(string $tablename)
     {
@@ -34,35 +78,35 @@ trait QueryFactoryFacades
     }
 
     /**
-     * 
+     *
      */
     function addPrimaryColumn(string $tablename = 'id')
     {
-        $this->factory('addPrimary', $tablename);
+        $this->factory('AddColumn', $tablename);
         return $this;
     }
 
     /**
-     * 
+     *
      */
     function addForeignColumn(string $tablename = 'fid', string $foreign = 'foreign.id', bool $update = false, bool $delete = false)
     {
-        $this->factory('addForeign', $tablename, $foreign, $update, $delete);
+        $this->factory('AddColumn', $tablename, $foreign, $update, $delete);
         return $this;
     }
 
     /**
-     * 
+     *
      */
     function addColumn(array $opts)
     {
-        $this->factory('addColumn', $opts);
+        $this->factory('AddColumn', $opts);
         return $this;
     }
 
     /**
      * Select element.
-     * 
+     *
      * @param array List of column to load.
      * @return self;
      */
@@ -74,7 +118,7 @@ trait QueryFactoryFacades
 
     /**
      * From element.
-     * 
+     *
      * @param array List of column to load.
      * @return self;
      */
@@ -86,11 +130,11 @@ trait QueryFactoryFacades
 
     /**
      * Where
-     * 
+     *
      * @param string key The colmun name.
      * @param string Query::Equal|'=' Logic operator.
-     * @param mixed value 
-     * @return self 
+     * @param mixed value
+     * @return self
      */
     function where(...$args)
     {
@@ -98,14 +142,14 @@ trait QueryFactoryFacades
     }
 
     /**
-     * 
+     *
      *  query -> query.cmdfacade -> query.factory -> obj.
-     * 
-     * 
+     *
+     *
      * and
-     * 
+     *
      * @param array Conditions of request.
-     * @return self 
+     * @return self
      */
     function and(...$args): self
     {
@@ -115,9 +159,9 @@ trait QueryFactoryFacades
 
     /**
      * or
-     * 
+     *
      * @param array Conditions of request.
-     * @return self 
+     * @return self
      */
     function or(...$args): self
     {
@@ -126,7 +170,7 @@ trait QueryFactoryFacades
     }
 
     /**
-     * 
+     *
      */
     function insert(string $tablename = null, array $data = []): self
     {
@@ -135,7 +179,7 @@ trait QueryFactoryFacades
     }
 
     /**
-     * 
+     *
      */
     function update(string $tablename = '', array $data = []): self
     {
@@ -145,7 +189,7 @@ trait QueryFactoryFacades
 
     /**
      * Delete someting.
-     * 
+     *
      * @param string $tablename
      * @return
      */
@@ -166,10 +210,10 @@ trait QueryFactoryFacades
 
     /**
      * Nesting sub a request.
-     * 
+     *
      * @param string $key Where key.
      * @param Query $query Sub request.
-     * 
+     *
      * @return self
      */
     function nest(string $key, Query $query)
@@ -179,7 +223,7 @@ trait QueryFactoryFacades
     }
 
     /**
-     * 
+     *
      */
     function join(...$args)
     {

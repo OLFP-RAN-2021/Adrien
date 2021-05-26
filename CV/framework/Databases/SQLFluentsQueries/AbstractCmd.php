@@ -6,7 +6,6 @@ use Framework\Databases\Query;
 
 abstract class AbstractCmd
 {
-    public array $args = [];
     public string $request = '';
     public array $data = [];
     public bool $callonce = false;
@@ -22,16 +21,15 @@ abstract class AbstractCmd
     /**
      * Callback can be called any time.
      */
-    abstract function callback(): void;
+    abstract function callback(): self;
 
     /**
      * solve will be called at end.
      * Just before merge request & data in main request.
      */
-    abstract function solve(): void;
+    abstract function solve(): self;
 
     /**
-     * 
      * @return array 
      *  [
      *      string  $request

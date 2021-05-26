@@ -2,7 +2,6 @@
 
 namespace Framework\Databases\SQLFluentsQueries;
 
-use Framework\Databases\DBExceptions;
 use Framework\Databases\Query;
 
 class From extends AbstractCmd
@@ -24,19 +23,21 @@ class From extends AbstractCmd
     /**
      * target table
      */
-    function callback(string $data = ''): void
+    function callback(string $data = ''): self
     {
         $newname = $this->esc_var($data);
         $this->fromstack[] = $newname;
         $this->parent->tablename = $newname;
+        return $this;
     }
 
     /**
      * Prepare request... 
      * 
      */
-    function solve(): void
+    function solve(): self
     {
         $this->request .= implode(',', $this->fromstack);
+        return $this;
     }
 }

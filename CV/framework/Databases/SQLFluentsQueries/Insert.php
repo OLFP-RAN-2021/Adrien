@@ -15,7 +15,7 @@ class Insert extends AbstractCmd
     /**
      * 
      */
-    function callback(string $tablename = '', array $data = []): void
+    function callback(string $tablename = '', array $data = []): self
     {
         if (0 == $this->called) {
             $this->request .= $tablename . ' VALUES ';
@@ -31,13 +31,15 @@ class Insert extends AbstractCmd
             $this->request = substr($this->request, 0, -1);
             $this->request .= '),';
         }
+        return $this;
     }
 
     /**
      * 
      */
-    function solve(): void
+    function solve(): self
     {
         $this->request = substr($this->request, 0, -1);
+        return $this;
     }
 }

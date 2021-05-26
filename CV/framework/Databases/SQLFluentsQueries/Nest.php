@@ -18,18 +18,19 @@ class Nest extends AbstractCmd
     /**
      * 
      */
-    function callback(string $key = '', ?Query $query = null): void
+    function callback(string $key = '', ?Query $query = null): self
     {
         $query->runStack();
         $this->parent->where($key, SQL::EQUAL, '(' . $query->request . ')', true);
         $this->data = $query->data;
+        return $this;
     }
 
     /**
      * 
      */
-    function solve(): void
+    function solve(): self
     {
-        // var_dump($this->data);
+        return $this;
     }
 }

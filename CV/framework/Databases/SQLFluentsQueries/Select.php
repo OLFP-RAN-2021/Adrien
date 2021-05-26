@@ -18,9 +18,11 @@ class Select extends AbstractCmd
     function callback(string $data = ""): void
     {
         $this->request .= $this->esc_var_list($data);
+        return $this;
     }
 
-    function solve(): void
+    function solve(): self
     {
+        return $this;
     }
 }

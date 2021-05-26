@@ -24,7 +24,7 @@ class Where extends AbstractCmd
         ?string $logic = '',
         $value = null,
         bool $insert = false
-    ): void {
+    ): self {
 
         $op = (0 == $this->objcalled) ?  '' : $op;
 
@@ -36,12 +36,14 @@ class Where extends AbstractCmd
             $this->wherestack[] =  ' ' . $op . ' ' . $key . ' ' . $logic . ' :' . $nkey;
             $this->data[$nkey] = $value;
         }
+        return $this;
     }
 
-    function solve(): void
+    function solve(): self
     {
         foreach ($this->wherestack as $stack) {
             $this->request .= $stack;
         }
+        return $this;
     }
 }

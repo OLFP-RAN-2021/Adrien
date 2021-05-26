@@ -16,7 +16,7 @@ class Update extends AbstractCmd
     /**
      * 
      */
-    function callback(string $tablename = '', array $data = []): void
+    function callback(string $tablename = '', array $data = []): self
     {
         if (!empty($tablename)) {
             $this->request .= $tablename . ' SET  ';
@@ -28,10 +28,12 @@ class Update extends AbstractCmd
             $this->request .= $key . ' = :' . $nkey . ', ';
         }
         $this->request = substr($this->request, 0, -1);
+        return $this;
     }
 
-    function solve(): void
+    function solve(): self
     {
         $this->request = substr($this->request, 0, -1) . ' ';
+        return $this;
     }
 }

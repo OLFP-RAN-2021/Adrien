@@ -12,10 +12,9 @@ class Enqueue extends AbstractCmd
      * 
      * @param Query $parent
      */
-    function __construct(Query $parent)
+    function __construct()
     {
         ++self::$selcall;
-        $this->parent = $parent;
         $this->request = '';
     }
 
@@ -23,14 +22,16 @@ class Enqueue extends AbstractCmd
      * 
      * @param Query $query Quryt to melt down.
      */
-    function callback(?Query $query = null): void
+    function callback(?Query $query = null): self
     {
         $query->runStack();
         $this->request = $query->request;
         $this->data = array_merge($this->data, $query->data);
+        return $this;
     }
 
-    function solve(): void
+    function solve(): self
     {
+        return $this;
     }
 }

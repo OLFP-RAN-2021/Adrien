@@ -116,10 +116,6 @@ Array
     Vais je supprimer SQLElements ? 
 
 ```SQL
-CREATE TABLE urls (
-    id INT NOT NULL AUTO_INCREMENT, 
-    url VARCHAR(50), 
-    PRIMARY KEY ( id ) );
 
 CREATE TABLE pages_meta (
     id INT NOT NULL AUTO_INCREMENT, 
@@ -128,6 +124,11 @@ CREATE TABLE pages_meta (
     publication DATETIME, 
     edition DATETIME,
     PRIMARY KEY (id));
+
+CREATE TABLE urls (
+    id INT NOT NULL AUTO_INCREMENT, 
+    url VARCHAR(50), 
+    PRIMARY KEY ( id ) );
 
 CREATE TABLE pages (
     id INT NOT NULL AUTO_INCREMENT, 

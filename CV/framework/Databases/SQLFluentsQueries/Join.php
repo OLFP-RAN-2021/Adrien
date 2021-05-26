@@ -29,7 +29,7 @@ class Join extends AbstractCmd
         string $foreignTableId = 'table.id',
         ?int $jointype = SQL::JOIN_LEFT,
         ?string $queryop = SQL::EQUAL
-    ): void {
+    ): self {
         // 
         $foreign = explode('.', $foreignTableId);
         $local = [$this->parent->tablename, $localid];
@@ -67,12 +67,14 @@ class Join extends AbstractCmd
                 //     $this->request = '';
                 //     break;
         }
+        return $this;
     }
 
     /**
      * 
      */
-    function solve(): void
+    function solve(): self
     {
+        return $this;
     }
 }

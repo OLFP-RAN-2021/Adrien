@@ -3,27 +3,31 @@
 namespace Framework\Databases\SQLFluentsQueries;
 
 use Framework\Databases\DBExceptions;
-use Framework\Databases\Query;
-use Framework\Databases\SQL;
 
 class addColumn extends AbstractCmd
 {
 
-    /**
-     * 
-     */
-    function __constuct(Query $parent)
+    function __constuct()
     {
-        $this->parent = $parent;
-        $this->request = '';
     }
 
     /**
-     * 
-     *    
-     *    
+     * Get a new Instance of addColumn or child element.
+     *
+     * @param ...$args
+     * @return self
      */
-    function callback(?array $opts = [],): void
+    static function new(...$args): self
+    {
+        return new self(...$args);
+    }
+
+    /**
+     *
+     *  
+     *
+     */
+    function callback(?array $opts = []): self
     {
         if (!isset($opts['name'])) {
             throw new DBExceptions(["message" => "Add column require a column name."]);
@@ -32,22 +36,29 @@ class addColumn extends AbstractCmd
             throw new DBExceptions(["message" => "Add column require a column a SQL type : VARCHAR, INT, etc.. "]);
         }
 
-        $this->request .= ' ADD ' . $opts['name'] . ' ' . $opts['type'] . '(' . $opts['length'] . ') ';
+        $length = (isset($opts['length'])) ?  '(' . $opts['length'] . ') ' : '';
+        $this->request = ' ADD ' . $opts['name'] . ' ' . $opts['type'] . $length;
         if (isset($opts['primary'])) {
             $this->request .= ' PRIMARY KEY ';
         } else if (isset($opts['foreign'])) {
             $f = explode('.', $opts['foreign']);
             $this->request .= ' FOREIGN KEY ' . $f[1] . ' REFERENCES ' . $f[0] . '(' . $f[1] . ') ';
         }
-        if (isset($opts['not'])) {
+        if (isset($opts['nn'])) {
             $this->request .= ' NOT NULL ';
         }
         if (isset($opts['ai'])) {
             $this->request .= ' AUTO_INCREMENT ';
         }
+
+        return $this;
     }
 
-    function solve(): void
+    /**
+     *
+     */
+    function solve(): self
     {
+        return $this;
     }
 }

@@ -7,19 +7,20 @@ use Framework\Databases\Query;
 class CreateTable extends AbstractCmd
 {
 
-    function __constuct(Query $parent)
+    function __constuct()
     {
-        $this->parent = $parent;
         $this->request = 'DROP TABLE ';
     }
 
-    function callback(string $tablename = ''): void
+    function callback(string $tablename = ''): self
     {
         $this->request .= $tablename . ',';
+        return $this;
     }
 
-    function solve(): void
+    function solve(): self
     {
         $this->request = substr($this->request, 0, -1);
+        return $this;
     }
 }
