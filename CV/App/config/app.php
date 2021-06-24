@@ -24,7 +24,7 @@ return [
         "controllers" => "App\\controllers\\",
         "default" => [
             "call" => "App\\controllers\\Page",
-            "args" => ["home.html"]
+            "args" => ["accueil.html"]
         ],
         "behavior" => ""
     ],

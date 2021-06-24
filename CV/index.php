@@ -4,4 +4,4 @@
  * Include framework kernel.
  * 
  */
-include_once 'framework/kernel.php';
+include_once 'Framework/kernel.php';
