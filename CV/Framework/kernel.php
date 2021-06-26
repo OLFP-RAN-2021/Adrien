@@ -3,7 +3,6 @@
 namespace Framework;
 
 use DOMDocument;
-use Framework\Autoloader\DefaultAutoloader;
 use Framework\Databases\PDOHandler;
 use Framework\Databases\Query;
 use Framework\Databases\SQL;
@@ -47,8 +46,8 @@ try {
     /**
      * Include Autoloader PSR-4
      */
-    include __DIR__ . '/Autoloader/Default.php';
-    new DefaultAutoloader(APP['namespace'], APP['autoloader']);
+    include __DIR__ . '/Autoloader/Handler.php';
+    Autoloader\Handler::new(APP['namespace'], APP['autoloader'], true);
 
     /**
      * start DevMod
