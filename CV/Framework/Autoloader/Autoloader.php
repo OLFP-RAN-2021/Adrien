@@ -16,15 +16,22 @@ include_once __DIR__ . '/FileBrowser.php';
  */
 class Autoloader extends Cache
 {
+    private string $name = 'default';
+    private array $config =  [
+        '*' => 'Vendor',
+        'Framework' => 'Framework'
+    ];
 
     /**
      * 
      */
     function __construct(
-        string $autoloaderName = 'default',
-        private array $config =  ['App\\' => 'src/']
+        string $name = 'default',
+        array $config =  ['App\\' => 'src/']
     ) {
-        parent::__construct($autoloaderName);
+        $this->namespace = $name;
+        $this->config = array_merge($this->config, $config);
+        parent::__construct($name, $this->config);
     }
 
     /**
@@ -35,19 +42,11 @@ class Autoloader extends Cache
      */
     public function register()
     {
-        return spl_autoload_register([__CLASS__, 'loader']);
+        return spl_autoload_register(function ($class) {
+            $this->loader($class);
+        });
     }
 
-    /**
-     * Unregistre 
-     * 
-     * @param void
-     * @return
-     */
-    public function unregiste()
-    {
-        return spl_autoload_unregister([__CLASS__, 'loader']);
-    }
 
     /**
      * Load config array;
@@ -58,9 +57,9 @@ class Autoloader extends Cache
      *      ]
      * @return void
      */
-    function loadConfig()
+    function loadConfig(array $array)
     {
-        $this->config = array_merge(include 'registre.php', $config);
+        $this->config = array_merge($array, $this->config);
     }
 
     /**
@@ -73,14 +72,16 @@ class Autoloader extends Cache
     {
         if ($this->isRegistred($class)) {
             $this->loadClassFile($class);
-        } else {
-            foreach ($this->config as $namespace => $folder) {
-                $browser = new FileBrowser($namespace, $folder);
-                if (($file = $browser->search($class))) {
+            return;
+        }
+        foreach ($this->config as $namespace => $folder)
+            if (strpos($class, $namespace, 0) === 0) {
+                $browser = new FileBrowser($folder);
+                if (null !== ($file = $browser->search($class))) {
                     $this->addCache($class, $file);
                     $this->writeCache();
+                    include_once $file;
                 }
             }
-        }
     }
 }

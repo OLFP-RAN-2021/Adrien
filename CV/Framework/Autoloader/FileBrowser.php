@@ -16,49 +16,48 @@ class FileBrowser
     }
 
     /**
+     * Search file.
      * 
+     * @param string $class
      */
-    function search($class)
+    function search($class): null|string
     {
         $s = DIRECTORY_SEPARATOR;
-        $namespaceRoot =  explode('\\', $class)[0];
+        $this->vendorName =  explode('\\', $class)[0];
 
-        $replace = ['\\', $namespaceRoot . $s];
+        $replace = ['\\', $this->vendorName . $s];
         $with = [$s, ''];
         $classpath = str_replace($replace, $with, $class);
 
         $path = $this->folder . $s . $classpath . '.php';
 
         if (file_exists($path)) {
-            include_once $path;
-            return true;
+            return $path;
         } else {
-            return $this->recursive($folder, $class);
+            return $this->recursive($this->folder, $class);
         }
     }
 
     /**
-     * Parcourir les fichiers récursivement.
+     * Browse files recursivly.
      * 
      * @param string $folder
      * @param string $class
-     * @return 
+     * @return null|string
      */
-    function recursive(string $folder, string $class)
+    function recursive(string $folder, string $class): null|string
     {
         $s = DIRECTORY_SEPARATOR;
         $array = explode('\\', $class);
         $classname = end($array);
+
         foreach (glob($folder . $s . '*') as $file) {
             if (is_dir($file)) {
                 $this->recursive($file, $class);
             }
             if (is_file($file) && basename($file) == $classname . '.php') {
-                if (include_once $file) {
-                    return true;
-                }
+                return $file;
             }
         }
-        return false;
     }
 }

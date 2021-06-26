@@ -11,10 +11,17 @@ namespace Framework\Autoloader;
 class Cache
 {
 
+
+
     /**
      * @var $file
      */
     private string $cacheFile = __DIR__ . '/cache/classlist.php';
+
+    private array $infos = [
+        'version' => 1,
+        'date' => null
+    ];
 
     /**
      * @var array class list
@@ -32,14 +39,15 @@ class Cache
      * @var array class map 
      *      'namespace' => [ 'classename', ... ]
      */
-    // private array $devMap = [];
+    private array $devMap = [];
 
     /**
      * 
      */
-    function __construct(string $name)
+    function __construct(string $name, private array &$config)
     {
-        $this->cacheFile = __DIR__ . '/cache/' . $name . '.php';;
+        $this->cacheFile = __DIR__ . '/cache/' . $name . '.php';
+        $this->readCache();
     }
 
     /**
@@ -48,15 +56,23 @@ class Cache
      * @param string $classname
      * @param string $filename
      */
-    function addCache(string $classname, string $filename): void
+    function addCache(string $classname, string $filename, bool $devonly = false): void
     {
         if (file_exists($filename)) {
+
             $this->listClass[$classname] = $filename;
             $parts = explode('\\', $classname);
             $classname = array_pop($parts);
             $namespace = implode('\\', $parts);
-            $this->classMap[$namespace][] = $classname;
-            $this->writeCache();
+            if (
+                !isset($this->classMap[$namespace])
+                or !in_array($classname, $this->classMap[$namespace])
+            ) {
+                $this->classMap[$namespace][] = $classname;
+            }
+            if ($devonly) {
+                $this->devMap[] = $classname;
+            }
         }
     }
 
@@ -69,11 +85,11 @@ class Cache
     }
 
     /**
-     * 
+     * Load class file if exists
      */
     function loadClassFile(string $class): void
     {
-        if (file_exists($this->listClass[$class]))
+        if (isset($this->listClass[$class]))
             include_once $this->listClass[$class];
     }
 
@@ -90,7 +106,6 @@ class Cache
                 unset($this->listClass[$namespace]);
             }
         }
-        $this->writeCache();
     }
 
     /**
@@ -107,15 +122,18 @@ class Cache
     }
 
     /**
-     * Get map
+     * Return mapped classes.
+     * 
+     * @param null|string $key namespace to scan. Keep empty to get all.
+     * @return array
      */
-    // function getMap(?string $key = null)
-    // {
-    //     if (null != $key && array_key_exists($key, $this->classMap))
-    //         return $this->classMap[$key];
-    //     else
-    //         return $this->classMap;
-    // }
+    function getMap(?string $key = null): array
+    {
+        if (null == $key)
+            return $this->classMap;
+        else if (in_array($key, $this->classMap))
+            return $this->classMap[$key];
+    }
 
     /**
      * Read cache from file.
@@ -127,9 +145,9 @@ class Cache
     function readCache(): void
     {
         if (file_exists($this->cacheFile)) {
-            $cache = include $this->cacheFile;
-            $this->listClass = $cache['classList'];
-            $this->classMap = $cache['classMap'];
+            foreach (include $this->cacheFile as $key => $value) {
+                $this->$key = $value;
+            }
         }
     }
 
@@ -139,20 +157,18 @@ class Cache
      */
     function writeCache(): void
     {
-        $date = date('H:i:s @ m/d/Y');
-        $str = <<<TXT
-        <?php
-            // cache auto built
-            // refreshed the $date. 
-        TXT;
+        $this->infos['version']++;
+        $this->infos['date'] = date('H:i:s @ m/d/Y');
 
-        $str .= self::format([
-            'infos' => [
-                'version' => 0,
-                'date' => $date,
-            ],
-            'classList' => $this->listClass,
-            'classMap' => $this->classMap
+
+        // $str = self::format(get_object_vars($this));
+
+        $str = self::format([
+            'infos' => $this->infos,
+            'config' => $this->config,
+            'listClass' => $this->listClass,
+            'classMap' => $this->classMap,
+            'devMap' => $this->devMap,
         ]);
 
         file_put_contents($this->cacheFile, $str);
@@ -164,7 +180,7 @@ class Cache
     private static function format(array $array, int $lvl = 0): string
     {
         $t = str_repeat("\t", $lvl);
-        $str = (0 === $lvl) ? "\nreturn [\n" : " [";
+        $str = (0 === $lvl) ? "<?php\nreturn [\n" : " [";
         foreach ($array as $key => $value) {
             if (is_array($value)) {
                 $str .=  "\n$t'" . $key . "' => " . self::format($value, $lvl + 1);
