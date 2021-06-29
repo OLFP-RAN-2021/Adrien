@@ -5,6 +5,7 @@ namespace Framework\Autoloader;
 // get cache
 include_once __DIR__ . '/Cache.php';
 include_once __DIR__ . '/FileBrowser.php';
+include_once __DIR__ . '/ClassScanner.php';
 
 /**
  * Static Class to include manualy. 
@@ -29,7 +30,7 @@ class Autoloader extends Cache
         string $name = 'default',
         array $config =  ['App\\' => 'src/']
     ) {
-        $this->namespace = $name;
+        $this->name = $name;
         $this->config = array_merge($this->config, $config);
         parent::__construct($name, $this->config);
     }
@@ -60,6 +61,25 @@ class Autoloader extends Cache
     function loadConfig(array $array)
     {
         $this->config = array_merge($array, $this->config);
+    }
+
+    /**
+     * Parse automaticly all class/trait/interface in all namespaces.
+     * 
+     * 
+     */
+    function scanner(): void
+    {
+        foreach ($this->config as $namespace => $folder) {
+            if (file_exists($folder . '/composer.json')) {
+                // if DEV classes & similar stuffs
+            }
+            $scanner = new ClassScanner();
+            foreach ($scanner->scanRecursive($folder) as $classname => $file) {
+                $this->addCache($classname, $file);
+            }
+            $this->writeCache();
+        }
     }
 
     /**
