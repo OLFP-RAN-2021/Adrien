@@ -20,6 +20,7 @@ class Cache
 
     private array $infos = [
         'version' => 1,
+        'classes' => 0,
         'date' => null
     ];
 
@@ -59,7 +60,6 @@ class Cache
     function addCache(string $classname, string $filename, bool $devonly = false): void
     {
         if (file_exists($filename)) {
-
             $this->listClass[$classname] = $filename;
             $parts = explode('\\', $classname);
             $classname = array_pop($parts);
@@ -73,6 +73,7 @@ class Cache
             if ($devonly) {
                 $this->devMap[] = $classname;
             }
+            $this->infos['classes']++;
         }
     }
 
@@ -104,6 +105,7 @@ class Cache
         foreach ($this->listClass as $namespace => $path) {
             if (!file_exists($path)) {
                 unset($this->listClass[$namespace]);
+                $this->infos['classes']--;
             }
         }
     }
@@ -157,42 +159,33 @@ class Cache
      */
     function writeCache(): void
     {
-        $this->infos['version']++;
+        // $this->infos['version']++;
         $this->infos['date'] = date('H:i:s @ m/d/Y');
-
-
-        // $str = self::format(get_object_vars($this));
-
-        $str = self::format([
-            'infos' => $this->infos,
-            'config' => $this->config,
-            'listClass' => $this->listClass,
-            'classMap' => $this->classMap,
-            'devMap' => $this->devMap,
-        ]);
-
+        $str = self::format(get_object_vars($this));
         file_put_contents($this->cacheFile, $str);
     }
 
     /**
      * 
      */
-    private static function format(array $array, int $lvl = 0): string
+    private static function format(array $array, int $lvl = 1): string
     {
         $t = str_repeat("\t", $lvl);
-        $str = (0 === $lvl) ? "<?php\nreturn [\n" : " [";
+        $str = (1 === $lvl) ? "<?php return [" : " [";
         foreach ($array as $key => $value) {
+            // escape anti-slashes
+            $key = (is_string($key)) ? str_replace(['\\'], '\\\\', $key) : $key;
             if (is_array($value)) {
                 $str .=  "\n$t'" . $key . "' => " . self::format($value, $lvl + 1);
             } else {
+                $value = (is_string($value)) ? str_replace(['\\'], '\\\\', $value) : $value;
                 if (!is_int($key))
                     $str .= "\n$t'" . $key . "' => '" . $value . "',";
                 else
                     $str .= "\n$t'" . $value . "', ";
             }
         }
-        $str .= (0 === $lvl) ? $t . "\n];" : "\n$t],";
-
+        $str .= (1 === $lvl) ? "\n];\n" : "\n$t],";
         return $str;
     }
 }
