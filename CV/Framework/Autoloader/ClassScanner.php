@@ -31,7 +31,6 @@ class ClassScanner
      */
     function check(string $filename): array
     {
-        $out = [];
         $content = file_get_contents($filename);
 
         // /\nnamespace (([\w]+\\?)+);/i
@@ -40,7 +39,8 @@ class ClassScanner
 
         preg_match('/(class|trait|interface) ([\w]+)/i', $content, $matches);
         $classe = $matches[2];
-        $out[$namespace . '\\' . $classe] = $filename;
-        return  $out;
+
+        if (null !== $classe)
+            return [$namespace . '\\' . $classe => $filename];
     }
 }
