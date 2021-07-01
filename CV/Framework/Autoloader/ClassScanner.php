@@ -42,5 +42,6 @@ class ClassScanner
 
         if (null !== $classe)
             return [$namespace . '\\' . $classe => $filename];
+        else return [];
     }
 }

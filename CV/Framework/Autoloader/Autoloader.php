@@ -28,7 +28,7 @@ class Autoloader extends Cache
      */
     function __construct(
         string $name = 'default',
-        array $config =  ['App\\' => 'src/']
+        array $config =  ['App' => 'src']
     ) {
         $this->name = $name;
         $this->config = array_merge($this->config, $config);

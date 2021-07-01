@@ -2,6 +2,8 @@
 
 namespace Framework\Autoloader;
 
+include_once  __DIR__ . '/functions.php';
+
 /**
  * Trait Cache
  * 
@@ -10,8 +12,6 @@ namespace Framework\Autoloader;
  */
 class Cache
 {
-
-
 
     /**
      * @var $file

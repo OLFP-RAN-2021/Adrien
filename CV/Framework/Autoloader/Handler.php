@@ -2,7 +2,6 @@
 
 namespace Framework\Autoloader;
 
-// get cache
 include_once __DIR__ . '/Autoloader.php';
 
 /**
@@ -10,39 +9,78 @@ include_once __DIR__ . '/Autoloader.php';
  */
 class Handler
 {
-    static array $list = [];
+
+    const PATH = __DIR__.'/cache/handler.php';
+    static ?self $handler = null;
+
+    /**
+     * 
+     */
+    function __construct()
+    {
+        if (file_exists(self::PATH))
+            foreach (include self::PATH as $key => $value)
+                $this->$key = $value;
+    }
+
+    /**
+     * build 
+     */
+    static function getInstance(...$args)
+    {
+        if (null === self::$handler)
+            self::$handler =  new self(...$args);
+        return self::$handler;
+    }
+
+    /**
+     * 
+     */
+    static function auto(string $id, array $namespaces = [])
+    {
+        $handler = self::getInstance();
+        $handler->create($id, $namespaces, true);
+    }
 
     /**
      * Create new autoloader
      */
-    static function new(string $appnamespace, string $appfolder, bool $registre = true)
+    function create(string $id = 'default', array $namespaces = [], bool $registre = true)
     {
-        $name = 'autoloader_' . sha1($appnamespace . $appfolder);
-        $autoloader = new Autoloader(
-            $name,
-            [
-                $appnamespace => $appfolder,
-            ]
-        );
+        $name = 'autoloader_' . $id . '_' . time();
+        $autoloader = new Autoloader($name);
+        $autoloader->loadConfig($namespaces);
+
         if ($registre) $autoloader->register();
-        self::$list[$name] = $autoloader;
+        $autoloader->scanner();
+        $this->list[$name] = $autoloader;
+        $this->current = $name;
     }
 
     /**
      * 
      */
-    static function update(string $name = null)
+    function update(string $name = null)
     {
-        if (!empty($name) && isset(self::$list[$name])) {
-            $autoloader = self::$list[$name];
-            $autoloader->cleanCache();
-        }
+        // if (!empty($name) && isset(self::$list[$name])) {
+        //     $autoloader = self::$list[$name];
+        //     $autoloader->cleanCache();
+        // }
     }
 
     /**
      * 
      */
-    static function delete(string $name = null)
+    function delete(string $name = null)
     {
+    }
+
+    /**
+     * Save data.
+     */
+    function save()
+    {
+        $data = format(get_object_vars($this));
+        file_put_contents(self::PATH, $data);
     }
 }

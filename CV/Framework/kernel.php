@@ -35,19 +35,17 @@ define('PATHINFO', ($_SERVER['PATH_INFO'] ?? '/'));
  * Build Constante from App config.json
  *
  *  penser à créer AppHandler class
- *      -> doit vérifier intégriter config
+ *      -> doit vérifier intégriter config 
  */
 define('APP', include_once 'App/config/app.php');
 
-
 try {
-
 
     /**
      * Include Autoloader PSR-4
      */
     include __DIR__ . '/Autoloader/Handler.php';
-    Autoloader\Handler::new(APP['namespace'], APP['autoloader'], true);
+    Autoloader\Handler::auto('MyApp', [APP['namespace'], APP['autoloader']]);
 
     /**
      * start DevMod
