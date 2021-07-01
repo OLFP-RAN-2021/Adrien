@@ -1,0 +1,34 @@
+@for $i from 1 through 100 {
+    .w#{$i} {
+        width: #{$i}+ "%";
+    }
+    .h#{$i} {
+        height: #{$i}+ "%";
+    }
+    .vw#{$i} {
+        width: #{$i}+ "vw";
+    }
+    .vh#{$i} {
+        height: #{$i}+ "vh";
+    }
+}
+
+$color_sets: (
+   yellow_thone: (
+       fg:'yellow',
+       bg:'orange',
+   ),
+   red_thone: (
+       fg:'red',
+       bg:'brown',
+   ),
+   blue_thone: (
+
+   ),
+   green_thone: (
+
+   ),
+   purple_thone: (
+
+   ),
+);

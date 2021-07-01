@@ -1,0 +1,91 @@
+ol.funny {
+    counter-reset: li;
+    list-style: none; /* Supprime la numérotation par défaut */
+    *list-style: decimal;
+
+    li {
+        display: flex;
+        align-items: stretch;
+        margin: 0.5em;
+
+        border-radius: 0 0.25em 0.25em 0.25em;
+
+        div.title {
+            background-color: #eee;
+            padding: 0.5em;
+            font-weight: bold;
+            flex-basis: 15%;
+        }
+
+        div.date {
+            background-color: #eee;
+            padding: 0.5em;
+            font-weight: bold;
+            flex-basis: 15%;
+        }
+
+        div.detail {
+            background-color: #ddd;
+            padding: 0.5em;
+            border-left: 2px solid white;
+            width: 100%;
+        }
+
+        div:first-child {
+            padding-left: +1em;
+        }
+
+        &:hover {
+            background-color: #eee;
+        }
+
+        &:hover:before {
+            transition: 0.25s all;
+            transform: rotate(15deg);
+        }
+    }
+
+    li:before {
+        transform: rotate(-10deg);
+
+        border-radius: inherit;
+        border-radius: none;
+        z-index: 1;
+        position: absolute;
+        margin-left: -1em;
+        height: 1.5em;
+        width: 1.5em;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        content: counter(li);
+        counter-increment: li;
+
+        transition: 0.25s all;
+    }
+
+    li.square:before {
+        border-radius: 0.25em;
+    }
+    li.round:before {
+        border-radius: 50%;
+    }
+
+    li.red:before {
+        background: #eb8787;
+        border-color: #eb8787;
+    }
+    li.blue:before {
+        background: #87ceeb;
+        border-color: #87ceeb;
+    }
+    li.green:before {
+        background: #8ceb87;
+        border-color: #8ceb87;
+    }
+    li.yellow:before {
+        background: #e9eb87;
+        border-color: #e9eb87;
+    }
+}
