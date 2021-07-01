@@ -1,3 +1,0 @@
-# View part
-
-Rendering app

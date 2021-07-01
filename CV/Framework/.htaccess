@@ -1,5 +1,0 @@
-Require all denied
-
-<FilesMatch "\.css|\.js|\.json$">
-    require all granted
-</FilesMatch>
